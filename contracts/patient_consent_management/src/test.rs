@@ -605,3 +605,31 @@ mod tests {
         assert_eq!(status, symbol_short!("PAUSED"));
     }
 }
+
+#[test]
+fn test_error_codes_stable_with_new_variants() {
+    assert_eq!(Error::BatchTooLarge as u32, 471);
+    assert_eq!(Error::InvalidInput as u32, 472);
+    assert_eq!(Error::Unauthorized as u32, 100);
+    assert_eq!(Error::InvalidPatient as u32, 210);
+    assert_eq!(Error::InvalidProvider as u32, 211);
+    assert_eq!(Error::NotInitialized as u32, 300);
+    assert_eq!(Error::AlreadyInitialized as u32, 301);
+    assert_eq!(Error::ContractPaused as u32, 302);
+    assert_eq!(Error::ConsentNotFound as u32, 406);
+    assert_eq!(Error::ConsentAlreadyExists as u32, 460);
+    assert_eq!(Error::InvalidExpiry as u32, 470);
+}
+
+#[test]
+fn test_batch_grant_consent_at_max_batch_size() {
+    let (env, client, admin) = setup();
+    client.initialize(&admin);
+    let patient = Address::generate(&env);
+    let mut grantees = soroban_sdk::Vec::new(&env);
+    for _ in 0..50 {
+        grantees.push_back(Address::generate(&env));
+    }
+    let count = client.batch_grant_consent(&patient, &grantees);
+    assert_eq!(count, 50);
+}
