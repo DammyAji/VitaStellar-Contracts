@@ -2,7 +2,7 @@
 #![no_std]
 #![allow(clippy::arithmetic_side_effects)]
 #![allow(clippy::unwrap_used)]
-#![allow(clippy::panic)]
+// #![allow(clippy::panic)] removed - legacy functions no longer panic
 
 pub mod errors;
 pub use errors::Error;
