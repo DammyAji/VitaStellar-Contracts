@@ -427,3 +427,43 @@ fn test_batch_process_payments_releases_lock_on_error() {
     let result = client.try_batch_process_payments(&soroban_sdk::Vec::new(&env));
     assert_eq!(result, Err(Ok(Error::Reentrancy)));
 }
+
+#[test]
+fn test_escrow_claim_invalid_status_fails() {
+    let (env, client, _admin, provider, patient, _, _, _) = setup_env_and_clients();
+
+    // Submit a claim (status = Submitted, not Approved)
+    let claim_id = client.submit_claim(
+        &patient,
+        &provider,
+        &String::from_str(&env, "SERVICE-ESC"),
+        &500i128,
+        &String::from_str(&env, "POLICY-ESC"),
+        &None,
+    );
+
+    // Try to escrow_claim on a non-approved claim - should fail
+    let result = client.try_escrow_claim(&claim_id);
+    assert_eq!(result, Err(Ok(Error::InvalidStatus)));
+}
+
+#[test]
+fn test_escrow_claim_after_approval() {
+    let (env, client, admin, provider, patient, _, _, _) = setup_env_and_clients();
+
+    let claim_id = client.submit_claim(
+        &patient,
+        &provider,
+        &String::from_str(&env, "SERVICE-ESC2"),
+        &1500i128,
+        &String::from_str(&env, "POLICY-ESC2"),
+        &None,
+    );
+
+    client.verify_claim(&claim_id, &admin);
+    client.approve_claim(&claim_id, &admin);
+
+    // Should succeed after approval
+    let result = client.try_escrow_claim(&claim_id);
+    assert!(result.is_ok());
+}
