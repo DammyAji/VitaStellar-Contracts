@@ -496,4 +496,112 @@ mod tests {
         client.revoke_consent(&patient, &provider);
         assert!(!client.check_consent(&patient, &provider));
     }
+
+    // ── Batch consent validation tests (Issue #9) ──────────────────
+
+    #[test]
+    fn test_batch_grant_consent_empty_list() {
+        let (env, client, admin) = setup();
+        client.initialize(&admin);
+        let patient = Address::generate(&env);
+        let grantees = soroban_sdk::Vec::new(&env);
+        let result = client.try_batch_grant_consent(&patient, &grantees);
+        assert_eq!(result, Err(Ok(Error::InvalidInput)));
+    }
+
+    #[test]
+    fn test_batch_grant_consent_success() {
+        let (env, client, admin) = setup();
+        client.initialize(&admin);
+        let patient = Address::generate(&env);
+        let provider1 = Address::generate(&env);
+        let provider2 = Address::generate(&env);
+        let mut grantees = soroban_sdk::Vec::new(&env);
+        grantees.push_back(provider1.clone());
+        grantees.push_back(provider2.clone());
+        let count = client.batch_grant_consent(&patient, &grantees);
+        assert_eq!(count, 2);
+        assert!(client.check_consent(&patient, &provider1));
+        assert!(client.check_consent(&patient, &provider2));
+    }
+
+    #[test]
+    fn test_batch_grant_consent_skips_patient_self() {
+        let (env, client, admin) = setup();
+        client.initialize(&admin);
+        let patient = Address::generate(&env);
+        let provider = Address::generate(&env);
+        let mut grantees = soroban_sdk::Vec::new(&env);
+        grantees.push_back(patient.clone());
+        grantees.push_back(provider.clone());
+        let count = client.batch_grant_consent(&patient, &grantees);
+        assert_eq!(count, 1);
+        assert!(client.check_consent(&patient, &provider));
+    }
+
+    #[test]
+    fn test_batch_grant_consent_rejects_when_paused() {
+        let (env, client, admin) = setup();
+        client.initialize(&admin);
+        let patient = Address::generate(&env);
+        let provider = Address::generate(&env);
+        let mut grantees = soroban_sdk::Vec::new(&env);
+        grantees.push_back(provider);
+        client.pause(&admin);
+        let result = client.try_batch_grant_consent(&patient, &grantees);
+        assert_eq!(result, Err(Ok(Error::ContractPaused)));
+    }
+
+    #[test]
+    fn test_batch_grant_consent_max_batch_size_exceeded() {
+        let (env, client, admin) = setup();
+        client.initialize(&admin);
+        let patient = Address::generate(&env);
+        let mut grantees = soroban_sdk::Vec::new(&env);
+        for _ in 0..51 {
+            grantees.push_back(Address::generate(&env));
+        }
+        let result = client.try_batch_grant_consent(&patient, &grantees);
+        assert_eq!(result, Err(Ok(Error::BatchTooLarge)));
+    }
+
+    #[test]
+    fn test_error_codes_batch_too_large() {
+        assert_eq!(Error::BatchTooLarge as u32, 471);
+        assert_eq!(Error::InvalidInput as u32, 472);
+    }
+
+    // ── Health check tests (Issue #13) ──────────────────────────────
+
+    #[test]
+    fn test_health_check_ok() {
+        let (env, client, admin) = setup();
+        client.initialize(&admin);
+        env.ledger().set_timestamp(10_000);
+
+        let (status, version, timestamp) = client.health_check();
+        assert_eq!(status, symbol_short!("OK"));
+        assert_eq!(version, 1);
+        assert_eq!(timestamp, 10_000);
+    }
+
+    #[test]
+    fn test_health_check_not_init() {
+        let (env, client, _admin) = setup();
+        env.ledger().set_timestamp(10_000);
+
+        let (status, _version, _timestamp) = client.health_check();
+        assert_eq!(status, symbol_short!("NOT_INIT"));
+    }
+
+    #[test]
+    fn test_health_check_paused() {
+        let (env, client, admin) = setup();
+        client.initialize(&admin);
+        client.pause(&admin);
+        env.ledger().set_timestamp(10_000);
+
+        let (status, _version, _timestamp) = client.health_check();
+        assert_eq!(status, symbol_short!("PAUSED"));
+    }
 }
