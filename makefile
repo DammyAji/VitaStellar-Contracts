@@ -2,6 +2,7 @@
 
 .PHONY: help build test clean fmt lint deploy-local start-local stop-local install-deps check-deps shellcheck dist dev-deploy monitor-wasm check-wasm-size optimize analyze-optimizations
 .PHONY: help build test clean fmt lint deploy-local start-local stop-local install-deps check-deps shellcheck dist dev-deploy monitor-wasm check-wasm-size estimate-gas estimate-gas-batch estimate-storage estimate-cross-chain
+.PHONY: docs test-public-api-snapshot
 
 # Default target
 help:
@@ -213,6 +214,12 @@ audit:
 docs:
 	@echo "Generating documentation..."
 	node scripts/docs/generate.mjs
+	node scripts/generate-public-api.mjs
+
+# Snapshot test: fails if docs/PUBLIC_API.md is out of sync with contract sources
+test-public-api-snapshot:
+	@echo "Checking PUBLIC_API.md snapshot for drift..."
+	node scripts/test-public-api-snapshot.mjs
 
 # Watch for changes and rebuild (requires cargo-watch)
 watch:
