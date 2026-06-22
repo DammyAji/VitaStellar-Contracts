@@ -4,6 +4,8 @@
 #[cfg(test)]
 mod test;
 
+mod range_proof;
+
 use soroban_sdk::{
     contract, contracterror, contractimpl, contracttype, symbol_short, Address, Bytes, BytesN, Env,
     String, Symbol, Vec,
@@ -151,6 +153,8 @@ pub enum Error {
     RecursiveDepthExceeded = 14,
     InvalidHashFunction = 15,
     CommitmentMismatch = 16,
+    InvalidRangeProof = 17,
+    VersionMismatch = 18,
 }
 
 const ADMIN: Symbol = symbol_short!("ADMIN");
@@ -587,13 +591,12 @@ impl ZKPRegistry {
         Ok(verification_cost <= 100_000)
     }
 
-    fn verify_range_proof_internal(_env: &Env, proof: &RangeProof) -> Result<bool, Error> {
-        if proof.proof_data.is_empty() {
-            return Ok(false);
-        }
+    fn verify_range_proof_internal(env: &Env, proof: &RangeProof) -> Result<bool, Error> {
         if proof.min_value >= proof.max_value {
-            return Ok(false);
+            return Err(Error::InvalidRange);
         }
+        // Cryptographic commitment + version check
+        range_proof::verify_range_proof(env, proof)?;
         Ok(true)
     }
 
