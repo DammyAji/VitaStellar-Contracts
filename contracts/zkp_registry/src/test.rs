@@ -391,24 +391,21 @@ fn register_base_proof(
     let inputs = vec![env, Bytes::from_slice(env, b"base_input")];
     let pd = Bytes::from_slice(env, b"0123456789abcdef0123456789abcdef");
     // Use old-style (non-verifier) path: just store the raw proof directly
-    env.as_contract(
-        &client.address,
-        || {
-            let proof_struct = ZKProof {
-                proof_type: ZKPType::SNARK,
-                hash_function: ZKPHashFunction::Poseidon,
-                circuit_id: circuit_id.clone(),
-                public_inputs: inputs.clone(),
-                proof_data: pd.clone(),
-                vk_hash: vk.clone(),
-                verification_gas: 1_000,
-                created_at: 0,
-            };
-            env.storage()
-                .persistent()
-                .set(&DataKey::ZKProof(proof_id.clone()), &proof_struct);
-        },
-    );
+    env.as_contract(&client.address, || {
+        let proof_struct = ZKProof {
+            proof_type: ZKPType::SNARK,
+            hash_function: ZKPHashFunction::Poseidon,
+            circuit_id: circuit_id.clone(),
+            public_inputs: inputs.clone(),
+            proof_data: pd.clone(),
+            vk_hash: vk.clone(),
+            verification_gas: 1_000,
+            created_at: 0,
+        };
+        env.storage()
+            .persistent()
+            .set(&DataKey::ZKProof(proof_id.clone()), &proof_struct);
+    });
 }
 
 fn make_recursive_proof_struct(
@@ -559,7 +556,12 @@ fn test_recursive_proof_wrong_base_proof_id_rejected() {
     // agg_vk was built for base_id, but we pass wrong_base_id in both slots
     // The contract checks ZKProof(wrong_base_id) exists first, which it doesn't
     let r = client.try_create_recursive_proof(
-        &composer, &wrong_base_id, &rp.recursive_proof, &agg_vk, &1, &5_000,
+        &composer,
+        &wrong_base_id,
+        &rp.recursive_proof,
+        &agg_vk,
+        &1,
+        &5_000,
     );
     assert_eq!(r, Err(Ok(Error::ProofNotFound)));
 }
@@ -577,9 +579,7 @@ fn test_recursive_proof_wrong_vk_hash_in_commitment_rejected() {
         ..rp.recursive_proof.clone()
     };
     let composer = Address::generate(&env);
-    let r = client.try_create_recursive_proof(
-        &composer, &base_id, &bad_inner, &agg_vk, &2, &5_000,
-    );
+    let r = client.try_create_recursive_proof(&composer, &base_id, &bad_inner, &agg_vk, &2, &5_000);
     assert_eq!(r, Err(Ok(Error::InvalidProof)));
 }
 
@@ -592,7 +592,12 @@ fn test_recursive_proof_wrong_depth_in_commitment_rejected() {
     let (rp, agg_vk) = make_recursive_proof_struct(&env, &base_id, &vk, 1);
     let composer = Address::generate(&env);
     let r = client.try_create_recursive_proof(
-        &composer, &base_id, &rp.recursive_proof, &agg_vk, &2, &5_000,
+        &composer,
+        &base_id,
+        &rp.recursive_proof,
+        &agg_vk,
+        &2,
+        &5_000,
     );
     assert_eq!(r, Err(Ok(Error::InvalidProof)));
 }
@@ -608,8 +613,12 @@ fn test_recursive_proof_tampered_first_byte_rejected() {
     agg_bytes[0] ^= 0x01;
     let composer = Address::generate(&env);
     let r = client.try_create_recursive_proof(
-        &composer, &base_id, &rp.recursive_proof,
-        &Bytes::from_slice(&env, &agg_bytes), &1, &5_000,
+        &composer,
+        &base_id,
+        &rp.recursive_proof,
+        &Bytes::from_slice(&env, &agg_bytes),
+        &1,
+        &5_000,
     );
     assert_eq!(r, Err(Ok(Error::InvalidProof)));
 }
