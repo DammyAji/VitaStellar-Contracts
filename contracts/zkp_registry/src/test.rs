@@ -373,7 +373,6 @@ fn test_create_credential_proof_short_payload_is_rejected() {
     assert_eq!(result, Err(Ok(Error::InvalidInput)));
 }
 
-
 // ==================== verify_range_proof_internal tests ====================
 
 use super::range_proof::{make_range_proof_data, range_commitment, MIN_PROOF_LEN};
@@ -811,7 +810,6 @@ fn test_range_proof_prop_commitment_is_deterministic() {
     let c2 = range_commitment(&env, &rp).to_array();
     assert_eq!(c1, c2);
 }
-
 
 // ==================== verify_zkp_internal unit tests ====================
 
