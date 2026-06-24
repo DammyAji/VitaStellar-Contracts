@@ -4,6 +4,7 @@
 #[cfg(test)]
 mod test;
 
+mod range_proof;
 mod recursive_proof;
 mod verifier;
 
@@ -154,6 +155,8 @@ pub enum Error {
     RecursiveDepthExceeded = 14,
     InvalidHashFunction = 15,
     CommitmentMismatch = 16,
+    InvalidRangeProof = 17,
+    VersionMismatch = 18,
 }
 
 const ADMIN: Symbol = symbol_short!("ADMIN");
@@ -586,13 +589,12 @@ impl ZKPRegistry {
         Ok(true)
     }
 
-    fn verify_range_proof_internal(_env: &Env, proof: &RangeProof) -> Result<bool, Error> {
-        if proof.proof_data.is_empty() {
-            return Ok(false);
-        }
+    fn verify_range_proof_internal(env: &Env, proof: &RangeProof) -> Result<bool, Error> {
         if proof.min_value >= proof.max_value {
-            return Ok(false);
+            return Err(Error::InvalidRange);
         }
+        // Cryptographic commitment + version check
+        range_proof::verify_range_proof(env, proof)?;
         Ok(true)
     }
 
