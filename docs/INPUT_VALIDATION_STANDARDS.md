@@ -112,6 +112,8 @@ All numeric inputs must validate:
 | Percentage | 0 | 100 | Or 0-10,000 for basis points |
 | Severity level | 0 | 10 | Application-specific range |
 | Timestamp | > 0 | current + 1 day | Not zero, not far future |
+| Guardian weight | 1 | 100 | Bound to prevent hijacking |
+| Recovery threshold | 1 | total_weight | Must be achievable |
 
 #### Implementation Pattern
 

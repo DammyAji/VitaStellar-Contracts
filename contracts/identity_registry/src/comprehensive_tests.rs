@@ -485,8 +485,6 @@ fn test_set_recovery_threshold() {
 
     create_test_did(&env, &client, &subject);
 
-    client.set_recovery_threshold(&subject, &5u32);
-
     // Threshold should be set (verify through recovery process)
     let guardian1 = Address::generate(&env);
     let guardian2 = Address::generate(&env);
@@ -494,14 +492,21 @@ fn test_set_recovery_threshold() {
     client.add_recovery_guardian(&subject, &guardian1, &2u32);
     client.add_recovery_guardian(&subject, &guardian2, &2u32);
 
+    client.set_recovery_threshold(&subject, &3u32);
+
+    // Should fail to set threshold > total weight
+    let res = client.try_set_recovery_threshold(&subject, &5u32);
+    assert!(res.is_err());
+
     let new_controller = Address::generate(&env);
     let new_key = BytesN::from_array(&env, &[5u8; 32]);
 
     let request_id = client.initiate_recovery(&guardian1, &subject, &new_controller, &new_key);
-    client.approve_recovery(&guardian2, &request_id);
+    // guardian1 weight is 2. Total weight 2.
+    // threshold is 3.
 
-    // Should fail to execute because total weight (4) < threshold (5)
-    env.ledger().set_timestamp(100_000);
+    // Should fail to execute because total weight (2) < threshold (3)
+    env.ledger().set_timestamp(10_000 + 86_400 + 1);
     let result = client.try_execute_recovery(&request_id);
     assert!(result.is_err());
 }

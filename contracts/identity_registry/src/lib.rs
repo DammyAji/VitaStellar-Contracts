@@ -323,6 +323,7 @@ const DEFAULT_RECOVERY_THRESHOLD: u32 = 2;
 const DEFAULT_RECOVERY_TIMELOCK: u64 = 86_400; // 24 hours
 const DEFAULT_KEY_ROTATION_COOLDOWN: u64 = 3_600; // 1 hour
 const ZERO_HASH: [u8; 32] = [0u8; 32];
+const MAX_GUARDIAN_WEIGHT: u32 = 100;
 
 // === Contract Implementation ===
 
@@ -1160,6 +1161,10 @@ impl IdentityRegistryContract {
     ) -> Result<(), Error> {
         subject.require_auth();
 
+        if weight == 0 || weight > MAX_GUARDIAN_WEIGHT {
+            return Err(Error::GuardianWeightTooHigh);
+        }
+
         let mut guardians: Vec<RecoveryGuardian> = env
             .storage()
             .persistent()
@@ -1222,6 +1227,25 @@ impl IdentityRegistryContract {
         subject.require_auth();
         Self::require_not_paused(&env)?;
 
+        if threshold == 0 {
+            return Err(Error::InvalidRecoveryThreshold);
+        }
+
+        let guardians: Vec<RecoveryGuardian> = env
+            .storage()
+            .persistent()
+            .get(&DataKey::RecoveryGuardians(subject.clone()))
+            .unwrap_or(Vec::new(&env));
+
+        let mut total_weight: u32 = 0;
+        for g in guardians.iter() {
+            total_weight = total_weight.saturating_add(g.weight);
+        }
+
+        if threshold > total_weight {
+            return Err(Error::InvalidRecoveryThreshold);
+        }
+
         env.storage()
             .persistent()
             .set(&DataKey::RecoveryThreshold(subject.clone()), &threshold);
@@ -1250,6 +1274,10 @@ impl IdentityRegistryContract {
             .persistent()
             .get(&DataKey::RecoveryGuardians(subject.clone()))
             .unwrap_or(Vec::new(&env));
+
+        if guardians.is_empty() {
+            return Err(Error::InvalidRecoveryGuardian);
+        }
 
         let guardian_info = guardians
             .iter()
@@ -1368,9 +1396,10 @@ impl IdentityRegistryContract {
         }
 
         request.approvals.push_back(guardian.clone());
-        // SAFETY: total_weight accumulates guardian weights; saturation at u32::MAX is acceptable
-        // as threshold checks use < comparison and cannot exceed total possible weight
-        request.total_weight = request.total_weight.saturating_add(guardian_info.weight);
+        request.total_weight = request
+            .total_weight
+            .checked_add(guardian_info.weight)
+            .ok_or(Error::ArithmeticOverflow)?;
 
         env.storage()
             .persistent()
@@ -2474,6 +2503,71 @@ mod tests {
         let result = client.try_remove_verifier(&owner);
         assert_eq!(result, Err(Ok(Error::CannotRemoveOwner)));
     }
+
+    #[test]
+    fn test_add_recovery_guardian_weight_bounds() {
+        let env = Env::default();
+        let contract_id = env.register_contract(None, IdentityRegistryContract);
+        let client = IdentityRegistryContractClient::new(&env, &contract_id);
+        let subject = Address::generate(&env);
+        let guardian = Address::generate(&env);
+
+        env.mock_all_auths();
+
+        // Weight = 100 is OK
+        let _ = client.add_recovery_guardian(&subject, &guardian, &100);
+
+        // Weight = 101 is NOT OK
+        let result = client.try_add_recovery_guardian(&subject, &guardian, &101);
+        assert_eq!(result, Err(Ok(Error::GuardianWeightTooHigh)));
+    }
+
+    #[test]
+    fn test_set_recovery_threshold_validation() {
+        let env = Env::default();
+        let contract_id = env.register_contract(None, IdentityRegistryContract);
+        let client = IdentityRegistryContractClient::new(&env, &contract_id);
+        let subject = Address::generate(&env);
+        let guardian = Address::generate(&env);
+
+        env.mock_all_auths();
+
+        // Threshold = 0 is NOT OK
+        let result = client.try_set_recovery_threshold(&subject, &0);
+        assert_eq!(result, Err(Ok(Error::InvalidRecoveryThreshold)));
+
+        // Total weight is 0 initially, so threshold 1 is NOT OK
+        let result = client.try_set_recovery_threshold(&subject, &1);
+        assert_eq!(result, Err(Ok(Error::InvalidRecoveryThreshold)));
+
+        // Add a guardian with weight 50
+        client.add_recovery_guardian(&subject, &guardian, &50);
+
+        // Threshold 51 is NOT OK
+        let result = client.try_set_recovery_threshold(&subject, &51);
+        assert_eq!(result, Err(Ok(Error::InvalidRecoveryThreshold)));
+
+        // Threshold 50 is OK
+        client.set_recovery_threshold(&subject, &50);
+    }
+
+    #[test]
+    fn test_initiate_recovery_no_guardians() {
+        let env = Env::default();
+        let contract_id = env.register_contract(None, IdentityRegistryContract);
+        let client = IdentityRegistryContractClient::new(&env, &contract_id);
+        let subject = Address::generate(&env);
+        let guardian = Address::generate(&env);
+        let new_controller = Address::generate(&env);
+        let new_key = BytesN::from_array(&env, &[1u8; 32]);
+
+        env.mock_all_auths();
+
+        // No guardians registered, so initiate_recovery should fail
+        let result = client.try_initiate_recovery(&guardian, &subject, &new_controller, &new_key);
+        assert_eq!(result, Err(Ok(Error::InvalidRecoveryGuardian)));
+    }
+
 
     #[test]
     fn test_generated_error_reference_is_stable_for_identity_registry() {
