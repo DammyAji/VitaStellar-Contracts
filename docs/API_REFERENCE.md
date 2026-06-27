@@ -3,182 +3,69 @@
 > Auto-generated from contract source code. Do not edit manually.
 
 - **API version**: `1.0.0`
-- **Generated**: `2026-04-27T14:52:36.289Z`
-- **Contracts documented**: 90
+- **Generated**: `2026-06-27T06:00:08.686Z`
+- **Contracts documented**: 58
 
 ## Table of Contents
 
-- [ai_analytics](#ai-analytics)
-- [aml](#aml)
 - [anomaly_detection](#anomaly-detection)
 - [anomaly_detector](#anomaly-detector)
 - [appointment_booking_escrow](#appointment-booking-escrow)
-- [audit](#audit)
 - [audit_forensics](#audit-forensics)
-- [clinical_decision_support](#clinical-decision-support)
-- [clinical_nlp](#clinical-nlp)
-- [clinical_trial](#clinical-trial)
-- [credential_notifications](#credential-notifications)
+- [code_ownership](#code-ownership)
+- [common_error](#common-error)
+- [contract_monitoring](#contract-monitoring)
+- [contract_template](#contract-template)
+- [contract_usage_analytics](#contract-usage-analytics)
+- [contract_verification](#contract-verification)
 - [credential_registry](#credential-registry)
 - [cross_chain_access](#cross-chain-access)
-- [cross_chain_bridge](#cross-chain-bridge)
 - [cross_chain_enhancements](#cross-chain-enhancements)
 - [cross_chain_identity](#cross-chain-identity)
 - [crypto_registry](#crypto-registry)
-- [dicomweb_services](#dicomweb-services)
-- [differential_privacy](#differential-privacy)
-- [digital_twin](#digital-twin)
+- [deprecation_framework](#deprecation-framework)
 - [dispute_resolution](#dispute-resolution)
-- [drug_discovery](#drug-discovery)
-- [emergency_access_override](#emergency-access-override)
 - [emr_integration](#emr-integration)
 - [escrow](#escrow)
 - [explainable_ai](#explainable-ai)
-- [failover_detector](#failover-detector)
-- [federated_learning](#federated-learning)
-- [fhir_integration](#fhir-integration)
 - [fido2_authenticator](#fido2-authenticator)
-- [forensics](#forensics)
 - [fp_math](#fp-math)
-- [genomic_data](#genomic-data)
 - [governor](#governor)
-- [health_check](#health-check)
-- [health_data_access_logging](#health-data-access-logging)
-- [healthcare_analytics_dashboard](#healthcare-analytics-dashboard)
-- [healthcare_compliance](#healthcare-compliance)
-- [healthcare_compliance_automation](#healthcare-compliance-automation)
 - [healthcare_data_conversion](#healthcare-data-conversion)
-- [healthcare_data_marketplace](#healthcare-data-marketplace)
-- [healthcare_oracle_network](#healthcare-oracle-network)
-- [healthcare_payment](#healthcare-payment)
 - [healthcare_reputation](#healthcare-reputation)
 - [homomorphic_registry](#homomorphic-registry)
 - [identity_registry](#identity-registry)
 - [ihe_integration](#ihe-integration)
 - [iot_device_management](#iot-device-management)
+- [load_testing](#load-testing)
 - [medical_consent_nft](#medical-consent-nft)
-- [medical_imaging](#medical-imaging)
-- [medical_imaging_ai](#medical-imaging-ai)
 - [medical_record_backup](#medical-record-backup)
-- [medical_record_hash_registry](#medical-record-hash-registry)
 - [medical_record_search](#medical-record-search)
 - [medical_records](#medical-records)
-- [medication_management](#medication-management)
-- [mental_health_support](#mental-health-support)
-- [meta_tx_forwarder](#meta-tx-forwarder)
-- [mfa](#mfa)
 - [mpc_manager](#mpc-manager)
-- [multi_region_orchestrator](#multi-region-orchestrator)
 - [notification_system](#notification-system)
-- [patient_consent_management](#patient-consent-management)
-- [patient_gamification](#patient-gamification)
-- [patient_portal](#patient-portal)
 - [patient_risk_stratification](#patient-risk-stratification)
 - [payment_router](#payment-router)
 - [pharma_supply_chain](#pharma-supply-chain)
 - [predictive_analytics](#predictive-analytics)
 - [provider_directory](#provider-directory)
 - [public_health_surveillance](#public-health-surveillance)
-- [rbac](#rbac)
-- [regional_node_manager](#regional-node-manager)
+- [reentrancy_guard](#reentrancy-guard)
 - [regulatory_compliance](#regulatory-compliance)
-- [remote_patient_monitoring](#remote-patient-monitoring)
 - [reputation](#reputation)
 - [reputation_access_control](#reputation-access-control)
 - [reputation_integration](#reputation-integration)
+- [runtime_validation](#runtime-validation)
+- [sanitization](#sanitization)
 - [secure_enclave](#secure-enclave)
 - [storage_cleanup](#storage-cleanup)
 - [sut_token](#sut-token)
-- [sync_manager](#sync-manager)
-- [telemedicine](#telemedicine)
 - [timelock](#timelock)
 - [token_sale](#token-sale)
-- [treasury_controller](#treasury-controller)
 - [upgrade_manager](#upgrade-manager)
 - [upgradeability](#upgradeability)
 - [zk_verifier](#zk-verifier)
 - [zkp_registry](#zkp-registry)
-
----
-
-## ai_analytics
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<bool, Error>` | — |
-| `get_round` | `env: Env, round_id: u64` | `Option<FederatedRound>` | — |
-| `get_model` | `env: Env, model_id: BytesN<32>` | `Option<ModelMetadata>` | — |
-
-### Examples
-
-#### `test_federated_round_flow`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, AiAnalyticsContract);
-    let client = AiAnalyticsContractClient::new(&env, &contract_id);
-
-    let admin = Address::generate(&env);
-    let participant1 = Address::generate(&env);
-    let participant2 = Address::generate(&env);
-
-    client.mock_all_auths().initialize(&admin);
-```
-
----
-
-## aml
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize AML with admin |
-| `is_compliant` | `env: Env, user: Address` | `bool` | Check if a user is compliant with platform AML policy |
-| `update_user_status` | `env: Env, admin: Address, user: Address, is_blacklisted: bool` | `()` | Update blacklist status for a user. |
-| `set_user_status` | `env: Env, admin: Address, user: Address, is_blacklisted: bool` | `()` | Blacklist or whitelist an address manually by admin. |
-| `get_deprecated_functions` | `env: Env` | `Vec<upgradeability::DeprecatedFunction>` | Return tracked deprecated AML entrypoints. |
-
-### Types
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-
-### Examples
-
-#### `test_aml_lifecycle`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let admin = Address::generate(&env);
-    let contract_id = env.register_contract(None, AntiMoneyLaundering);
-    let client = AntiMoneyLaunderingClient::new(&env, &contract_id);
-
-    // 1. Initialize
-    client.initialize(&admin);
-```
-
-#### `test_validate_upgrade_reports_initialized_state`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let admin = Address::generate(&env);
-    let contract_id = env.register_contract(None, AntiMoneyLaundering);
-    let client = AntiMoneyLaunderingClient::new(&env, &contract_id);
-
-    client.initialize(&admin);
-```
 
 ---
 
@@ -576,7 +463,9 @@ let env = Env::default();
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address, token: Address` | `Result<(), Error>` | Initialize the contract with an admin and token address |
+| `initialize` | `env: Env, admin: Address, _token: Address` | `Result<(), Error>` | Initialize the contract with an admin and token address |
+| `mark_no_show` | `env: Env, provider: Address, appointment_id: u64` | `Result<(), Error>` | Mark an appointment as a no-show (provider only). Only callable by the appointment's provider. No funds are released. |
+| `send_reminder` | `env: Env, caller: Address, appointment_id: u64` | `Result<(), Error>` | Send an appointment reminder (provider or admin only). Records the timestamp when the reminder was last sent. |
 | `get_appointment` | `env: Env, appointment_id: u64` | `Option<AppointmentEscrow>` | Get appointment details |
 | `get_patient_appointments` | `env: Env, patient: Address` | `Vec<u64>` | Get all appointments for a patient |
 | `get_provider_appointments` | `env: Env, provider: Address` | `Vec<u64>` | Get all appointments for a provider |
@@ -596,6 +485,7 @@ let env = Env::default();
 | `Confirmed` | 1 | — |
 | `Refunded` | 2 | — |
 | `Completed` | 3 | — |
+| `NoShow` | 4 | — |
 
 #### `struct AppointmentEscrow`
 
@@ -607,8 +497,11 @@ let env = Env::default();
 | `amount` | `i128` | — |
 | `token` | `Address` | — |
 | `booked_at` | `u64` | — |
+| `scheduled_time` | `u64` | — |
 | `confirmed_at` | `u64` | — |
 | `refunded_at` | `u64` | — |
+| `reminder_sent_at` | `u64` | — |
+| `no_show_marked_at` | `u64` | — |
 | `status` | `AppointmentStatus` | — |
 | `funds_released` | `bool` | — |
 
@@ -657,116 +550,37 @@ let env = Env::default();
 
 | Variant | Code | Description |
 |---|---|---|
-| `NotInitialized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `InvalidPatient` | 4 | — |
-| `InvalidProvider` | 5 | — |
-| `InvalidAmount` | 6 | — |
-| `AppointmentNotFound` | 7 | — |
-| `AppointmentAlreadyConfirmed` | 8 | — |
-| `AppointmentAlreadyRefunded` | 9 | — |
-| `InsufficientFunds` | 10 | — |
-| `TokenTransferFailed` | 11 | — |
-| `InvalidState` | 12 | — |
-| `DoubleWithdrawal` | 13 | — |
-| `OnlyPatientCanRefund` | 14 | — |
-| `OnlyProviderCanConfirm` | 15 | — |
+| `Unauthorized` | 100 | — |
+| `OnlyPatientCanRefund` | 110 | — |
+| `OnlyProviderCanConfirm` | 111 | — |
+| `InvalidAmount` | 205 | — |
+| `InvalidPatient` | 210 | — |
+| `InvalidProvider` | 211 | — |
+| `NotInitialized` | 300 | — |
+| `AlreadyInitialized` | 301 | — |
+| `InvalidState` | 304 | — |
+| `AppointmentNotFound` | 410 | — |
+| `AppointmentAlreadyConfirmed` | 411 | — |
+| `AppointmentAlreadyRefunded` | 412 | — |
+| `AppointmentNoShow` | 413 | — |
+| `InsufficientFunds` | 500 | — |
+| `TokenTransferFailed` | 501 | — |
+| `DoubleWithdrawal` | 505 | — |
 
 ### Examples
 
 #### `test_initialize`
 
 ```rust
-let (env, client, admin, token) = setup();
-        let result = client.initialize(&admin, &token);
-        assert!(result.is_ok());
+let (_env, client, admin, token_id) = setup();
+        client.initialize(&admin, &token_id);
     }
 
     #[test]
     fn test_initialize_twice_fails() {
-        let (env, client, admin, token) = setup();
-        client.initialize(&admin, &token).unwrap();
-```
-
----
-
-## audit
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address, config: AuditConfig` | `Result<(), Error>` | Initialize with global audit configuration |
-| `initialize` | `env: Env, admin: Address, config: AuditConfig` | `()` | Initialize the contract with an admin address and audit configuration. |
-| `get_log` | `env: Env, id: u64` | `AuditLog` | Fetch a single AuditLog by ID. |
-| `get_logs_by_actor` | `env: Env, caller: Address, actor: Address` | `Vec<AuditLog>` | Fetch all logs for a given actor (requires admin or granted access). |
-| `get_logs_by_action` | `env: Env, caller: Address, action: ActionType` | `Vec<AuditLog>` | Fetch all logs for a given ActionType (requires log access). |
-| `grant_log_access` | `env: Env, admin: Address, reader: Address` | `()` | Grant log-read access to an address (admin only). |
-| `revoke_log_access` | `env: Env, admin: Address, reader: Address` | `()` | Revoke log-read access (admin only). |
-| `has_log_access` | `env: Env, reader: Address` | `bool` | Check whether an address has log-read access. |
-| `set_retention_policy` | `env: Env, admin: Address, policy: RetentionPolicy` | `()` | Update the retention policy (admin only). |
-| `get_retention_policy` | `env: Env` | `RetentionPolicy` | Read the current retention policy. |
-| `verify_retention` | `env: Env, log_id: u64` | `bool` | Verify that a log entry satisfies the retention policy. Returns true if the log is within the required retention window. |
-| `export_logs` | `env: Env, caller: Address, start_id: u64, end_id: u64` | `ExportBundle` | Export a range of AuditLog entries as a signed bundle (requires log access). The bundle includes an integrity hash over all exported entries. |
-| `get_log_rolling_hash` | `env: Env` | `BytesN<32>` | Returns the stored rolling hash of the AuditLog chain. |
-| `verify_log_integrity` | `env: Env` | `BytesN<32>` | Recomputes the rolling hash from scratch and returns it. Compare with `get_log_rolling_hash` to detect tampering. |
-| `is_log_tampered` | `env: Env, expected: BytesN<32>` | `bool` | Returns true if the AuditLog chain has been tampered with. |
-| `verify_integrity` | `env: Env` | `BytesN<32>` | Returns the stored rolling hash (legacy alias kept for compatibility). |
-| `generate_summary` | `env: Env, start: u64, end: u64` | `AuditSummary` | Compliance analytics summary over AuditLog entries. |
-
-### Types
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-
-### Examples
-
-#### `test_log_event_data_access`
-
-```rust
-let env = Env::default();
-    let (client, _admin) = setup(&env);
-
-    let actor = Address::generate(&env);
-    let target = dummy_target(&env);
-
-    let id = client.log_event(
-        &actor,
-        &ActionType::DataRead,
-```
-
-#### `test_log_event_permission_change`
-
-```rust
-let env = Env::default();
-    let (client, _admin) = setup(&env);
-
-    let actor = Address::generate(&env);
-    let id = client.log_event(
-        &actor,
-        &ActionType::PermissionGrant,
-        &dummy_target(&env),
-        &OperationResult::Success,
-```
-
-#### `test_log_event_record_modification`
-
-```rust
-let env = Env::default();
-    let (client, _admin) = setup(&env);
-
-    let actor = Address::generate(&env);
-    let id = client.log_event(
-        &actor,
-        &ActionType::RecordUpdate,
-        &dummy_target(&env),
-        &OperationResult::Success,
+        let (_env, client, admin, token_id) = setup();
+        client.initialize(&admin, &token_id);
+        let result = client.try_initialize(&admin, &token_id);
 ```
 
 ---
@@ -923,177 +737,30 @@ let env = Env::default();
 
 ---
 
-## clinical_decision_support
+## code_ownership
 
 ### Functions
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address, oracle: Address, medical_records: Address` | `()` | Initialize the CDSS contract with necessary integration addresses. |
-| `record_outcome` | `env: Env, condition_code: String, was_successful: bool` | `()` | Records clinical outcomes to enable continuous learning for the CDSS AI. |
-| `update_guideline` | `env: Env, oracle: Address, guideline: ClinicalGuideline` | `()` | Administrative function to update medical guidelines from the Oracle. |
-
-### Types
-
-#### `enum RecommendationType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `DrugInteraction` | 0 | — |
-| `TreatmentOptimization` | 1 | — |
-| `PathwayAdjustment` | 2 | — |
-| `PreventativeCare` | 3 | — |
-
-#### `struct FHIRCode`
-
-| Field | Type | Description |
-|---|---|---|
-| `system` | `String` | — |
-| `code` | `String` | — |
-| `display` | `String` | — |
-
-#### `struct Recommendation`
-
-| Field | Type | Description |
-|---|---|---|
-| `rec_id` | `String` | — |
-| `patient_id` | `String` | — |
-| `rec_type` | `RecommendationType` | — |
-| `content` | `String` | — |
-| `confidence_score` | `u32` | — |
-| `urgency` | `u32` | — |
-| `timestamp` | `u64` | — |
-
-#### `struct ClinicalGuideline`
-
-| Field | Type | Description |
-|---|---|---|
-| `condition_code` | `String` | — |
-| `recommended_action` | `String` | — |
-| `evidence_level` | `String` | — |
-| `min_confidence` | `u32` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Admin` | — | — |
-| `Oracle` | — | — |
-| `MedicalRecordsContract` | — | — |
-| `Guideline` | — | — |
-| `String` | — | — |
-| `Map` | — | — |
-| `condition` | — | — |
-| `code` | — | — |
-| `to` | — | — |
-| `guideline` | — | — |
-| `Interaction` | — | — |
-| `Vec` | — | — |
-| `String` | — | — |
-| `Map` | — | — |
-| `drug` | — | — |
-| `code` | — | — |
-| `pair` | — | — |
-| `to` | — | — |
-| `severity` | — | — |
-| `Outcome` | — | — |
-| `String` | — | — |
-| `Track` | — | — |
-| `clinical` | — | — |
-| `outcomes` | — | — |
-| `for` | — | — |
-| `learning` | — | — |
-
----
-
-## clinical_nlp
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
-| `extract_entities` | `env: Env, text: String` | `Result<Vec<ExtractedEntity>, Error>` | — |
-| `analyze_sentiment` | `env: Env, text: String` | `Result<SentimentResult, Error>` | — |
-| `get_processing_stats` | `env: Env` | `Result<ProcessingStats, Error>` | — |
-| `update_config` | `env: Env, admin: Address, config: NLPConfig` | `Result<(), Error>` | — |
-| `version` | `_env: Env` | `u32` | — |
-| `is_initialized` | `env: Env` | `bool` | — |
-
-### Types
-
-#### `struct ProcessingStats`
-
-| Field | Type | Description |
-|---|---|---|
-| `total_notes_processed` | `u64` | — |
-| `total_processing_time_ms` | `u64` | — |
-| `average_accuracy_bps` | `u32` | — |
-| `entities_extracted` | `u64` | — |
-| `concepts_extracted` | `u64` | — |
-| `coding_suggestions_generated` | `u64` | — |
-| `phi_detections` | `u64` | — |
-| `last_updated` | `u64` | — |
-
-#### `struct BatchProcessingRequest`
-
-| Field | Type | Description |
-|---|---|---|
-| `batch_id` | `BytesN<32>` | — |
-| `notes` | `Vec<String>` | — |
-| `patient_ids` | `Vec<Address>` | — |
-| `record_ids` | `Vec<BytesN<32>>` | — |
-| `language` | `u32` | — |
-
-#### `struct BatchProcessingResult`
-
-| Field | Type | Description |
-|---|---|---|
-| `batch_id` | `BytesN<32>` | — |
-| `results` | `Vec<NLPResult>` | — |
-| `total_processing_time_ms` | `u64` | — |
-| `success_count` | `u32` | — |
-| `failure_count` | `u32` | — |
-| `average_accuracy_bps` | `u32` | — |
+| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize the code ownership tracking system |
+| `get_module_ownership` | `env: Env, module_id: String` | `Result<ModuleOwnership, Error>` | Get module ownership information |
+| `get_review_route` | `env: Env, module_id: String` | `Result<ReviewRoute, Error>` | Get review routing for a module |
+| `get_expertise_matrix` | `env: Env` | `OwnershipMatrix` | Get expertise matrix for all modules |
+| `is_module_owner` | `env: Env, module_id: String, address: Address` | `Result<bool, Error>` | Check if an address is an owner of a module |
+| `get_owned_modules` | `env: Env, owner: Address` | `Vec<String>` | Get all modules owned by an address |
 
 ### Error Codes
 
 | Variant | Code | Description |
 |---|---|---|
-| `ContractPaused` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `InvalidConfiguration` | 3 | — |
-| `ProcessingTimeout` | 4 | — |
-| `RateLimitExceeded` | 5 | — |
-| `EmptyClinicalNote` | 10 | — |
-| `InvalidInputLength` | 11 | — |
-| `InvalidLanguageCode` | 12 | — |
-| `InvalidEncoding` | 13 | — |
-| `InputTooLarge` | 14 | — |
-| `NLPEngineNotInitialized` | 20 | — |
-| `EntityExtractionFailed` | 21 | — |
-| `ConceptExtractionFailed` | 22 | — |
-| `SentimentAnalysisFailed` | 23 | — |
-| `CodingSuggestionFailed` | 24 | — |
-| `TokenizationFailed` | 25 | — |
-| `LanguageDetectionFailed` | 26 | — |
-| `MedicalTermNotFound` | 30 | — |
-| `InvalidMedicalTerm` | 31 | — |
-| `TermDatabaseNotLoaded` | 32 | — |
-| `ICD10CodeNotFound` | 40 | — |
-| `CPTCodeNotFound` | 41 | — |
-| `InvalidCodeFormat` | 42 | — |
-| `CodeMappingFailed` | 43 | — |
-| `MedicalRecordsContractNotSet` | 50 | — |
-| `RecordAccessDenied` | 51 | — |
-| `RecordNotFound` | 52 | — |
-| `IntegrationFailed` | 53 | — |
-| `NotAuthorized` | 60 | — |
-| `InsufficientPermissions` | 61 | — |
-| `HIPAAComplianceViolation` | 62 | — |
-| `ProcessingTimeExceeded` | 70 | — |
-| `MemoryLimitExceeded` | 71 | — |
-| `BatchSizeTooLarge` | 72 | — |
+| `NotInitialized` | 1 | — |
+| `AlreadyInitialized` | 2 | — |
+| `NotAuthorized` | 3 | — |
+| `ModuleNotFound` | 4 | — |
+| `ModuleAlreadyExists` | 5 | — |
+| `ReviewRouteNotFound` | 6 | — |
+| `InvalidOwnerCount` | 7 | — |
 
 ### Examples
 
@@ -1101,130 +768,337 @@ let env = Env::default();
 
 ```rust
 let env = Env::default();
-    let contract_id = env.register_contract(None, ClinicalNLP);
-    let client = ClinicalNLPClient::new(&env, &contract_id);
+        env.mock_all_auths();
 
-    let admin = Address::random(&env);
+        let admin = Address::generate(&env);
+        let contract_id = env.register_contract(None, CodeOwnership);
+        let client = CodeOwnershipClient::new(&env, &contract_id);
 
-    // Initialize contract
-    let result = client.initialize(&admin);
-    assert!(result.is_ok());
-```
-
-#### `test_process_clinical_note`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, ClinicalNLP);
-    let client = ClinicalNLPClient::new(&env, &contract_id);
-
-    let admin = Address::random(&env);
-
-    // Initialize contract
-    client.initialize(&admin).unwrap();
-```
-
-#### `test_extract_entities`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, ClinicalNLP);
-    let client = ClinicalNLPClient::new(&env, &contract_id);
-
-    let admin = Address::random(&env);
-
-    // Initialize contract
-    client.initialize(&admin).unwrap();
+        client.initialize(&admin);
+    }
 ```
 
 ---
 
-## clinical_trial
+## common_error
 
 ### Functions
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `()` | — |
-| `get_protocol` | `env: Env, id: u64` | `Option<Protocol>` | — |
-| `register_site` | `env: Env, registrar: Address, name: String` | `u64` | — |
-| `recruit_patient` | `env: Env, site: Address, patient: Address, protocol_id: u64` | `()` | — |
-| `has_consent` | `env: Env, patient: Address, protocol_id: u64` | `bool` | — |
+| `get_suggestion` | `error: CommonError` | `Symbol` | — |
 
 ### Types
 
-#### `struct Protocol`
+#### `enum CommonError`
+
+| Variant | Value | Description |
+|---|---|---|
+| `Unknown` | 0 | — |
+| `Unauthorized` | 1 | — |
+| `NotInitialized` | 2 | — |
+| `AlreadyInitialized` | 3 | — |
+| `ContractPaused` | 4 | — |
+| `DeadlineExceeded` | 5 | — |
+| `RateLimitExceeded` | 6 | — |
+| `InsufficientFunds` | 7 | — |
+| `InvalidInput` | 8 | — |
+| `InvalidState` | 9 | — |
+| `NotFound` | 10 | — |
+| `AccessDenied` | 11 | — |
+| `Timeout` | 12 | — |
+| `InvalidArgument` | 13 | — |
+| `ExternalContractNotSet` | 14 | — |
+| `InvalidData` | 15 | — |
+| `InvalidPayload` | 16 | — |
+| `DuplicateSubmission` | 17 | — |
+| `UnauthorizedCaller` | 18 | — |
+
+---
+
+## contract_monitoring
+
+### Functions
+
+| Function | Parameters | Returns | Description |
+|---|---|---|---|
+| `record_error` | `env: Env, function_name: String` | `Result<(), MonitoringError>` | Record a failed function call / error. |
+| `update_storage_count` | `env: Env, count: u32` | `Result<(), MonitoringError>` | Update storage-entry count (call after writes to tracked contracts). |
+| `update_alert_config` | `env: Env, config: AlertConfig` | `Result<(), MonitoringError>` | Update alert thresholds (admin only). |
+| `get_dashboard` | `env: Env` | `Result<DashboardSnapshot, MonitoringError>` | Return a full dashboard snapshot. |
+
+### Types
+
+#### `struct AlertConfig`
 
 | Field | Type | Description |
 |---|---|---|
-| `id` | `u64` | — |
-| `title` | `String` | — |
-| `version` | `u32` | — |
-| `sponsor` | `Address` | — |
-| `created_at` | `u64` | — |
-| `active` | `bool` | — |
-| `metadata_ref` | `String` | — |
+| `max_error_rate_pct` | `u32` | — |
+| `max_gas_per_window` | `u64` | — |
+| `max_storage_entries` | `u32` | — |
 
-#### `struct Site`
+#### `struct FunctionStats`
 
 | Field | Type | Description |
 |---|---|---|
-| `id` | `u64` | — |
-| `address` | `Address` | — |
-| `name` | `String` | — |
-| `active` | `bool` | — |
+| `call_count` | `u64` | — |
+| `error_count` | `u64` | — |
+| `total_gas` | `u64` | — |
+| `last_called_at` | `u64` | — |
 
-#### `struct Consent`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `protocol_id` | `u64` | — |
-| `version` | `u32` | — |
-| `timestamp` | `u64` | — |
-| `consent_ref` | `String` | — |
-
-#### `struct AdverseEvent`
+#### `struct DashboardSnapshot`
 
 | Field | Type | Description |
 |---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `protocol_id` | `u64` | — |
-| `site_id` | `u64` | — |
-| `description_ref` | `String` | — |
-| `timestamp` | `u64` | — |
-| `severity` | `u32` | — |
+| `total_calls` | `u64` | — |
+| `total_errors` | `u64` | — |
+| `error_rate_pct` | `u32` | — |
+| `total_gas_used` | `u64` | — |
+| `active_users` | `u32` | — |
+| `storage_entries` | `u32` | — |
+| `snapshot_at` | `u64` | — |
+| `alert_active` | `bool` | — |
 
 #### `enum DataKey`
 
 | Variant | Value | Description |
 |---|---|---|
-| `Initialized` | — | — |
-| `Protocol` | — | — |
-| `u64` | — | — |
-| `ProtocolNextId` | — | — |
-| `Site` | — | — |
-| `u64` | — | — |
-| `SiteNextId` | — | — |
-| `ConsentCount` | — | — |
-| `Consent` | — | — |
-| `u64` | — | — |
-| `AdverseEventNextId` | — | — |
-| `AdverseEvent` | — | — |
-| `u64` | — | — |
-| `ParticipantRecords` | — | — |
+| `Admin` | — | — |
+| `AlertConfig` | — | — |
+| `TotalCalls` | — | — |
+| `TotalErrors` | — | — |
+| `TotalGas` | — | — |
+| `ActiveUsers` | — | — |
+| `StorageEntries` | — | — |
+| `Per` | — | — |
+| `function` | — | — |
+| `stats` | — | — |
+| `keyed` | — | — |
+| `by` | — | — |
+| `function` | — | — |
+| `name` | — | — |
+| `FnStats` | — | — |
+| `String` | — | — |
+| `Tracks` | — | — |
+| `whether` | — | — |
+| `an` | — | — |
+| `address` | — | — |
+| `has` | — | — |
+| `been` | — | — |
+| `seen` | — | — |
+| `before` | — | — |
+| `SeenUser` | — | — |
 | `Address` | — | — |
+
+#### `enum MonitoringError`
+
+| Variant | Value | Description |
+|---|---|---|
+| `NotInitialized` | 1 | — |
+| `AlreadyInitialized` | 2 | — |
+| `Unauthorized` | 3 | — |
 
 ---
 
-## credential_notifications
+## contract_template
 
 ### Functions
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env` | `()` | — |
+| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize the contract. Can only be called once.  # Auth No auth required — the deployer becomes the admin. |
+| `transfer_admin` | `env: Env, new_admin: Address` | `Result<(), Error>` | Transfer admin rights to a new address.  # Auth Requires auth from the **current** admin. |
+| `update_data` | `env: Env, caller: Address, data: String` | `Result<(), Error>` | Update the contract's stored data.  # Auth Requires auth from the admin. |
+| `get_admin` | `env: &Env` | `Result<Address, Error>` | Return the current admin address. |
+| `get_data` | `env: Env` | `Option<ContractData>` | Return the stored data, if any. |
+
+### Error Codes
+
+| Variant | Code | Description |
+|---|---|---|
+| `NotInitialized` | 1 | — |
+| `AlreadyInitialized` | 2 | — |
+| `Unauthorized` | 3 | — |
+| `InputTooLong` | 4 | — |
+| `ReentrantCall` | 5 | — |
+
+### Examples
+
+#### `test_initialize`
+
+```rust
+let (_, _, client) = setup();
+    let admin2 = Address::generate(&client.env);
+    assert_eq!(
+        client.try_initialize(&admin2),
+        Err(Ok(Error::AlreadyInitialized))
+    );
+```
+
+#### `test_update_data_as_admin`
+
+```rust
+let (env, admin, client) = setup();
+    let data = String::from_str(&env, "hello");
+    assert!(client.try_update_data(&admin, &data).is_ok());
+    let stored = client.get_data().unwrap();
+    assert_eq!(stored.value, data);
+```
+
+#### `test_update_data_unauthorized`
+
+```rust
+let (env, _, client) = setup();
+    let other = Address::generate(&env);
+    let data = String::from_str(&env, "hack");
+    assert_eq!(
+        client.try_update_data(&other, &data),
+        Err(Ok(Error::Unauthorized))
+    );
+```
+
+---
+
+## contract_usage_analytics
+
+### Functions
+
+| Function | Parameters | Returns | Description |
+|---|---|---|---|
+| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
+| `take_snapshot` | `env: Env` | `Result<UsageSnapshot, Error>` | — |
+| `get_function_metrics` | `env: Env, function_name: String` | `Option<FunctionMetric>` | — |
+| `get_user_metrics` | `env: Env, user: Address` | `Option<UserMetric>` | — |
+| `get_all_functions` | `env: Env` | `Vec<String>` | — |
+| `get_snapshots` | `env: Env` | `Vec<UsageSnapshot>` | — |
+
+### Types
+
+#### `struct FunctionMetric`
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | `String` | — |
+| `call_count` | `u64` | — |
+| `total_cpu_usage` | `u64` | — |
+| `total_ram_usage` | `u64` | — |
+| `error_count` | `u64` | — |
+| `avg_latency_ms` | `u64` | — |
+| `last_called` | `u64` | — |
+
+#### `struct UserMetric`
+
+| Field | Type | Description |
+|---|---|---|
+| `user` | `Address` | — |
+| `total_calls` | `u64` | — |
+| `last_active` | `u64` | — |
+
+#### `struct UsageSnapshot`
+
+| Field | Type | Description |
+|---|---|---|
+| `timestamp` | `u64` | — |
+| `total_calls` | `u64` | — |
+| `active_users` | `u32` | — |
+| `error_rate_bps` | `u32` | — |
+
+#### `enum DataKey`
+
+| Variant | Value | Description |
+|---|---|---|
+| `Admin` | — | — |
+| `FunctionMetric` | — | — |
+| `String` | — | — |
+| `UserMetric` | — | — |
+| `Address` | — | — |
+| `Snapshots` | — | — |
+| `AllFunctions` | — | — |
+| `ActiveUsers` | — | — |
+| `u64` | — | — |
+| `Day` | — | — |
+| `based` | — | — |
+| `key` | — | — |
+| `for` | — | — |
+| `active` | — | — |
+| `users` | — | — |
+
+#### `enum Error`
+
+| Variant | Value | Description |
+|---|---|---|
+| `NotAuthorized` | 1 | — |
+| `AlreadyInitialized` | 2 | — |
+| `NotInitialized` | 3 | — |
+| `InvalidInput` | 4 | — |
+
+---
+
+## contract_verification
+
+### Functions
+
+| Function | Parameters | Returns | Description |
+|---|---|---|---|
+| `initialize` | `env: Env, admin: Address` | `Result<(), VerificationError>` | Initialise the verification registry with an admin address. |
+| `publish_abi` | `env: Env, entries: Vec<AbiEntry>` | `Result<(), VerificationError>` | Publish the ABI for all public functions. |
+| `mark_verified` | `env: Env` | `Result<(), VerificationError>` | Mark the contract as fully verified (metadata + build + ABI all present). |
+| `get_metadata` | `env: Env` | `Result<ContractMetadata, VerificationError>` | — |
+| `get_build_info` | `env: Env` | `Result<BuildInfo, VerificationError>` | — |
+| `get_abi` | `env: Env` | `Result<Vec<AbiEntry>, VerificationError>` | — |
+| `is_verified` | `env: Env` | `bool` | — |
+
+### Types
+
+#### `struct ContractMetadata`
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | `String` | — |
+| `version` | `String` | — |
+| `source_url` | `String` | — |
+| `license` | `String` | — |
+| `description` | `String` | — |
+| `published_at` | `u64` | — |
+| `publisher` | `Address` | — |
+
+#### `struct BuildInfo`
+
+| Field | Type | Description |
+|---|---|---|
+| `rust_version` | `String` | — |
+| `sdk_version` | `String` | — |
+| `build_profile` | `String` | — |
+| `wasm_hash` | `BytesN<32>` | — |
+| `commit_sha` | `String` | — |
+
+#### `struct AbiEntry`
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | `String` | — |
+| `params` | `String` | — |
+| `returns` | `String` | — |
+| `doc` | `String` | — |
+
+#### `enum DataKey`
+
+| Variant | Value | Description |
+|---|---|---|
+| `Admin` | — | — |
+| `Metadata` | — | — |
+| `BuildInfo` | — | — |
+| `AbiEntries` | — | — |
+| `IsVerified` | — | — |
+
+#### `enum VerificationError`
+
+| Variant | Value | Description |
+|---|---|---|
+| `NotInitialized` | 1 | — |
+| `AlreadyInitialized` | 2 | — |
+| `Unauthorized` | 3 | — |
+| `MetadataNotFound` | 4 | — |
 
 ---
 
@@ -1274,6 +1148,15 @@ let env = Env::default();
 | `u32` | — | — |
 | `RevocationRoot` | — | — |
 | `Address` | — | — |
+| `RootToVersion` | — | — |
+| `Address` | — | — |
+| `BytesN` | — | — |
+| `32` | — | — |
+| `index` | — | — |
+| `root` | — | — |
+| `bytes` | — | — |
+| `version` | — | — |
+| `number` | — | — |
 
 #### `enum Error`
 
@@ -1595,470 +1478,6 @@ let env = Env::default();
     let grantee_address = String::from_str(&env, "0x1234567890abcdef1234567890abcdef12345678");
 
     env.mock_all_auths();
-```
-
----
-
-## cross_chain_bridge
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `add_supported_chain` | `env: Env, caller: Address, chain: ChainId` | `Result<bool, Error>` | — |
-| `pause` | `env: Env, caller: Address` | `Result<bool, Error>` | — |
-| `unpause` | `env: Env, caller: Address` | `Result<bool, Error>` | — |
-| `commit_atomic_tx` | `env: Env, caller: Address, tx_id: BytesN<32>` | `Result<bool, Error>` | — |
-| `abort_atomic_tx` | `env: Env, caller: Address, tx_id: BytesN<32>` | `Result<bool, Error>` | — |
-| `validate_chain_address` | `_env: Env, chain: ChainId, address: String` | `bool` | Validate a chain address format (length + prefix check) Returns true if the address matches expected format for the given chain. |
-| `get_chain_address_length` | `_env: Env, chain: ChainId` | `u32` | Get expected address length for a chain |
-| `check_timeout` | `env: Env, op_id: BytesN<32>` | `Result<(), Error>` | Check if an operation has timed out and trigger refund if needed |
-| `get_operation` | `env: Env, op_id: BytesN<32>` | `Result<CrossChainOp, Error>` | Get operation details |
-| `execute_rollback` | `env: Env, caller: Address, op_id: BytesN<32>` | `Result<bool, Error>` | Execute a rollback — marks the associated operation as failed/rolled back |
-| `cancel_rollback` | `env: Env, caller: Address, op_id: BytesN<32>` | `Result<bool, Error>` | Cancel a pending rollback |
-| `get_message` | `env: Env, message_id: BytesN<32>` | `Option<CrossChainMessage>` | — |
-| `get_atomic_tx` | `env: Env, tx_id: BytesN<32>` | `Option<AtomicTransaction>` | — |
-| `get_validator` | `env: Env, validator_address: Address` | `Option<Validator>` | — |
-| `get_oracle_node` | `env: Env, oracle_address: Address` | `Option<OracleNode>` | — |
-| `get_oracle_report` | `env: Env, report_id: u64` | `Option<OracleReport>` | — |
-| `get_aggregated_oracle` | `env: Env, chain: ChainId` | `Option<AggregatedOracleData>` | — |
-| `get_proof` | `env: Env, proof_id: BytesN<32>` | `Option<CrossChainProof>` | — |
-| `get_rollback` | `env: Env, op_id: BytesN<32>` | `Option<RollbackRecord>` | — |
-| `get_sync_event` | `env: Env, event_id: u64` | `Option<CrossChainEvent>` | — |
-| `get_supported_chains` | `env: Env` | `Vec<ChainId>` | — |
-| `is_paused` | `env: Env` | `bool` | — |
-| `get_message_count` | `env: Env` | `u64` | — |
-| `get_oracle_count` | `env: Env` | `u64` | — |
-| `get_event_count` | `env: Env` | `u64` | — |
-| `get_rollback_count` | `env: Env` | `u64` | — |
-| `get_default_timeout_internal` | `_env: Env, op_type: OperationType` | `u64` | Expose get_default_timeout for testing |
-
-### Types
-
-#### `enum MessageStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | — | — |
-| `Verified` | — | — |
-| `Executed` | — | — |
-| `Failed` | — | — |
-| `Expired` | — | — |
-
-#### `enum ChainId`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Stellar` | — | — |
-| `Ethereum` | — | — |
-| `Polygon` | — | — |
-| `Avalanche` | — | — |
-| `BinanceSmartChain` | — | — |
-| `Arbitrum` | — | — |
-| `Optimism` | — | — |
-| `Custom` | — | — |
-| `u32` | — | — |
-
-#### `struct CrossChainMessage`
-
-| Field | Type | Description |
-|---|---|---|
-| `message_id` | `BytesN<32>` | — |
-| `source_chain` | `ChainId` | — |
-| `dest_chain` | `ChainId` | — |
-| `sender` | `String` | — |
-| `recipient` | `Address` | — |
-| `payload_type` | `MessageType` | — |
-| `payload` | `String` | — |
-| `nonce` | `u64` | — |
-| `timestamp` | `u64` | — |
-| `status` | `MessageStatus` | — |
-| `signature` | `BytesN<64>` | — |
-
-#### `enum MessageType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `RecordRequest` | — | — |
-| `RecordResponse` | — | — |
-| `IdentityVerify` | — | — |
-| `IdentityConfirm` | — | — |
-| `AccessGrant` | — | — |
-| `AccessRevoke` | — | — |
-| `RecordSync` | — | — |
-| `EmergencyAccess` | — | — |
-
-#### `struct Validator`
-
-| Field | Type | Description |
-|---|---|---|
-| `address` | `Address` | — |
-| `public_key` | `BytesN<32>` | — |
-| `is_active` | `bool` | — |
-| `stake` | `i128` | — |
-| `confirmed_messages` | `u64` | — |
-
-#### `struct CrossChainRecordRef`
-
-| Field | Type | Description |
-|---|---|---|
-| `local_record_id` | `u64` | — |
-| `external_chain` | `ChainId` | — |
-| `external_record_id` | `String` | — |
-| `sync_status` | `SyncStatus` | — |
-| `last_sync` | `u64` | — |
-
-#### `enum SyncStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Synced` | — | — |
-| `PendingSync` | — | — |
-| `SyncFailed` | — | — |
-| `Outdated` | — | — |
-
-#### `struct AtomicTransaction`
-
-| Field | Type | Description |
-|---|---|---|
-| `tx_id` | `BytesN<32>` | — |
-| `messages` | `Vec<BytesN<32>>` | — |
-| `status` | `AtomicTxStatus` | — |
-| `created_at` | `u64` | — |
-| `timeout` | `u64` | — |
-| `confirmations` | `Vec<Address>` | — |
-
-#### `enum AtomicTxStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initiated` | — | — |
-| `Prepared` | — | — |
-| `Committed` | — | — |
-| `Aborted` | — | — |
-| `Expired` | — | — |
-
-#### `struct OracleNode`
-
-| Field | Type | Description |
-|---|---|---|
-| `address` | `Address` | — |
-| `public_key` | `BytesN<32>` | — |
-| `supported_chains` | `Vec<ChainId>` | — |
-| `is_active` | `bool` | — |
-| `reputation` | `u32` | — |
-| `total_reports` | `u64` | — |
-
-#### `struct OracleReport`
-
-| Field | Type | Description |
-|---|---|---|
-| `report_id` | `u64` | — |
-| `oracle` | `Address` | — |
-| `chain` | `ChainId` | — |
-| `data_hash` | `BytesN<32>` | — |
-| `data` | `String` | — |
-| `block_height` | `u64` | — |
-| `timestamp` | `u64` | — |
-| `signature` | `BytesN<64>` | — |
-| `status` | `OracleStatus` | — |
-
-#### `enum OracleStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Submitted` | — | — |
-| `Validated` | — | — |
-| `Rejected` | — | — |
-| `Aggregated` | — | — |
-
-#### `struct AggregatedOracleData`
-
-| Field | Type | Description |
-|---|---|---|
-| `chain` | `ChainId` | — |
-| `consensus_hash` | `BytesN<32>` | — |
-| `report_count` | `u32` | — |
-| `consensus_threshold` | `u32` | — |
-| `aggregated_at` | `u64` | — |
-| `is_finalized` | `bool` | — |
-
-#### `struct CrossChainProof`
-
-| Field | Type | Description |
-|---|---|---|
-| `proof_id` | `BytesN<32>` | — |
-| `source_chain` | `ChainId` | — |
-| `record_hash` | `BytesN<32>` | — |
-| `block_hash` | `BytesN<32>` | — |
-| `merkle_root` | `BytesN<32>` | — |
-| `timestamp` | `u64` | — |
-| `prover` | `String` | — |
-| `verifier_count` | `u32` | — |
-| `verified` | `bool` | — |
-
-#### `struct RollbackRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `op_id` | `BytesN<32>` | — |
-| `op_type` | `RollbackOpType` | — |
-| `original_state` | `String` | — |
-| `triggered_by` | `Address` | — |
-| `triggered_at` | `u64` | — |
-| `status` | `RollbackStatus` | — |
-| `reason` | `String` | — |
-| `completed_at` | `u64` | — |
-
-#### `enum RollbackOpType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `MessageRollback` | — | — |
-| `AtomicTxRollback` | — | — |
-| `RecordSyncRollback` | — | — |
-
-#### `enum RollbackStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initiated` | — | — |
-| `InProgress` | — | — |
-| `Completed` | — | — |
-| `Failed` | — | — |
-
-#### `struct CrossChainOp`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `BytesN<32>` | — |
-| `deadline` | `u64` | — |
-| `refund_address` | `Address` | — |
-| `op_type` | `OperationType` | — |
-| `status` | `OperationStatus` | — |
-| `created_at` | `u64` | — |
-| `extended_count` | `u32` | — |
-
-#### `enum OperationType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `TokenTransfer` | — | — |
-| `MessagePassing` | — | — |
-| `Verification` | — | — |
-| `AtomicSwap` | — | — |
-| `RecordSync` | — | — |
-
-#### `enum OperationStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | — | — |
-| `InProgress` | — | — |
-| `Completed` | — | — |
-| `Failed` | — | — |
-| `Refunded` | — | — |
-| `Extended` | — | — |
-
-#### `struct CrossChainEvent`
-
-| Field | Type | Description |
-|---|---|---|
-| `event_id` | `u64` | — |
-| `source_chain` | `ChainId` | — |
-| `dest_chain` | `ChainId` | — |
-| `event_type` | `CrossChainEventType` | — |
-| `payload_hash` | `BytesN<32>` | — |
-| `block_height` | `u64` | — |
-| `timestamp` | `u64` | — |
-| `sync_status` | `EventSyncStatus` | — |
-
-#### `enum CrossChainEventType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `RecordCreated` | — | — |
-| `RecordUpdated` | — | — |
-| `AccessGranted` | — | — |
-| `AccessRevoked` | — | — |
-| `IdentityVerified` | — | — |
-| `EmergencyTriggered` | — | — |
-
-#### `enum EventSyncStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | — | — |
-| `Synced` | — | — |
-| `Failed` | — | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Core` | — | — |
-| `config` | — | — |
-| `Admin` | — | — |
-| `MedicalContract` | — | — |
-| `IdentityContract` | — | — |
-| `AccessContract` | — | — |
-| `Paused` | — | — |
-| `MessageCount` | — | — |
-| `MinConfirmations` | — | — |
-| `SupportedChains` | — | — |
-| `Per` | — | — |
-| `item` | — | — |
-| `storage` | — | — |
-| `replaces` | — | — |
-| `Map` | — | — |
-| `Key` | — | — |
-| `Value` | — | — |
-| `under` | — | — |
-| `a` | — | — |
-| `shared` | — | — |
-| `symbol` | — | — |
-| `Validator` | — | — |
-| `Address` | — | — |
-| `Message` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Confirmations` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `BUG` | — | — |
-| `FIX` | — | — |
-| `was` | — | — |
-| `always` | — | — |
-| `conf_key` | — | — |
-| `Nonce` | — | — |
-| `String` | — | — |
-| `RecordRef` | — | — |
-| `u64` | — | — |
-| `ChainId` | — | — |
-| `BUG` | — | — |
-| `FIX` | — | — |
-| `was` | — | — |
-| `always` | — | — |
-| `rec_ref` | — | — |
-| `AtomicTx` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Oracle` | — | — |
-| `network` | — | — |
-| `OracleNode` | — | — |
-| `Address` | — | — |
-| `OracleReport` | — | — |
-| `u64` | — | — |
-| `OracleCount` | — | — |
-| `AggregatedOracle` | — | — |
-| `ChainId` | — | — |
-| `Proof` | — | — |
-| `verification` | — | — |
-| `Proof` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Rollback` | — | — |
-| `mechanism` | — | — |
-| `Rollback` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `RollbackCount` | — | — |
-| `Event` | — | — |
-| `synchronization` | — | — |
-| `Event` | — | — |
-| `u64` | — | — |
-| `EventCount` | — | — |
-| `Timeout` | — | — |
-| `operations` | — | — |
-| `CrossChainOp` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `OpCount` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Existing` | — | — |
-| `errors` | — | — |
-| `NotAuthorized` | 1 | — |
-| `ContractPaused` | 2 | — |
-| `InvalidChain` | 3 | — |
-| `InvalidMessage` | 4 | — |
-| `MessageNotFound` | 5 | — |
-| `MessageExpired` | 6 | — |
-| `MessageAlreadyProcessed` | 7 | — |
-| `InvalidSignature` | 8 | — |
-| `InsufficientConfirmations` | 9 | — |
-| `ValidatorNotFound` | 10 | — |
-| `ValidatorNotActive` | 11 | — |
-| `DuplicateConfirmation` | 12 | — |
-| `AtomicTxNotFound` | 13 | — |
-| `AtomicTxExpired` | 14 | — |
-| `AtomicTxAlreadyProcessed` | 15 | — |
-| `InvalidNonce` | 16 | — |
-| `ChainNotSupported` | 17 | — |
-| `RecordRefNotFound` | 18 | — |
-| `AlreadyInitialized` | 19 | — |
-| `InvalidPayload` | 20 | — |
-| `Overflow` | 21 | — |
-| `New` | — | — |
-| `errors` | — | — |
-| `OracleNotFound` | 22 | — |
-| `OracleNotActive` | 23 | — |
-| `ProofNotFound` | 24 | — |
-| `ProofAlreadyVerified` | 25 | — |
-| `RollbackNotFound` | 26 | — |
-| `RollbackAlreadyProcessed` | 27 | — |
-| `EventNotFound` | 28 | — |
-| `InvalidAddress` | 29 | — |
-| `InsufficientOracleReports` | 30 | — |
-| `DuplicateOracleReport` | 31 | — |
-| `OperationNotFound` | 32 | — |
-| `OperationExpired` | 33 | — |
-| `OperationAlreadyCompleted` | 34 | — |
-| `MaxExtensionsReached` | 35 | — |
-| `RefundFailed` | 36 | — |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let env = Env::default();
-    let (client, admin, medical, identity, access) = create_contract(&env);
-
-    initialize_contract(&env, &client, &admin, &medical, &identity, &access);
-
-    assert!(!client.is_paused());
-    assert_eq!(client.get_message_count(), 0);
-```
-
-#### `test_initialize_twice_fails`
-
-```rust
-let env = Env::default();
-    let (client, admin, medical, identity, access) = create_contract(&env);
-
-    env.mock_all_auths();
-    client.initialize(&admin, &medical, &identity, &access);
-
-    let result = client.try_initialize(&admin, &medical, &identity, &access);
-    assert_eq!(result, Err(Ok(Error::AlreadyInitialized)));
-```
-
-#### `test_add_validator`
-
-```rust
-let env = Env::default();
-    let (client, admin, medical, identity, access) = create_contract(&env);
-    initialize_contract(&env, &client, &admin, &medical, &identity, &access);
-
-    let validator = Address::generate(&env);
-    let public_key = generate_public_key(&env);
-
-    env.mock_all_auths();
-    let result = client.add_validator(&admin, &validator, &public_key, &1000);
 ```
 
 ---
@@ -2408,6 +1827,7 @@ let env = Env::default();
 | `revoke_key_bundle` | `env: Env, owner: Address, version: u32` | `Result<(), Error>` | Revoke a specific key bundle version. |
 | `get_current_version` | `env: Env, owner: Address` | `Result<u32, Error>` | — |
 | `get_current_key_bundle` | `env: Env, owner: Address` | `Result<Option<KeyBundle>, Error>` | — |
+| `get_all_key_versions` | `env: Env, owner: Address` | `Result<Vec<u32>, Error>` | Get all key bundle versions for an owner (including revoked ones). |
 
 ### Types
 
@@ -2548,227 +1968,32 @@ let env = Env::default();
 
 ---
 
-## dicomweb_services
+## deprecation_framework
 
 ### Functions
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `set_paused` | `env: Env, caller: Address, paused: bool` | `Result<bool, Error>` | — |
-| `cache_get` | `env: Env, key: BytesN<32>` | `Result<Bytes, Error>` | — |
-| `cache_invalidate` | `env: Env, caller: Address, key: BytesN<32>` | `Result<bool, Error>` | — |
-| `get_study` | `env: Env, study_instance_uid: String` | `Option<DicomwebStudy>` | — |
-| `get_instance_by_sop` | `env: Env, sop_instance_uid: String` | `Option<DicomwebInstance>` | — |
-| `list_studies` | `env: Env` | `Vec<String>` | — |
-| `get_concurrency_stats` | `env: Env` | `ConcurrencyTracker` | — |
-| `placeholder` | `_env: Env` | `bool` | — |
+| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize the deprecation framework |
+| `get_sunset_timeline` | `env: Env, contract_id: String` | `Result<SunsetTimeline, Error>` | Get sunset timeline |
+| `get_migration_guide` | `env: Env, contract_id: String` | `Result<MigrationGuide, Error>` | Get migration guide |
+| `is_deprecated` | `env: Env, contract_id: String` | `bool` | Check if contract is deprecated |
 
-### Types
+### Error Codes
 
-#### `enum DicomwebServiceType`
-
-| Variant | Value | Description |
+| Variant | Code | Description |
 |---|---|---|
-| `Qido` | — | — |
-| `Wado` | — | — |
-| `Stow` | — | — |
-
-#### `enum QueryLevel`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Study` | — | — |
-| `Series` | — | — |
-| `Instance` | — | — |
-
-#### `enum TransferSyntax`
-
-| Variant | Value | Description |
-|---|---|---|
-| `ExplicitVrLittleEndian` | — | — |
-| `ImplicitVrLittleEndian` | — | — |
-| `Jpeg2000Lossless` | — | — |
-| `Jpeg2000Lossy` | — | — |
-| `JpegBaseline` | — | — |
-| `JpegLossless` | — | — |
-| `RleLossless` | — | — |
-| `Custom` | — | — |
-| `u32` | — | — |
-
-#### `struct DicomJsonAttribute`
-
-| Field | Type | Description |
-|---|---|---|
-| `tag` | `Symbol` | — |
-| `vr` | `String` | — |
-| `value` | `Vec<String>` | — |
-
-#### `struct DicomJsonObject`
-
-| Field | Type | Description |
-|---|---|---|
-| `attributes` | `Map<Symbol` | — |
-
-#### `struct DicomwebQueryParams`
-
-| Field | Type | Description |
-|---|---|---|
-| `study_instance_uid` | `Option<String>` | — |
-| `series_instance_uid` | `Option<String>` | — |
-| `sop_instance_uid` | `Option<String>` | — |
-| `patient_id` | `Option<String>` | — |
-| `patient_name` | `Option<String>` | — |
-| `modality` | `Option<String>` | — |
-| `study_date_from` | `Option<u64>` | — |
-| `study_date_to` | `Option<u64>` | — |
-| `body_part` | `Option<String>` | — |
-| `limit` | `u32` | — |
-| `offset` | `u32` | — |
-
-#### `struct DicomwebStudy`
-
-| Field | Type | Description |
-|---|---|---|
-| `study_instance_uid` | `String` | — |
-| `patient_id` | `String` | — |
-| `patient_name` | `String` | — |
-| `study_date` | `u64` | — |
-| `study_description` | `String` | — |
-| `modalities_in_study` | `Vec<String>` | — |
-| `number_of_series` | `u32` | — |
-| `number_of_instances` | `u32` | — |
-| `json_metadata` | `DicomJsonObject` | — |
-
-#### `struct DicomwebSeries`
-
-| Field | Type | Description |
-|---|---|---|
-| `study_instance_uid` | `String` | — |
-| `series_instance_uid` | `String` | — |
-| `modality` | `String` | — |
-| `series_description` | `String` | — |
-| `body_part` | `String` | — |
-| `number_of_instances` | `u32` | — |
-| `json_metadata` | `DicomJsonObject` | — |
-
-#### `struct DicomwebInstance`
-
-| Field | Type | Description |
-|---|---|---|
-| `study_instance_uid` | `String` | — |
-| `series_instance_uid` | `String` | — |
-| `sop_instance_uid` | `String` | — |
-| `sop_class_uid` | `String` | — |
-| `instance_number` | `u32` | — |
-| `rows` | `u32` | — |
-| `columns` | `u32` | — |
-| `bits_allocated` | `u32` | — |
-| `transfer_syntax` | `TransferSyntax` | — |
-| `json_metadata` | `DicomJsonObject` | — |
-
-#### `struct DicomwebBulkData`
-
-| Field | Type | Description |
-|---|---|---|
-| `sop_instance_uid` | `String` | — |
-| `data_reference` | `String` | — |
-| `data_hash` | `BytesN<32>` | — |
-| `size_bytes` | `u64` | — |
-| `transfer_syntax` | `TransferSyntax` | — |
-| `retrieved_at` | `u64` | — |
-
-#### `struct StowRequest`
-
-| Field | Type | Description |
-|---|---|---|
-| `study_instance_uid` | `String` | — |
-| `series_instance_uid` | `String` | — |
-| `sop_instance_uid` | `String` | — |
-| `sop_class_uid` | `String` | — |
-| `transfer_syntax` | `TransferSyntax` | — |
-| `data_reference` | `String` | — |
-| `data_hash` | `BytesN<32>` | — |
-| `size_bytes` | `u64` | — |
-| `json_metadata` | `DicomJsonObject` | — |
-
-#### `struct StowResponse`
-
-| Field | Type | Description |
-|---|---|---|
-| `sop_instance_uid` | `String` | — |
-| `success` | `bool` | — |
-| `error_message` | `Option<String>` | — |
-| `stored_at` | `u64` | — |
-
-#### `struct CacheEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `key` | `BytesN<32>` | — |
-| `data` | `Bytes` | — |
-| `created_at` | `u64` | — |
-| `expires_at` | `u64` | — |
-| `hit_count` | `u32` | — |
-
-#### `struct ConcurrencyTracker`
-
-| Field | Type | Description |
-|---|---|---|
-| `active_requests` | `u32` | — |
-| `total_requests` | `u64` | — |
-| `last_reset` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Admin` | — | — |
-| `Paused` | — | — |
-| `MedicalImagingContract` | — | — |
-| `Study` | — | — |
-| `String` | — | — |
-| `StudyIds` | — | — |
-| `Series` | — | — |
-| `String` | — | — |
-| `String` | — | — |
-| `Instance` | — | — |
-| `String` | — | — |
-| `String` | — | — |
-| `String` | — | — |
-| `InstanceBySop` | — | — |
-| `String` | — | — |
-| `BulkData` | — | — |
-| `String` | — | — |
-| `Cache` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Concurrency` | — | — |
-| `QueryIndex` | — | — |
-| `String` | — | — |
-| `MetadataIndex` | — | — |
-| `String` | — | — |
-| `TransferSyntaxIndex` | — | — |
-| `String` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
+| `NotInitialized` | 1 | — |
+| `AlreadyInitialized` | 2 | — |
 | `NotAuthorized` | 3 | — |
-| `ContractPaused` | 4 | — |
-| `InvalidInput` | 5 | — |
-| `StudyNotFound` | 6 | — |
-| `SeriesNotFound` | 7 | — |
-| `InstanceNotFound` | 8 | — |
-| `BulkDataNotFound` | 9 | — |
-| `CacheMiss` | 10 | — |
-| `ConcurrencyLimitExceeded` | 11 | — |
-| `InvalidTransferSyntax` | 12 | — |
-| `InvalidDicomJson` | 13 | — |
-| `StorageError` | 14 | — |
-| `QueryError` | 15 | — |
+| `ContractNotFound` | 4 | — |
+| `ContractAlreadyDeprecated` | 5 | — |
+| `InvalidTimeline` | 6 | — |
+| `InvalidPhaseTransition` | 7 | — |
+| `TimelineNotFound` | 8 | — |
+| `GuideNotFound` | 9 | — |
+| `ChecklistNotFound` | 10 | — |
+| `InvalidChecklistIndex` | 11 | — |
 
 ### Examples
 
@@ -2776,410 +2001,15 @@ let env = Env::default();
 
 ```rust
 let env = Env::default();
-    let contract_id = env.register_contract(None, DicomwebServicesContract);
-    let client = DicomwebServicesContractClient::new(&env, &contract_id);
+        env.mock_all_auths();
 
-    let admin = Address::random(&env);
-    let medical_imaging = Address::random(&env);
+        let admin = Address::generate(&env);
+        let contract_id = env.register_contract(None, DeprecationFramework);
+        let client = DeprecationFrameworkClient::new(&env, &contract_id);
 
-    let result = client.initialize(&admin, &medical_imaging);
-    assert!(result.is_ok());
+        client.initialize(&admin);
+    }
 ```
-
-#### `test_initialize_already_initialized`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, DicomwebServicesContract);
-    let client = DicomwebServicesContractClient::new(&env, &contract_id);
-
-    let admin = Address::random(&env);
-    let medical_imaging = Address::random(&env);
-
-    client.initialize(&admin, &medical_imaging).unwrap();
-```
-
-#### `test_set_paused`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, DicomwebServicesContract);
-    let client = DicomwebServicesContractClient::new(&env, &contract_id);
-
-    let admin = Address::random(&env);
-    let medical_imaging = Address::random(&env);
-
-    client.initialize(&admin, &medical_imaging).unwrap();
-```
-
----
-
-## differential_privacy
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
-| `get_remaining_budget` | `env: Env, budget_id: BytesN<32>` | `Result<u64, Error>` | Get remaining budget |
-| `get_query` | `env: Env, query_id: BytesN<32>` | `Option<PrivacyQuery>` | Get query by ID |
-| `deactivate_budget` | `env: Env, admin: Address, budget_id: BytesN<32>` | `Result<(), Error>` | Deactivate a privacy budget |
-
-### Types
-
-#### `enum NoiseMechanism`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Laplace` | — | — |
-| `Gaussian` | — | — |
-
-#### `enum DataType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Numerical` | — | — |
-| `Categorical` | — | — |
-| `Count` | — | — |
-
-#### `struct PrivacyBudget`
-
-| Field | Type | Description |
-|---|---|---|
-| `budget_id` | `BytesN<32>` | — |
-| `owner` | `Address` | — |
-| `epsilon_remaining` | `u64` | — |
-| `is_active` | `bool` | — |
-
-#### `struct PrivacyQuery`
-
-| Field | Type | Description |
-|---|---|---|
-| `query_id` | `BytesN<32>` | — |
-| `budget_id` | `BytesN<32>` | — |
-| `data_type` | `DataType` | — |
-| `mechanism` | `NoiseMechanism` | — |
-| `true_result` | `i64` | — |
-| `noisy_result` | `i64` | — |
-| `epsilon_cost` | `u64` | — |
-| `timestamp` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initialized` | — | — |
-| `Admin` | — | — |
-| `Budget` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Query` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `BudgetCounter` | — | — |
-| `QueryCounter` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `BudgetNotFound` | 4 | — |
-| `BudgetExhausted` | 5 | — |
-| `BudgetNotActive` | 6 | — |
-| `QueryNotFound` | 7 | — |
-| `InvalidSensitivity` | 8 | — |
-| `InsufficientBudget` | 9 | — |
-| `InvalidInput` | 10 | — |
-| `ArithmeticOverflow` | 11 | — |
-
-### Examples
-
-#### `test_initialize_and_create_budget`
-
-```rust
-let (env, client, _id) = setup();
-    env.mock_all_auths();
-
-    let admin = Address::generate(&env);
-    let data_owner = Address::generate(&env);
-
-    // Initialize
-    client.initialize(&admin);
-```
-
----
-
-## digital_twin
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<bool, Error>` | — |
-| `get_digital_twin` | `env: Env, twin_id: u64` | `Result<DigitalTwinProfile, Error>` | — |
-| `get_twin_by_patient` | `env: Env, patient: Address` | `Result<u64, Error>` | — |
-| `get_data_stream` | `env: Env, stream_id: u64` | `Result<DataStream, Error>` | — |
-| `get_predictive_model` | `env: Env, model_id: u64` | `Result<PredictiveModel, Error>` | — |
-| `get_prediction` | `env: Env, prediction_id: u64` | `Result<Prediction, Error>` | — |
-| `get_simulation` | `env: Env, simulation_id: u64` | `Result<Simulation, Error>` | — |
-| `get_research_snapshot` | `env: Env, snapshot_id: u64` | `Result<ResearchSnapshot, Error>` | — |
-| `get_global_stats` | `env: Env` | `Result<Map<String, u64>, Error>` | — |
-
-### Types
-
-#### `enum TwinStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initializing` | — | — |
-| `Active` | — | — |
-| `Syncing` | — | — |
-| `Simulation` | — | — |
-| `Archived` | — | — |
-
-#### `enum DataSource`
-
-| Variant | Value | Description |
-|---|---|---|
-| `MedicalRecords` | — | — |
-| `GenomicData` | — | — |
-| `Wearables` | — | — |
-| `EMR` | — | — |
-| `LabResults` | — | — |
-| `Imaging` | — | — |
-| `PatientReported` | — | — |
-| `External` | — | — |
-
-#### `enum DataType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `VitalSigns` | — | — |
-| `LabResults` | — | — |
-| `Genomic` | — | — |
-| `Imaging` | — | — |
-| `Medications` | — | — |
-| `Procedures` | — | — |
-| `Symptoms` | — | — |
-| `Activity` | — | — |
-| `Sleep` | — | — |
-| `Nutrition` | — | — |
-| `Environmental` | — | — |
-| `Social` | — | — |
-
-#### `enum ModelType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Predictive` | — | — |
-| `Simulation` | — | — |
-| `RiskAssessment` | — | — |
-| `TreatmentResponse` | — | — |
-| `DiseaseProgression` | — | — |
-| `Wellness` | — | — |
-
-#### `enum SimulationType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Treatment` | — | — |
-| `Lifestyle` | — | — |
-| `Environmental` | — | — |
-| `Medication` | — | — |
-| `Surgical` | — | — |
-| `Preventive` | — | — |
-
-#### `struct DigitalTwinProfile`
-
-| Field | Type | Description |
-|---|---|---|
-| `twin_id` | `u64` | — |
-| `patient_id` | `Address` | — |
-| `created_at` | `u64` | — |
-| `updated_at` | `u64` | — |
-| `status` | `TwinStatus` | — |
-| `accuracy_score` | `u32` | — |
-| `completeness_score` | `u32` | — |
-| `sync_frequency` | `u32` | — |
-| `last_sync` | `u64` | — |
-| `data_sources` | `Vec<DataSource>` | — |
-| `model_types` | `Vec<ModelType>` | — |
-| `consent_version` | `u32` | — |
-| `research_consent` | `bool` | — |
-
-#### `struct DataStream`
-
-| Field | Type | Description |
-|---|---|---|
-| `stream_id` | `u64` | — |
-| `twin_id` | `u64` | — |
-| `source` | `DataSource` | — |
-| `data_type` | `DataType` | — |
-| `provider` | `Address` | — |
-| `stream_ref` | `String` | — |
-| `last_update` | `u64` | — |
-| `update_frequency` | `u32` | — |
-| `quality_score` | `u32` | — |
-| `is_active` | `bool` | — |
-| `encryption_key_id` | `Option<BytesN<32>>` | — |
-
-#### `struct DataPoint`
-
-| Field | Type | Description |
-|---|---|---|
-| `timestamp` | `u64` | — |
-| `value` | `String` | — |
-| `confidence` | `u32` | — |
-| `source_id` | `u64` | — |
-| `verification_hash` | `BytesN<32>` | — |
-| `metadata` | `Map<String` | — |
-
-#### `struct PredictiveModel`
-
-| Field | Type | Description |
-|---|---|---|
-| `model_id` | `u64` | — |
-| `twin_id` | `u64` | — |
-| `model_type` | `ModelType` | — |
-| `model_ref` | `String` | — |
-| `version` | `u32` | — |
-| `accuracy` | `u32` | — |
-| `last_trained` | `u64` | — |
-| `training_data_points` | `u32` | — |
-| `validation_score` | `u32` | — |
-| `is_active` | `bool` | — |
-
-#### `struct Prediction`
-
-| Field | Type | Description |
-|---|---|---|
-| `prediction_id` | `u64` | — |
-| `model_id` | `u64` | — |
-| `timestamp` | `u64` | — |
-| `prediction_type` | `String` | — |
-| `confidence` | `u32` | — |
-| `result` | `String` | — |
-| `input_data_hash` | `BytesN<32>` | — |
-| `explanation_ref` | `Option<String>` | — |
-| `risk_level` | `u32` | — |
-
-#### `struct Simulation`
-
-| Field | Type | Description |
-|---|---|---|
-| `simulation_id` | `u64` | — |
-| `twin_id` | `u64` | — |
-| `simulation_type` | `SimulationType` | — |
-| `parameters` | `Map<String` | — |
-| `start_time` | `u64` | — |
-| `end_time` | `u64` | — |
-| `results` | `Map<String` | — |
-| `confidence` | `u32` | — |
-| `created_by` | `Address` | — |
-| `is_complete` | `bool` | — |
-
-#### `struct SyncStatus`
-
-| Field | Type | Description |
-|---|---|---|
-| `twin_id` | `u64` | — |
-| `source` | `DataSource` | — |
-| `last_sync` | `u64` | — |
-| `sync_success` | `bool` | — |
-| `records_synced` | `u32` | — |
-| `errors` | `Vec<String>` | — |
-| `accuracy_delta` | `i32` | — |
-
-#### `struct ResearchSnapshot`
-
-| Field | Type | Description |
-|---|---|---|
-| `snapshot_id` | `u64` | — |
-| `twin_id` | `u64` | — |
-| `researcher` | `Address` | — |
-| `created_at` | `u64` | — |
-| `expires_at` | `u64` | — |
-| `data_types` | `Vec<DataType>` | — |
-| `privacy_level` | `u32` | — |
-| `anonymization_method` | `String` | — |
-| `snapshot_hash` | `BytesN<32>` | — |
-| `access_count` | `u32` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Admin` | — | — |
-| `MedicalRecordsContract` | — | — |
-| `GenomicDataContract` | — | — |
-| `NextTwinId` | — | — |
-| `Twin` | — | — |
-| `u64` | — | — |
-| `TwinByPatient` | — | — |
-| `Address` | — | — |
-| `TwinDataStreams` | — | — |
-| `u64` | — | — |
-| `DataStream` | — | — |
-| `u64` | — | — |
-| `StreamDataPoints` | — | — |
-| `u64` | — | — |
-| `stream_id` | — | — |
-| `Vec` | — | — |
-| `DataPoint` | — | — |
-| `NextStreamId` | — | — |
-| `NextModelId` | — | — |
-| `PredictiveModel` | — | — |
-| `u64` | — | — |
-| `TwinModels` | — | — |
-| `u64` | — | — |
-| `NextPredictionId` | — | — |
-| `Prediction` | — | — |
-| `u64` | — | — |
-| `ModelPredictions` | — | — |
-| `u64` | — | — |
-| `NextSimulationId` | — | — |
-| `Simulation` | — | — |
-| `u64` | — | — |
-| `TwinSimulations` | — | — |
-| `u64` | — | — |
-| `SyncStatus` | — | — |
-| `u64` | — | — |
-| `DataSource` | — | — |
-| `NextSnapshotId` | — | — |
-| `ResearchSnapshot` | — | — |
-| `u64` | — | — |
-| `TwinSnapshots` | — | — |
-| `u64` | — | — |
-| `AccuracyMetrics` | — | — |
-| `u64` | — | — |
-| `GlobalStats` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotAuthorized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `AlreadyInitialized` | 3 | — |
-| `TwinNotFound` | 4 | — |
-| `InvalidStatus` | 5 | — |
-| `DataStreamNotFound` | 6 | — |
-| `ModelNotFound` | 7 | — |
-| `SimulationNotFound` | 8 | — |
-| `InvalidParameter` | 9 | — |
-| `InsufficientAccuracy` | 10 | — |
-| `SyncInProgress` | 11 | — |
-| `ResearchAccessDenied` | 12 | — |
-| `SnapshotExpired` | 13 | — |
-| `DuplicateDataStream` | 14 | — |
-| `ModelNotActive` | 15 | — |
-| `SimulationInvalid` | 16 | — |
-| `PrivacyLevelInsufficient` | 17 | — |
-| `ConsentRequired` | 18 | — |
-| `ContractNotSet` | 19 | — |
 
 ---
 
@@ -3202,284 +2032,6 @@ let (env, client, _id) = setup();
 | `NotInitialized` | 1 | — |
 | `NotArbiter` | 2 | — |
 | `DisputeNotFound` | 3 | — |
-
----
-
-## drug_discovery
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address, analyzer: Address, predictor: Address` | `bool` | — |
-| `get_config` | `env: Env` | `Result<PlatformConfig, Error>` | — |
-| `get_molecule` | `env: Env, molecule_id: u64` | `Result<MolecularStructure, Error>` | — |
-
-### Types
-
-#### `struct PlatformConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `admin` | `Address` | — |
-| `analyzer` | `Address` | — |
-| `predictor` | `Address` | — |
-| `genomic_contract` | `Option<Address>` | — |
-| `clinical_trial_contract` | `Option<Address>` | — |
-| `large_scale_mode` | `bool` | — |
-| `quantum_enabled` | `bool` | — |
-| `min_candidate_accuracy_bps` | `u32` | — |
-| `max_analysis_time_hours` | `u32` | — |
-
-#### `struct MolecularStructure`
-
-| Field | Type | Description |
-|---|---|---|
-| `molecule_id` | `u64` | — |
-| `canonical_smiles` | `String` | — |
-| `inchi_key` | `String` | — |
-| `molecular_weight_milli` | `u32` | — |
-| `h_bond_donors` | `u32` | — |
-| `h_bond_acceptors` | `u32` | — |
-| `rotatable_bonds` | `u32` | — |
-| `fingerprint` | `Vec<u32>` | — |
-| `database_refs` | `Vec<String>` | — |
-| `created_at` | `u64` | — |
-
-#### `struct StructureAnalysis`
-
-| Field | Type | Description |
-|---|---|---|
-| `molecule_id` | `u64` | — |
-| `lipinski_violations` | `u32` | — |
-| `qed_score_bps` | `u32` | — |
-| `synthetic_accessibility_bps` | `u32` | — |
-| `novelty_score_bps` | `u32` | — |
-| `created_at` | `u64` | — |
-
-#### `struct DrugTargetPrediction`
-
-| Field | Type | Description |
-|---|---|---|
-| `prediction_id` | `u64` | — |
-| `molecule_id` | `u64` | — |
-| `target_gene` | `String` | — |
-| `binding_affinity_pico` | `u64` | — |
-| `confidence_bps` | `u32` | — |
-| `model_ref` | `String` | — |
-| `created_at` | `u64` | — |
-
-#### `struct AdverseEffectPrediction`
-
-| Field | Type | Description |
-|---|---|---|
-| `adverse_id` | `u64` | — |
-| `molecule_id` | `u64` | — |
-| `effect_code` | `String` | — |
-| `severity_bps` | `u32` | — |
-| `probability_bps` | `u32` | — |
-| `cohort_ref` | `String` | — |
-| `created_at` | `u64` | — |
-
-#### `struct TrialMatchResult`
-
-| Field | Type | Description |
-|---|---|---|
-| `match_id` | `u64` | — |
-| `molecule_id` | `u64` | — |
-| `protocol_id` | `u64` | — |
-| `fit_score_bps` | `u32` | — |
-| `expected_enrollment_days` | `u32` | — |
-| `matched_at` | `u64` | — |
-
-#### `struct QuantumSimulationRequest`
-
-| Field | Type | Description |
-|---|---|---|
-| `simulation_id` | `u64` | — |
-| `molecule_id` | `u64` | — |
-| `target_gene` | `String` | — |
-| `algorithm` | `String` | — |
-| `depth` | `u32` | — |
-| `shots` | `u32` | — |
-| `queued_at` | `u64` | — |
-
-#### `struct ScreeningCampaignReport`
-
-| Field | Type | Description |
-|---|---|---|
-| `campaign_id` | `u64` | — |
-| `target_gene` | `String` | — |
-| `screened_candidates` | `u32` | — |
-| `identified_candidates` | `u32` | — |
-| `candidate_accuracy_bps` | `u32` | — |
-| `analysis_time_hours` | `u32` | — |
-| `used_quantum` | `bool` | — |
-| `completed_at` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Config` | — | — |
-| `Molecule` | — | — |
-| `u64` | — | — |
-| `MoleculeCount` | — | — |
-| `Analysis` | — | — |
-| `u64` | — | — |
-| `Prediction` | — | — |
-| `u64` | — | — |
-| `PredictionCount` | — | — |
-| `AdversePrediction` | — | — |
-| `u64` | — | — |
-| `AdverseCount` | — | — |
-| `TrialMatch` | — | — |
-| `u64` | — | — |
-| `MatchCount` | — | — |
-| `QuantumRequest` | — | — |
-| `u64` | — | — |
-| `QuantumCount` | — | — |
-| `CampaignReport` | — | — |
-| `u64` | — | — |
-| `CampaignCount` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotAuthorized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `InvalidInput` | 3 | — |
-| `MoleculeNotFound` | 4 | — |
-| `PredictionNotFound` | 5 | — |
-| `BenchmarkNotMet` | 6 | — |
-| `IntegrationMissing` | 7 | — |
-| `QuantumDisabled` | 8 | — |
-
-#### `struct TrialProtocolView`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `title` | `String` | — |
-| `version` | `u32` | — |
-| `sponsor` | `Address` | — |
-| `created_at` | `u64` | — |
-| `active` | `bool` | — |
-| `metadata_ref` | `String` | — |
-
-### Examples
-
-#### `test_molecular_analysis_prediction_and_adverse_effects`
-
-```rust
-let env = Env::default();
-    let (client, _admin, analyzer, predictor) = setup(&env);
-
-    let fingerprint = Vec::from_array(&env, [13u32, 37u32, 101u32, 211u32]);
-    let db_refs = Vec::from_array(
-        &env,
-        [
-            String::from_str(&env, "pubchem:2244"),
-            String::from_str(&env, "chembl:25"),
-```
-
-#### `test_screening_campaign_benchmark_enforcement`
-
-```rust
-let env = Env::default();
-    let (client, _admin, analyzer, predictor) = setup(&env);
-
-    let fp = Vec::from_array(&env, [1u32, 2u32, 3u32]);
-    let refs = Vec::from_array(&env, [String::from_str(&env, "db:a")]);
-
-    let m1 = client.register_molecule(
-        &analyzer,
-        &String::from_str(&env, "NCC(=O)O"),
-```
-
-#### `test_quantum_simulation_guardrails`
-
-```rust
-let env = Env::default();
-    let (client, admin, analyzer, predictor) = setup(&env);
-
-    let fp = Vec::from_array(&env, [7u32, 8u32, 9u32]);
-    let refs = Vec::from_array(&env, [String::from_str(&env, "db:b")]);
-    let molecule_id = client.register_molecule(
-        &analyzer,
-        &String::from_str(&env, "C1=CC=CC=C1"),
-        &String::from_str(&env, "UHOVQNZJYSORNB-UHFFFAOYSA-N"),
-```
-
----
-
-## emergency_access_override
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `get_admin` | `env: Env` | `Result<Address, Error>` | — |
-
-### Types
-
-#### `struct EmergencyAccessRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `provider` | `Address` | — |
-| `requested_duration` | `u64` | — |
-| `granted_at` | `u64` | — |
-| `expiry_at` | `u64` | — |
-| `approved` | `bool` | — |
-| `approvers` | `Vec<Address>` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initialized` | — | — |
-| `Admin` | — | — |
-| `ApprovalThreshold` | — | — |
-| `TrustedApprover` | — | — |
-| `Address` | — | — |
-| `approver` | — | — |
-| `bool` | — | — |
-| `exists` | — | — |
-| `EmergencyAccess` | — | — |
-| `Address` | — | — |
-| `Address` | — | — |
-| `patient` | — | — |
-| `provider` | — | — |
-
-### Error Codes
-
-| Variant | Code | Description |
-|---|---|---|
-| `NotInitialized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `InvalidThreshold` | 4 | — |
-| `InvalidDuration` | 5 | — |
-| `RecordNotFound` | 6 | — |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let (env, client, admin, _, _, _, approvers) = setup();
-        let result = client.initialize(&admin, &approvers, &2);
-        assert!(result.is_ok());
-    }
-
-    #[test]
-    fn test_initialize_threshold_invalid() {
-        let (env, client, admin, _, _, _, approvers) = setup();
-        // threshold 0 invalid
-```
 
 ---
 
@@ -3822,83 +2374,24 @@ let env = Env::default();
 | `get_daily_stats` | `env: Env, day_id: u64` | `Option<DailyStats>` | — |
 | `export_summary` | `env: Env, format: String` | `ExportMetadata` | — |
 
-### Types
+### Error Codes
 
-#### `enum Error`
-
-| Variant | Value | Description |
+| Variant | Code | Description |
 |---|---|---|
-| `InvalidFeeBps` | 1 | — |
-| `FeeNotSet` | 2 | — |
-| `InvalidAmount` | 3 | — |
-| `EscrowExists` | 4 | — |
-| `EscrowNotFound` | 5 | — |
-| `AlreadySettled` | 6 | — |
-| `InsufficientApprovals` | 7 | — |
-| `NoBasisToRefund` | 8 | — |
-| `NoCredit` | 9 | — |
-| `ReentrancyGuard` | 10 | — |
-| `InvalidStateTransition` | 11 | — |
-| `Unauthorized` | 12 | — |
-| `NotAdmin` | 13 | — |
-| `Overflow` | 14 | — |
-
-#### `enum EscrowStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | 0 | — |
-| `Active` | 1 | — |
-| `Settled` | 2 | — |
-| `Refunded` | 3 | — |
-| `Disputed` | 4 | — |
-
-#### `struct Escrow`
-
-| Field | Type | Description |
-|---|---|---|
-| `order_id` | `u64` | — |
-| `payer` | `Address` | — |
-| `payee` | `Address` | — |
-| `amount` | `i128` | — |
-| `token` | `Address` | — |
-| `status` | `EscrowStatus` | — |
-| `approvals` | `Vec<Address>` | — |
-| `reason` | `String` | — |
-
-#### `struct PlatformStats`
-
-| Field | Type | Description |
-|---|---|---|
-| `total_volume` | `i128` | — |
-| `total_escrows` | `u64` | — |
-| `settled_count` | `u64` | — |
-| `refunded_count` | `u64` | — |
-| `disputed_count` | `u64` | — |
-| `active_count` | `u64` | — |
-
-#### `struct DailyStats`
-
-| Field | Type | Description |
-|---|---|---|
-| `day_id` | `u64` | — |
-| `volume` | `i128` | — |
-| `count` | `u32` | — |
-
-#### `struct ExportMetadata`
-
-| Field | Type | Description |
-|---|---|---|
-| `format` | `String` | — |
-| `checksum` | `BytesN<32>` | — |
-| `timestamp` | `u64` | — |
-
-#### `struct FeeConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `platform_fee_bps` | `u32` | — |
-| `fee_receiver` | `Address` | — |
+| `Unauthorized` | 100 | — |
+| `NotAdmin` | 102 | — |
+| `InsufficientApprovals` | 120 | — |
+| `InvalidAmount` | 205 | — |
+| `InvalidFeeBps` | 260 | — |
+| `FeeNotSet` | 380 | — |
+| `ReentrancyRejected` | 381 | — |
+| `InvalidStateTransition` | 382 | — |
+| `EscrowExists` | 480 | — |
+| `EscrowNotFound` | 481 | — |
+| `AlreadySettled` | 482 | — |
+| `NoBasisToRefund` | 560 | — |
+| `NoCredit` | 561 | — |
+| `Overflow` | 562 | — |
 
 ---
 
@@ -4051,620 +2544,6 @@ let env = Env::default();
 | `InvalidImportance` | 4 | — |
 | `AuditNotFound` | 5 | — |
 | `InvalidBPSValue` | 6 | — |
-
----
-
-## failover_detector
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
-| `assign_role` | `env: Env, caller: Address, user: Address, role_mask: u32` | `Result<(), Error>` | — |
-| `get_detections` | `env: Env` | `Vec<FailoverDetection>` | — |
-| `get_node_metrics` | `env: Env, node_id: u32` | `Option<NodeFailureMetric>` | — |
-| `get_failover_executions` | `env: Env` | `Vec<FailoverExecution>` | — |
-| `get_failover_plans` | `env: Env` | `Vec<FailoverPlan>` | — |
-
-### Types
-
-#### `enum FailoverReason`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NodeFailure` | 0 | — |
-| `HeartbeatTimeout` | 1 | — |
-| `HighLatency` | 2 | — |
-| `ResourceExhaustion` | 3 | — |
-| `DataInconsistency` | 4 | — |
-| `ManualTrigger` | 5 | — |
-
-#### `enum FailoverState`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | 0 | — |
-| `InProgress` | 1 | — |
-| `Completed` | 2 | — |
-| `RolledBack` | 3 | — |
-| `Failed` | 4 | — |
-
-#### `struct FailoverDetection`
-
-| Field | Type | Description |
-|---|---|---|
-| `detection_id` | `u64` | — |
-| `source_node_id` | `u32` | — |
-| `detected_at` | `u64` | — |
-| `reason` | `FailoverReason` | — |
-| `severity_level` | `u32` | — |
-| `consecutive_failures` | `u32` | — |
-| `is_critical` | `bool` | — |
-
-#### `struct FailoverExecution`
-
-| Field | Type | Description |
-|---|---|---|
-| `execution_id` | `u64` | — |
-| `detection_id` | `u64` | — |
-| `source_node_id` | `u32` | — |
-| `target_node_id` | `u32` | — |
-| `initiated_at` | `u64` | — |
-| `completed_at` | `u64` | — |
-| `state` | `FailoverState` | — |
-| `rto_ms` | `u64` | — |
-
-#### `struct NodeFailureMetric`
-
-| Field | Type | Description |
-|---|---|---|
-| `node_id` | `u32` | — |
-| `consecutive_failures` | `u32` | — |
-| `last_failure_at` | `u64` | — |
-| `total_failures` | `u64` | — |
-| `recovery_attempts` | `u32` | — |
-| `last_successful_recovery` | `u64` | — |
-
-#### `struct FailoverPlan`
-
-| Field | Type | Description |
-|---|---|---|
-| `plan_id` | `u64` | — |
-| `source_node_id` | `u32` | — |
-| `target_nodes` | `Vec<u32>` | — |
-| `priority_order` | `Vec<u32>` | — |
-| `created_at` | `u64` | — |
-| `is_active` | `bool` | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `InvalidInput` | 4 | — |
-| `NodeNotFound` | 5 | — |
-| `FailoverNotFound` | 6 | — |
-| `NoAvailableTargets` | 7 | — |
-| `FailoverInProgress` | 8 | — |
-| `MaxFailuresReached` | 9 | — |
-| `RecoveryFailed` | 10 | — |
-
----
-
-## federated_learning
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address, coordinator: Address` | `Result<bool, Error>` | — |
-| `begin_aggregation` | `env: Env, coordinator: Address, round_id: u64` | `Result<bool, Error>` | — |
-| `get_institution` | `env: Env, institution: Address` | `Option<Institution>` | — |
-| `get_round` | `env: Env, round_id: u64` | `Option<FederatedRound>` | — |
-| `get_model` | `env: Env, model_id: BytesN<32>` | `Option<ModelMetadata>` | — |
-| `get_privacy_metrics` | `env: Env, round_id: u64` | `Option<PrivacyMetrics>` | — |
-| `get_attack_detection` | `env: Env, round_id: u64` | `Option<AttackDetection>` | — |
-| `get_communication_metrics` | `env: Env, round_id: u64` | `Option<CommunicationMetrics>` | — |
-| `get_contribution_verification` | `env: Env, round_id: u64, institution: Address` | `Option<ContributionVerification>` | — |
-
-### Types
-
-#### `enum ModelType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `CNN` | — | — |
-| `RNN` | — | — |
-| `Transformer` | — | — |
-| `FeedForward` | — | — |
-| `GNN` | — | — |
-| `Hybrid` | — | — |
-
-#### `enum Framework`
-
-| Variant | Value | Description |
-|---|---|---|
-| `TensorFlow` | — | — |
-| `PyTorch` | — | — |
-| `JAX` | — | — |
-| `Custom` | — | — |
-
-#### `enum AggregationMethod`
-
-| Variant | Value | Description |
-|---|---|---|
-| `FedAvg` | — | — |
-| `FedProx` | — | — |
-| `SecureAgg` | — | — |
-| `Krum` | — | — |
-| `MultiKrum` | — | — |
-| `TrimmedMean` | — | — |
-
-#### `enum RoundStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Open` | — | — |
-| `Aggregating` | — | — |
-| `Finalized` | — | — |
-| `Failed` | — | — |
-| `Verification` | — | — |
-
-#### `enum InstitutionStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Active` | — | — |
-| `Suspended` | — | — |
-| `Blacklisted` | — | — |
-| `UnderReview` | — | — |
-
-#### `struct Institution`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `Address` | — |
-| `name` | `String` | — |
-| `credential_hash` | `BytesN<32>` | — |
-| `reputation_score` | `u32` | — |
-| `total_contributions` | `u32` | — |
-| `reward_balance` | `i128` | — |
-| `status` | `InstitutionStatus` | — |
-| `registered_at` | `u64` | — |
-| `last_contribution` | `u64` | — |
-| `privacy_budget_used` | `u32` | — |
-| `contribution_quality_score` | `u32` | — |
-| `framework_preference` | `Framework` | — |
-
-#### `struct RoundConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `model_type` | `ModelType` | — |
-| `framework` | `Framework` | — |
-| `aggregation_method` | `AggregationMethod` | — |
-| `min_participants` | `u32` | — |
-| `max_participants` | `u32` | — |
-| `dp_epsilon` | `u32` | — |
-| `dp_delta` | `u32` | — |
-| `reward_per_participant` | `i128` | — |
-| `duration_seconds` | `u64` | — |
-| `verification_threshold` | `u32` | — |
-| `poisoning_detection_threshold` | `u32` | — |
-| `communication_budget` | `u32` | — |
-
-#### `struct FederatedRound`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `base_model_id` | `BytesN<32>` | — |
-| `model_type` | `ModelType` | — |
-| `framework` | `Framework` | — |
-| `aggregation_method` | `AggregationMethod` | — |
-| `min_participants` | `u32` | — |
-| `max_participants` | `u32` | — |
-| `reward_per_participant` | `i128` | — |
-| `total_updates` | `u32` | — |
-| `status` | `RoundStatus` | — |
-| `started_at` | `u64` | — |
-| `deadline` | `u64` | — |
-| `finalized_at` | `u64` | — |
-| `aggregated_model_id` | `BytesN<32>` | — |
-| `verification_score` | `u32` | — |
-| `poisoning_detected` | `bool` | — |
-| `communication_overhead` | `u32` | — |
-
-#### `struct ModelOutput`
-
-| Field | Type | Description |
-|---|---|---|
-| `model_id` | `BytesN<32>` | — |
-| `description` | `String` | — |
-| `weights_ref` | `String` | — |
-| `global_accuracy` | `u32` | — |
-| `validation_score` | `u32` | — |
-| `version` | `u32` | — |
-| `convergence_metrics` | `Map<String` | — |
-| `privacy_loss` | `u32` | — |
-| `communication_cost` | `u32` | — |
-
-#### `struct ModelMetadata`
-
-| Field | Type | Description |
-|---|---|---|
-| `model_id` | `BytesN<32>` | — |
-| `round_id` | `u64` | — |
-| `model_type` | `ModelType` | — |
-| `framework` | `Framework` | — |
-| `num_contributors` | `u32` | — |
-| `validation_score` | `u32` | — |
-| `version` | `u32` | — |
-| `aggregation_method` | `AggregationMethod` | — |
-| `privacy_guarantee` | `u32` | — |
-| `robustness_score` | `u32` | — |
-
-#### `struct ContributionVerification`
-
-| Field | Type | Description |
-|---|---|---|
-| `institution` | `Address` | — |
-| `round_id` | `u64` | — |
-| `gradient_hash` | `BytesN<32>` | — |
-| `quality_score` | `u32` | — |
-| `similarity_score` | `u32` | — |
-| `privacy_compliance` | `bool` | — |
-| `anomaly_detected` | `bool` | — |
-| `contribution_weight` | `u32` | — |
-| `verification_timestamp` | `u64` | — |
-
-#### `struct PrivacyMetrics`
-
-| Field | Type | Description |
-|---|---|---|
-| `epsilon_used` | `u32` | — |
-| `delta_used` | `u32` | — |
-| `noise_scale` | `u32` | — |
-| `clipping_bound` | `u32` | — |
-| `privacy_budget_remaining` | `u32` | — |
-| `cumulative_privacy_loss` | `u32` | — |
-
-#### `struct AttackDetection`
-
-| Field | Type | Description |
-|---|---|---|
-| `round_id` | `u64` | — |
-| `detected_attacks` | `Vec<String>` | — |
-| `suspicious_participants` | `Vec<Address>` | — |
-| `attack_confidence` | `u32` | — |
-| `mitigation_applied` | `bool` | — |
-
-#### `struct CommunicationMetrics`
-
-| Field | Type | Description |
-|---|---|---|
-| `total_bytes_sent` | `u32` | — |
-| `total_bytes_received` | `u32` | — |
-| `compression_ratio` | `u32` | — |
-| `latency_ms` | `u32` | — |
-| `protocol_efficiency` | `u32` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Admin` | — | — |
-| `Coordinator` | — | — |
-| `RoundCounter` | — | — |
-| `Institution` | — | — |
-| `Address` | — | — |
-| `Round` | — | — |
-| `u64` | — | — |
-| `RoundParticipants` | — | — |
-| `u64` | — | — |
-| `UpdateSubmitted` | — | — |
-| `u64` | — | — |
-| `Address` | — | — |
-| `Model` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `ContributionVerification` | — | — |
-| `u64` | — | — |
-| `Address` | — | — |
-| `PrivacyMetrics` | — | — |
-| `u64` | — | — |
-| `AttackDetection` | — | — |
-| `u64` | — | — |
-| `CommunicationMetrics` | — | — |
-| `u64` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotAuthorized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `RoundNotFound` | 3 | — |
-| `RoundNotOpen` | 4 | — |
-| `RoundNotAggregating` | 5 | — |
-| `RoundFinalized` | 6 | — |
-| `NotEnoughParticipants` | 7 | — |
-| `TooManyParticipants` | 8 | — |
-| `DuplicateUpdate` | 9 | — |
-| `InvalidDPParam` | 10 | — |
-| `InstitutionNotFound` | 11 | — |
-| `InstitutionNotActive` | 12 | — |
-| `InstitutionAlreadyRegistered` | 13 | — |
-| `LowReputation` | 14 | — |
-| `InvalidParameter` | 15 | — |
-| `DeadlineExceeded` | 16 | — |
-| `ValidationFailed` | 17 | — |
-| `PrivacyBudgetExceeded` | 18 | — |
-| `PoisoningAttackDetected` | 19 | — |
-| `CommunicationBudgetExceeded` | 20 | — |
-| `VerificationFailed` | 21 | — |
-| `FrameworkNotSupported` | 22 | — |
-| `ContributionQualityLow` | 23 | — |
-
----
-
-## fhir_integration
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `get_provider` | `env: Env, provider_id: String` | `Result<HealthcareProvider, Error>` | Get provider information |
-| `get_observation` | `env: Env, observation_id: String` | `Result<FHIRObservation, Error>` | Get observation by identifier |
-| `get_condition` | `env: Env, condition_id: String` | `Result<FHIRCondition, Error>` | Get condition by identifier |
-| `get_procedure` | `env: Env, procedure_id: String` | `Result<FHIRProcedure, Error>` | Get procedure by identifier |
-| `get_allergy` | `env: Env, allergy_id: String` | `Result<FHIRAllergyIntolerance, Error>` | Get allergy intolerance by identifier |
-| `pause` | `env: Env, admin: Address` | `Result<bool, Error>` | Pause contract operations (emergency) |
-| `resume` | `env: Env, admin: Address` | `Result<bool, Error>` | Resume contract operations |
-
-### Types
-
-#### `enum FHIRResourceType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Patient` | 0 | — |
-| `Observation` | 1 | — |
-| `Condition` | 2 | — |
-| `MedicationStatement` | 3 | — |
-| `Procedure` | 4 | — |
-| `AllergyIntolerance` | 5 | — |
-| `CareTeam` | 6 | — |
-| `Encounter` | 7 | — |
-| `DiagnosticReport` | 8 | — |
-| `Immunization` | 9 | — |
-| `DocumentReference` | 10 | — |
-
-#### `enum CodingSystem`
-
-| Variant | Value | Description |
-|---|---|---|
-| `ICD` | — | — |
-| `10` | — | — |
-| `International` | — | — |
-| `Classification` | — | — |
-| `of` | — | — |
-| `Diseases` | — | — |
-| `ICD10` | — | — |
-| `ICD` | — | — |
-| `9` | — | — |
-| `Legacy` | — | — |
-| `diagnosis` | — | — |
-| `codes` | — | — |
-| `ICD9` | — | — |
-| `CPT` | — | — |
-| `Current` | — | — |
-| `Procedural` | — | — |
-| `Terminology` | — | — |
-| `CPT` | — | — |
-| `SNOMED` | — | — |
-| `CT` | — | — |
-| `Clinical` | — | — |
-| `coding` | — | — |
-| `terminology` | — | — |
-| `SNOMEDCT` | — | — |
-| `LOINC` | — | — |
-| `Laboratory` | — | — |
-| `codes` | — | — |
-| `LOINC` | — | — |
-| `RxNorm` | — | — |
-| `Medications` | — | — |
-| `RxNorm` | — | — |
-| `HL7` | — | — |
-| `Custom` | — | — |
-| `Custom` | — | — |
-
-#### `struct FHIRCode`
-
-| Field | Type | Description |
-|---|---|---|
-| `system` | `CodingSystem` | — |
-| `code` | `String` | — |
-| `display` | `String` | — |
-
-#### `struct FHIRIdentifier`
-
-| Field | Type | Description |
-|---|---|---|
-| `system` | `String` | — |
-| `value` | `String` | — |
-| `use_type` | `String` | — |
-
-#### `struct FHIRPatient`
-
-| Field | Type | Description |
-|---|---|---|
-| `identifiers` | `Vec<FHIRIdentifier>` | — |
-| `given_name` | `String` | — |
-| `family_name` | `String` | — |
-| `birth_date` | `String` | — |
-| `gender` | `String` | — |
-| `contact_point` | `String` | — |
-| `address` | `String` | — |
-| `communication` | `Vec<String>` | — |
-| `marital_status` | `String` | — |
-
-#### `struct FHIRObservation`
-
-| Field | Type | Description |
-|---|---|---|
-| `identifier` | `String` | — |
-| `status` | `String` | — |
-| `category` | `FHIRCode` | — |
-| `code` | `FHIRCode` | — |
-| `subject_reference` | `String` | — |
-| `effective_datetime` | `String` | — |
-| `value_quantity_value` | `i64` | — |
-| `value_quantity_unit` | `String` | — |
-| `interpretation` | `Vec<FHIRCode>` | — |
-| `reference_range` | `String` | — |
-
-#### `struct FHIRCondition`
-
-| Field | Type | Description |
-|---|---|---|
-| `identifier` | `String` | — |
-| `clinical_status` | `String` | — |
-| `code` | `FHIRCode` | — |
-| `subject_reference` | `String` | — |
-| `onset_date_time` | `String` | — |
-| `recorded_date` | `String` | — |
-| `severity` | `Vec<FHIRCode>` | — |
-
-#### `struct FHIRMedicationStatement`
-
-| Field | Type | Description |
-|---|---|---|
-| `identifier` | `String` | — |
-| `status` | `String` | — |
-| `medication_code` | `FHIRCode` | — |
-| `subject_reference` | `String` | — |
-| `effective_period_start` | `String` | — |
-| `effective_period_end` | `String` | — |
-| `dosage` | `String` | — |
-| `reason_code` | `Vec<FHIRCode>` | — |
-
-#### `struct FHIRProcedure`
-
-| Field | Type | Description |
-|---|---|---|
-| `identifier` | `String` | — |
-| `status` | `String` | — |
-| `code` | `FHIRCode` | — |
-| `subject_reference` | `String` | — |
-| `performed_date_time` | `String` | — |
-| `performer` | `Vec<String>` | — |
-| `reason_code` | `Vec<FHIRCode>` | — |
-
-#### `struct FHIRAllergyIntolerance`
-
-| Field | Type | Description |
-|---|---|---|
-| `identifier` | `String` | — |
-| `clinical_status` | `String` | — |
-| `verification_status` | `String` | — |
-| `substance_code` | `FHIRCode` | — |
-| `patient_reference` | `String` | — |
-| `recorded_date` | `String` | — |
-| `manifestation` | `Vec<FHIRCode>` | — |
-| `severity` | `String` | — |
-
-#### `struct FHIRBundle`
-
-| Field | Type | Description |
-|---|---|---|
-| `bundle_id` | `String` | — |
-| `timestamp` | `u64` | — |
-| `bundle_type` | `String` | — |
-| `total` | `u32` | — |
-
-#### `struct HealthcareProvider`
-
-| Field | Type | Description |
-|---|---|---|
-| `provider_id` | `String` | — |
-| `name` | `String` | — |
-| `facility_type` | `String` | — |
-| `npi` | `String` | — |
-| `tax_id` | `String` | — |
-| `address` | `String` | — |
-| `contact_point` | `String` | — |
-| `emr_system` | `String` | — |
-| `fhir_endpoint` | `String` | — |
-| `is_verified` | `bool` | — |
-| `verification_timestamp` | `u64` | — |
-| `credential_id` | `BytesN<32>` | — |
-
-#### `struct EMRConfiguration`
-
-| Field | Type | Description |
-|---|---|---|
-| `provider_id` | `String` | — |
-| `fhir_version` | `String` | — |
-| `supported_resources` | `Vec<FHIRResourceType>` | — |
-| `authentication_type` | `String` | — |
-| `oauth_endpoint` | `String` | — |
-| `data_format` | `String` | — |
-| `batch_size` | `u32` | — |
-| `retry_policy` | `String` | — |
-
-#### `struct DataMapping`
-
-| Field | Type | Description |
-|---|---|---|
-| `source_system` | `String` | — |
-| `source_field` | `String` | — |
-| `target_system` | `String` | — |
-| `target_field` | `String` | — |
-| `transformation_rule` | `String` | — |
-| `status` | `String` | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotAuthorized` | 1 | — |
-| `ContractPaused` | 2 | — |
-| `ProviderNotFound` | 3 | — |
-| `ProviderAlreadyExists` | 4 | — |
-| `ObservationNotFound` | 5 | — |
-| `ConditionNotFound` | 6 | — |
-| `InvalidFHIRData` | 7 | — |
-| `EMRConfigNotSet` | 8 | — |
-| `InvalidResourceType` | 9 | — |
-| `MappingNotFound` | 10 | — |
-| `ProviderNotVerified` | 11 | — |
-| `InvalidNPI` | 12 | — |
-| `InvalidTaxId` | 13 | — |
-| `BundleNotFound` | 14 | — |
-| `InvalidDataFormat` | 15 | — |
-| `ProviderAlreadyVerified` | 16 | — |
-| `MedicalRecordsContractNotSet` | 17 | — |
-| `OperationFailed` | 18 | — |
-| `InvalidBundleType` | 19 | — |
-| `DataMappingFailed` | 20 | — |
-
-### Examples
-
-#### `initialize_smoke_test`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let (client, _id) = setup(&env);
-    let admin = Address::generate(&env);
-    let medical_records_contract = Address::generate(&env);
-    assert!(client.initialize(&admin, &medical_records_contract));
-```
 
 ---
 
@@ -5015,36 +2894,6 @@ let env = Env::default();
 
 ---
 
-## forensics
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `()` | Initialize with administrator |
-| `analyze_pattern` | `env: Env, pattern_id: String` | `PatternAnalysis` | Analyze activity patterns for potential threats |
-| `detect_suspicious` | `env: Env, actor: Address, threshold: u32` | `bool` | Detect suspicious activity using adaptive algorithms (simplified) |
-| `update_investigation` | `env: Env, admin: Address, report_id: u64, status: String` | `bool` | Update an investigation status |
-| `blacklist_actor` | `env: Env, admin: Address, actor_to_blacklist: Address` | `()` | Blacklist a suspicious address after forensic evidence |
-
-### Examples
-
-#### `test_forensics_lifecycle`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let admin = Address::generate(&env);
-    let contract_id = env.register_contract(None, OnChainForensics);
-    let client = OnChainForensicsClient::new(&env, &contract_id);
-
-    // 1. Initialize
-    client.initialize(&admin);
-```
-
----
-
 ## fp_math
 
 ### Functions
@@ -5053,291 +2902,6 @@ let env = Env::default();
 |---|---|---|---|
 | `mul_bps` | `amount: i128, bps: u32` | `Option<i128>` | Multiply `amount` by basis points (1 bps = 0.01%) using floor division.  Floor rounding ensures fees are never rounded up — the fee taker always receives ≤ the exact fractional amount. Callers can reconstruct the complementary side as `amount - fee` to guarantee `fee + remainder == amount`.  Returns `None` if the intermediate `amount * bps` overflows `i128`. |
 | `mul_bps_round_half_up` | `amount: i128, bps: u32` | `Option<i128>` | Multiply `amount` by basis points with round-half-up rounding.  Returns `None` on overflow. |
-
----
-
-## genomic_data
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `bool` | — |
-| `set_zk_verifier` | `env: Env, admin: Address, contract_id: Address` | `bool` | — |
-| `get_record_header` | `env: Env, caller: Address, id: u64` | `Option<GenomicRecordHeader>` | — |
-| `revoke_consent` | `env: Env, patient: Address, record_id: u64, grantee: Address` | `bool` | — |
-| `purchase_listing` | `env: Env, buyer: Address, listing_id: u64` | `bool` | — |
-
-### Types
-
-#### `enum GenomicFormat`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Fasta` | — | — |
-| `Vcf` | — | — |
-| `Bam` | — | — |
-
-#### `enum Compression`
-
-| Variant | Value | Description |
-|---|---|---|
-| `None` | — | — |
-| `Gzip` | — | — |
-| `Zstd` | — | — |
-
-#### `enum EnvelopeAlgorithm`
-
-| Variant | Value | Description |
-|---|---|---|
-| `X25519` | — | — |
-| `Kyber768` | — | — |
-| `HybridX25519Kyber768` | — | — |
-
-#### `struct KeyEnvelope`
-
-| Field | Type | Description |
-|---|---|---|
-| `recipient` | `Address` | — |
-| `key_version` | `u32` | — |
-| `algorithm` | `EnvelopeAlgorithm` | — |
-| `wrapped_key` | `Bytes` | — |
-| `pq_wrapped_key` | `Option<Bytes>` | — |
-
-#### `struct GenomicRecordHeader`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `uploader` | `Address` | — |
-| `format` | `GenomicFormat` | — |
-| `compression` | `Compression` | — |
-| `created_at` | `u64` | — |
-| `data_ref` | `String` | — |
-| `data_hash` | `BytesN<32>` | — |
-| `ciphertext_hash` | `BytesN<32>` | — |
-
-#### `struct GenomicRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `header` | `GenomicRecordHeader` | — |
-| `tags` | `Vec<String>` | — |
-| `envelopes` | `Vec<KeyEnvelope>` | — |
-| `consent_id` | `Option<Bytes>` | — |
-
-#### `struct PrivacyGrant`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `requester` | `Address` | — |
-| `expires_at` | `u64` | — |
-| `pseudonym` | `BytesN<32>` | — |
-| `vk_version` | `u32` | — |
-
-#### `struct GeneDiseaseAssoc`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `gene` | `String` | — |
-| `disease_code` | `String` | — |
-| `score_bps` | `u32` | — |
-| `method` | `String` | — |
-| `created_at` | `u64` | — |
-| `curator` | `Address` | — |
-
-#### `struct DrugResponse`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `drug` | `String` | — |
-| `genotype_marker` | `String` | — |
-| `effect` | `String` | — |
-| `recommendation` | `String` | — |
-| `created_at` | `u64` | — |
-
-#### `struct PopulationShare`
-
-| Field | Type | Description |
-|---|---|---|
-| `label` | `String` | — |
-| `bps` | `u32` | — |
-
-#### `struct AncestryProfile`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `components` | `Vec<PopulationShare>` | — |
-| `method` | `String` | — |
-| `created_at` | `u64` | — |
-
-#### `struct ConsentEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `grantee` | `Address` | — |
-| `scope` | `String` | — |
-| `expires_at` | `u64` | — |
-| `active` | `bool` | — |
-
-#### `enum ListingStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Active` | — | — |
-| `Purchased` | — | — |
-| `Cancelled` | — | — |
-
-#### `struct Listing`
-
-| Field | Type | Description |
-|---|---|---|
-| `listing_id` | `u64` | — |
-| `record_id` | `u64` | — |
-| `seller` | `Address` | — |
-| `price` | `i128` | — |
-| `currency` | `Address` | — |
-| `escrow` | `Option<Address>` | — |
-| `buyer` | `Option<Address>` | — |
-| `status` | `ListingStatus` | — |
-| `created_at` | `u64` | — |
-
-#### `struct BreachEvent`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `reporter` | `Address` | — |
-| `record_id` | `Option<u64>` | — |
-| `severity_bps` | `u32` | — |
-| `message` | `String` | — |
-| `created_at` | `u64` | — |
-
-#### `enum LogLevel`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Info` | — | — |
-| `Warning` | — | — |
-| `ErrorLevel` | — | — |
-
-#### `struct StructuredLog`
-
-| Field | Type | Description |
-|---|---|---|
-| `timestamp` | `u64` | — |
-| `level` | `LogLevel` | — |
-| `operation` | `String` | — |
-| `actor` | `Option<Address>` | — |
-| `record_id` | `Option<u64>` | — |
-| `message` | `String` | — |
-
-#### `struct RateLimitConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `max_calls` | `u32` | — |
-| `window_secs` | `u64` | — |
-
-#### `struct RateLimitEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `count` | `u32` | — |
-| `window_start` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initialized` | — | — |
-| `NextId` | — | — |
-| `Record` | — | — |
-| `u64` | — | — |
-| `RecordHeader` | — | — |
-| `u64` | — | — |
-| `PatientRecords` | — | — |
-| `Address` | — | — |
-| `ZkVerifierContract` | — | — |
-| `Consent` | — | — |
-| `u64` | — | — |
-| `Address` | — | — |
-| `AssocCount` | — | — |
-| `u64` | — | — |
-| `Assoc` | — | — |
-| `u64` | — | — |
-| `u64` | — | — |
-| `DrugRespCount` | — | — |
-| `u64` | — | — |
-| `DrugResp` | — | — |
-| `u64` | — | — |
-| `u64` | — | — |
-| `Ancestry` | — | — |
-| `u64` | — | — |
-| `ListingNextId` | — | — |
-| `Listing` | — | — |
-| `u64` | — | — |
-| `RecordListings` | — | — |
-| `u64` | — | — |
-| `BreachCount` | — | — |
-| `Breach` | — | — |
-| `u64` | — | — |
-| `RateLimitCfg` | — | — |
-| `u32` | — | — |
-| `RateLimit` | — | — |
-| `Address` | — | — |
-| `u32` | — | — |
-
-### Examples
-
-#### `test_initialize_and_add_record`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, _id) = setup(&env);
-    let admin = Address::generate(&env);
-    assert!(client.initialize(&admin));
-
-    let patient = Address::generate(&env);
-    let uploader = Address::generate(&env);
-    let data_ref = String::from_str(&env, "ipfs://QmData");
-```
-
-#### `test_consent_and_access`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, _id) = setup(&env);
-    let admin = Address::generate(&env);
-    client.initialize(&admin);
-
-    let patient = Address::generate(&env);
-    let uploader = Address::generate(&env);
-    let rid = client.add_record(
-```
-
-#### `test_marketplace_listing`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, _id) = setup(&env);
-    let admin = Address::generate(&env);
-    client.initialize(&admin);
-
-    let patient = Address::generate(&env);
-    let uploader = Address::generate(&env);
-    let rid = client.add_record(
-```
 
 ---
 
@@ -5385,819 +2949,24 @@ let env = Env::default();
 | `executed` | `bool` | — |
 | `exec_data` | `Bytes` | — |
 
-#### `enum Error`
+### Error Codes
 
-| Variant | Value | Description |
+| Variant | Code | Description |
 |---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `ProposalNotFound` | 3 | — |
-| `ProposalThresholdNotMet` | 4 | — |
-| `VotingClosed` | 5 | — |
-| `InvalidState` | 6 | — |
-| `AlreadyVoted` | 7 | — |
-| `NoVotingPower` | 8 | — |
-| `InvalidVoteType` | 9 | — |
-| `ProposalNotSuccessful` | 10 | — |
-| `NotQueued` | 11 | — |
-| `AlreadyExecuted` | 12 | — |
-| `ProposalDisputed` | 13 | — |
-| `Overflow` | 14 | — |
-
----
-
-## health_check
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env` | `bool` | Initialize the health check contract |
-| `health_check` | `env: Env` | `ContractHealth` | Get comprehensive health check |
-| `get_monitoring_metrics` | `env: Env` | `MonitoringMetrics` | Get detailed monitoring metrics |
-| `get_gas_metrics` | `env: Env` | `GasMetrics` | Get gas usage metrics |
-| `get_error_metrics` | `env: Env` | `ErrorMetrics` | Get error rate metrics |
-| `record_operation` | `env: Env, gas_used: u64, success: bool` | `()` | Record an operation |
-| `record_error` | `env: Env, error_code: u32` | `()` | Record an error |
-| `set_paused` | `env: Env, paused: bool` | `()` | Set pause status |
-| `is_paused` | `env: &Env` | `bool` | Check if contract is paused |
-| `storage_usage` | `env: &Env` | `u64` | Get storage usage estimate |
-| `last_activity` | `env: &Env` | `u64` | Get last activity timestamp |
-| `reset_recent_errors` | `env: Env` | `()` | Reset recent errors (for hourly cleanup) |
-| `check_alert_thresholds` | `env: Env` | `Vec<String>` | Get alert thresholds status |
-
-### Types
-
-#### `struct ContractHealth`
-
-| Field | Type | Description |
-|---|---|---|
-| `version` | `String` | — |
-| `is_paused` | `bool` | — |
-| `storage_usage` | `u64` | — |
-| `last_activity` | `u64` | — |
-| `total_operations` | `u64` | — |
-| `failed_operations` | `u64` | — |
-| `success_rate` | `u32` | — |
-
-#### `struct MonitoringMetrics`
-
-| Field | Type | Description |
-|---|---|---|
-| `version` | `String` | — |
-| `is_paused` | `bool` | — |
-| `storage_usage` | `u64` | — |
-| `last_activity` | `u64` | — |
-| `error_count` | `u64` | — |
-| `avg_gas_usage` | `u64` | — |
-| `peak_gas_usage` | `u64` | — |
-| `total_operations` | `u64` | — |
-
-#### `struct GasMetrics`
-
-| Field | Type | Description |
-|---|---|---|
-| `current_usage` | `u64` | — |
-| `average_usage` | `u64` | — |
-| `peak_usage` | `u64` | — |
-| `total_consumed` | `u64` | — |
-| `operation_count` | `u64` | — |
-
-#### `struct ErrorMetrics`
-
-| Field | Type | Description |
-|---|---|---|
-| `total_errors` | `u64` | — |
-| `recent_errors` | `u64` | — |
-| `error_rate` | `u32` | — |
-| `last_error_time` | `u64` | — |
-| `common_error_code` | `u32` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initialized` | — | — |
-| `Paused` | — | — |
-| `Admin` | — | — |
-| `LastActivity` | — | — |
-| `TotalOperations` | — | — |
-| `FailedOperations` | — | — |
-| `TotalGasUsed` | — | — |
-| `PeakGasUsage` | — | — |
-| `TotalErrors` | — | — |
-| `RecentErrors` | — | — |
-| `LastErrorTime` | — | — |
-| `CommonErrorCode` | — | — |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, HealthCheckContract);
-    let client = HealthCheckContractClient::new(&env, &contract_id);
-
-    assert!(client.initialize());
-    assert!(!client.initialize()); // Second init should fail
-```
-
-#### `test_health_check`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, HealthCheckContract);
-    let client = HealthCheckContractClient::new(&env, &contract_id);
-
-    client.initialize();
-
-    let health = client.health_check();
-    assert_eq!(health.version, String::from_str(&env, "1.0.0"));
-    assert!(!health.is_paused);
-```
-
-#### `test_record_operation`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, HealthCheckContract);
-    let client = HealthCheckContractClient::new(&env, &contract_id);
-
-    client.initialize();
-
-    // Record successful operation
-    client.record_operation(&1000, &true);
-```
-
----
-
-## health_data_access_logging
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address, config: LoggingConfig` | `()` | Initialize the health data access logging contract  # Arguments * `env` - The contract environment * `admin` - The admin address (usually the contract deployer) * `config` - Logging configuration  # Panics Panics if already initialized |
-| `get_access_logs` | `env: Env, patient_id: Address` | `Vec<AccessLogEntry>` | Retrieve all access logs for a specific patient  Returns a vector of all access log entries for the specified patient. Caller must be either the patient themselves or have authorization.  # Arguments * `env` - The contract environment * `patient_id` - The patient whose logs to retrieve  # Returns Vector of AccessLogEntry items |
-| `get_access_log_summary` | `env: Env, patient_id: Address` | `types::AccessLogSummary` | Get summary statistics for a patient's access logs  # Arguments * `env` - The contract environment * `patient_id` - The patient whose summary to retrieve  # Returns AccessLogSummary with statistics and integrity hash |
-| `get_unique_accessors_count` | `env: Env, patient_id: Address` | `u32` | Get the count of unique accessors for a patient  # Arguments * `env` - The contract environment * `patient_id` - The patient to query  # Returns Number of unique addresses that have accessed this patient's data |
-| `get_unique_accessors` | `env: Env, patient_id: Address` | `Vec<Address>` | Get all unique accessors for a patient  # Arguments * `env` - The contract environment * `patient_id` - The patient to query  # Returns Vector of all unique accessor addresses |
-| `verify_logs_integrity` | `env: Env` | `soroban_sdk::BytesN<32>` | Verify the integrity of the access logs using the rolling hash  Returns the current rolling hash which can be compared against expected values to detect tampering.  # Arguments * `env` - The contract environment  # Returns The rolling hash of all access logs |
-| `update_config` | `env: Env, config: LoggingConfig` | `()` | Update the logging configuration (admin only)  # Arguments * `env` - The contract environment * `config` - New logging configuration |
-| `get_config` | `env: Env` | `LoggingConfig` | Get the current logging configuration  # Returns The current LoggingConfig |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let env = create_test_env();
-        let admin = Address::random(&env);
-        let config = LoggingConfig {
-            max_logs_per_patient: 1000,
-            allow_public_queries: false,
-            retention_period: 0,
-        };
-
-        HealthDataAccessLogging::initialize(env.clone(), admin.clone(), config.clone());
-```
-
----
-
-## healthcare_analytics_dashboard
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `get_config` | `env: Env` | `Result<DashboardConfig, Error>` | — |
-| `get_latest_snapshot` | `env: Env` | `Option<DashboardSnapshot>` | — |
-| `get_performance_kpi` | `env: Env` | `Option<PerformanceKpi>` | — |
-| `get_report_template` | `env: Env, template_id: u64` | `Option<ReportTemplate>` | — |
-| `get_report_schedule` | `env: Env, schedule_id: u64` | `Option<ReportSchedule>` | — |
-| `get_compliance_summary` | `env: Env, period_id: u64` | `Option<ComplianceSummary>` | — |
-| `get_export_record` | `env: Env, export_id: u64` | `Option<ExportRecord>` | — |
-| `get_data_lake_connection` | `env: Env, connection_id: u64` | `Option<DataLakeConnection>` | — |
-| `get_data_lake_partition` | `env: Env, partition_id: u64` | `Option<DataLakePartition>` | — |
-| `get_lineage_record` | `env: Env, export_id: u64` | `Option<LineageRecord>` | — |
-| `get_ai_round_insight` | `env: Env, round_id: u64` | `Option<AiRoundInsight>` | — |
-
-### Types
-
-#### `struct DashboardConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `admin` | `Address` | — |
-| `min_cohort_size` | `u32` | — |
-| `noise_bps` | `u32` | — |
-| `realtime_enabled` | `bool` | — |
-
-#### `struct MetricAggregate`
-
-| Field | Type | Description |
-|---|---|---|
-| `metric_name` | `String` | — |
-| `period_id` | `u64` | — |
-| `total_value_bps` | `u64` | — |
-| `count` | `u32` | — |
-| `min_value_bps` | `u32` | — |
-| `max_value_bps` | `u32` | — |
-| `avg_value_bps` | `u32` | — |
-| `last_updated` | `u64` | — |
-
-#### `struct DashboardSnapshot`
-
-| Field | Type | Description |
-|---|---|---|
-| `active_users` | `u32` | — |
-| `tx_count` | `u32` | — |
-| `error_count` | `u32` | — |
-| `latency_p95_ms` | `u32` | — |
-| `uptime_bps` | `u32` | — |
-| `timestamp` | `u64` | — |
-
-#### `struct PerformanceKpi`
-
-| Field | Type | Description |
-|---|---|---|
-| `total_snapshots` | `u32` | — |
-| `avg_latency_p95_ms` | `u32` | — |
-| `avg_uptime_bps` | `u32` | — |
-| `avg_error_rate_bps` | `u32` | — |
-| `last_updated` | `u64` | — |
-
-#### `struct ReportTemplate`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `name` | `String` | — |
-| `metric_filters` | `Vec<String>` | — |
-| `include_compliance` | `bool` | — |
-| `include_performance` | `bool` | — |
-| `output_format` | `String` | — |
-| `created_at` | `u64` | — |
-
-#### `struct ReportSchedule`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `template_id` | `u64` | — |
-| `cadence_seconds` | `u64` | — |
-| `next_run_at` | `u64` | — |
-| `last_run_at` | `u64` | — |
-| `enabled` | `bool` | — |
-
-#### `struct ComplianceSummary`
-
-| Field | Type | Description |
-|---|---|---|
-| `period_id` | `u64` | — |
-| `total_checks` | `u32` | — |
-| `passed_checks` | `u32` | — |
-| `total_violations` | `u32` | — |
-| `total_audit_events` | `u32` | — |
-| `severity_bps` | `u32` | — |
-| `generated_at` | `u64` | — |
-| `latest_report_ref` | `String` | — |
-
-#### `struct VisualizationPoint`
-
-| Field | Type | Description |
-|---|---|---|
-| `period_id` | `u64` | — |
-| `avg_value_bps` | `u32` | — |
-| `sample_count` | `u32` | — |
-
-#### `struct ExportRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `export_id` | `u64` | — |
-| `template_id` | `u64` | — |
-| `output_format` | `String` | — |
-| `data_ref` | `String` | — |
-| `checksum` | `BytesN<32>` | — |
-| `generated_at` | `u64` | — |
-
-#### `struct DataLakeConnection`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `provider` | `String` | — |
-| `bucket_uri` | `String` | — |
-| `query_engine` | `String` | — |
-| `supports_parquet` | `bool` | — |
-| `supports_orc` | `bool` | — |
-| `partitioning_enabled` | `bool` | — |
-| `lineage_enabled` | `bool` | — |
-| `encryption_at_rest` | `bool` | — |
-| `encryption_in_transit` | `bool` | — |
-| `max_dataset_size_tb` | `u64` | — |
-| `active` | `bool` | — |
-
-#### `struct DataLakePartition`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `connection_id` | `u64` | — |
-| `export_id` | `u64` | — |
-| `dataset_name` | `String` | — |
-| `file_format` | `String` | — |
-| `partition_key` | `String` | — |
-| `index_ref` | `String` | — |
-| `estimated_size_tb` | `u64` | — |
-| `created_at` | `u64` | — |
-
-#### `struct LineageRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `export_id` | `u64` | — |
-| `connection_id` | `u64` | — |
-| `dataset_name` | `String` | — |
-| `upstream_ref` | `String` | — |
-| `governance_tag` | `String` | — |
-| `query_engine` | `String` | — |
-| `file_format` | `String` | — |
-| `recorded_at` | `u64` | — |
-
-#### `struct QueryOptimizationProfile`
-
-| Field | Type | Description |
-|---|---|---|
-| `connection_id` | `u64` | — |
-| `dataset_name` | `String` | — |
-| `projected_scan_mb` | `u64` | — |
-| `partition_pruning_bps` | `u32` | — |
-| `performance_score_bps` | `u32` | — |
-| `optimized_at` | `u64` | — |
-
-#### `struct AiRoundInsight`
-
-| Field | Type | Description |
-|---|---|---|
-| `round_id` | `u64` | — |
-| `min_participants` | `u32` | — |
-| `total_updates` | `u32` | — |
-| `dp_epsilon` | `u32` | — |
-| `is_finalized` | `bool` | — |
-| `started_at` | `u64` | — |
-| `finalized_at` | `u64` | — |
-| `participation_bps` | `u32` | — |
-
-#### `struct AiFederatedRound`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `base_model_id` | `BytesN<32>` | — |
-| `min_participants` | `u32` | — |
-| `dp_epsilon` | `u32` | — |
-| `started_at` | `u64` | — |
-| `finalized_at` | `u64` | — |
-| `total_updates` | `u32` | — |
-| `is_finalized` | `bool` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Config` | — | — |
-| `Collector` | — | — |
-| `Address` | — | — |
-| `Metric` | — | — |
-| `String` | — | — |
-| `u64` | — | — |
-| `MetricPeriods` | — | — |
-| `String` | — | — |
-| `LatestSnapshot` | — | — |
-| `PerformanceKpi` | — | — |
-| `TemplateCounter` | — | — |
-| `Template` | — | — |
-| `u64` | — | — |
-| `ScheduleCounter` | — | — |
-| `Schedule` | — | — |
-| `u64` | — | — |
-| `Compliance` | — | — |
-| `u64` | — | — |
-| `ExportCounter` | — | — |
-| `Export` | — | — |
-| `u64` | — | — |
-| `DataLakeConnectionCounter` | — | — |
-| `DataLakeConnection` | — | — |
-| `u64` | — | — |
-| `DataLakePartitionCounter` | — | — |
-| `DataLakePartition` | — | — |
-| `u64` | — | — |
-| `LineageRecord` | — | — |
-| `u64` | — | — |
-| `QueryOptimization` | — | — |
-| `u64` | — | — |
-| `String` | — | — |
-| `AiContract` | — | — |
-| `AiInsight` | — | — |
-| `u64` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotAuthorized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `NotInitialized` | 3 | — |
-| `InvalidInput` | 4 | — |
-| `PrivacyThresholdNotMet` | 5 | — |
-| `MetricNotFound` | 6 | — |
-| `TemplateNotFound` | 7 | — |
-| `ScheduleNotFound` | 8 | — |
-| `ComplianceNotFound` | 9 | — |
-| `AiAnalyticsNotConfigured` | 10 | — |
-| `AiRoundNotFound` | 11 | — |
-| `DataLakeNotFound` | 12 | — |
-| `ExportNotFound` | 13 | — |
-| `UnsupportedDataLakeProvider` | 14 | — |
-
----
-
-## healthcare_compliance
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize the compliance contract |
-| `update_config` | `env: Env, admin: Address, config: ComplianceConfig` | `Result<(), Error>` | Update compliance configuration |
-| `get_config` | `env: Env` | `Result<ComplianceConfig, Error>` | Get current compliance configuration |
-| `grant_consent` | `env: Env, patient: Address, consent: ConsentRecord` | `Result<(), Error>` | Grant patient consent for data processing |
-| `report_breach` | `env: Env, reporter: Address, breach: BreachReport` | `Result<(), Error>` | Report data breach |
-| `get_compliance_metrics` | `env: Env` | `Result<ComplianceMetrics, Error>` | Get compliance dashboard metrics |
-| `get_retention_policy` | `env: Env, data_type: DataType` | `Result<RetentionPolicy, Error>` | Retrieve retention policy for a data class. |
-| `enforce_retention` | `env: Env` | `Result<u32, Error>` | Automated retention sweep that deletes all expired records. |
-| `get_deletion_audit` | `env: Env` | `Vec<DeletionAuditEntry>` | Get all deletion audit entries. |
-| `pause` | `env: Env, admin: Address` | `Result<(), Error>` | Pause contract operations (emergency) |
-| `resume` | `env: Env, admin: Address` | `Result<(), Error>` | Resume contract operations |
-| `get_compliance_report` | `env: Env, report_id: String` | `Result<ReportRecord, Error>` | Retrieve a stamped compliance report |
-
-### Types
-
-#### `enum ComplianceFramework`
-
-| Variant | Value | Description |
-|---|---|---|
-| `HIPAA` | — | — |
-| `GDPR` | — | — |
-| `HL7FHIR` | — | — |
-| `SOX` | — | — |
-| `Sarbanes` | — | — |
-| `Oxley` | — | — |
-| `for` | — | — |
-| `financial` | — | — |
-| `healthcare` | — | — |
-| `data` | — | — |
-| `HITECH` | — | — |
-| `Health` | — | — |
-| `Information` | — | — |
-| `Technology` | — | — |
-| `for` | — | — |
-| `Economic` | — | — |
-| `and` | — | — |
-| `Clinical` | — | — |
-| `Health` | — | — |
-| `Act` | — | — |
-
-#### `enum HIPAACategory`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Treatment` | — | — |
-| `Payment` | — | — |
-| `HealthcareOperations` | — | — |
-| `Research` | — | — |
-| `PublicHealth` | — | — |
-| `Emergency` | — | — |
-| `Marketing` | — | — |
-
-#### `enum GDPRProcessingCategory`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Consent` | — | — |
-| `Contract` | — | — |
-| `LegalObligation` | — | — |
-| `VitalInterest` | — | — |
-| `PublicTask` | — | — |
-| `LegitimateInterest` | — | — |
-
-#### `enum FHIRResourceType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Patient` | — | — |
-| `Observation` | — | — |
-| `Condition` | — | — |
-| `Medication` | — | — |
-| `AllergyIntolerance` | — | — |
-| `Procedure` | — | — |
-| `DiagnosticReport` | — | — |
-| `DocumentReference` | — | — |
-| `Consent` | — | — |
-| `AuditEvent` | — | — |
-
-#### `enum ConsentStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Draft` | — | — |
-| `Proposed` | — | — |
-| `Active` | — | — |
-| `Rejected` | — | — |
-| `Inactive` | — | — |
-| `EnteredInError` | — | — |
-
-#### `enum AuditEventType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Create` | — | — |
-| `Read` | — | — |
-| `Update` | — | — |
-| `Delete` | — | — |
-| `Execute` | — | — |
-| `Consent` | — | — |
-| `Access` | — | — |
-| `Disclosure` | — | — |
-| `Breach` | — | — |
-
-#### `enum BreachSeverity`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Low` | — | — |
-| `Moderate` | — | — |
-| `High` | — | — |
-| `Critical` | — | — |
-
-#### `enum ViolationType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `UnauthorizedAccess` | — | — |
-| `DataBreach` | — | — |
-| `ConsentViolation` | — | — |
-| `AuditFailure` | — | — |
-| `RetentionViolation` | — | — |
-| `DisclosureViolation` | — | — |
-| `ProcessingViolation` | — | — |
-
-#### `enum DataType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `MedicalRecords` | — | — |
-| `AuditLogs` | — | — |
-| `TemporaryData` | — | — |
-| `UserPreferences` | — | — |
-
-#### `struct RetentionPolicy`
-
-| Field | Type | Description |
-|---|---|---|
-| `data_type` | `DataType` | — |
-| `retention_period` | `u64` | — |
-| `auto_delete` | `bool` | — |
-
-#### `struct RetentionRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `String` | — |
-| `data_type` | `DataType` | — |
-| `owner` | `Address` | — |
-| `created_at` | `u64` | — |
-| `legal_hold` | `bool` | — |
-| `deleted` | `bool` | — |
-| `deleted_at` | `u64` | — |
-
-#### `struct DeletionAuditEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `String` | — |
-| `data_type` | `DataType` | — |
-| `deleted_at` | `u64` | — |
-| `deleted_by` | `Address` | — |
-| `reason` | `String` | — |
-
-#### `struct ConsentRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `consent_id` | `String` | — |
-| `patient` | `Address` | — |
-| `data_controller` | `Address` | — |
-| `data_processor` | `Address` | — |
-| `purpose` | `String` | — |
-| `data_categories` | `Vec<String>` | — |
-| `processing_categories` | `Vec<GDPRProcessingCategory>` | — |
-| `status` | `ConsentStatus` | — |
-| `granted_at` | `u64` | — |
-| `expires_at` | `u64` | — |
-| `revoked_at` | `u64` | — |
-| `revocation_reason` | `String` | — |
-| `signature` | `BytesN<64>` | — |
-
-#### `struct AuditLogEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `log_id` | `String` | — |
-| `timestamp` | `u64` | — |
-| `actor` | `Address` | — |
-| `action` | `AuditEventType` | — |
-| `resource_type` | `FHIRResourceType` | — |
-| `resource_id` | `String` | — |
-| `patient_id` | `String` | — |
-| `success` | `bool` | — |
-| `details` | `String` | — |
-| `ip_address` | `String` | — |
-| `user_agent` | `String` | — |
-| `compliance_framework` | `ComplianceFramework` | — |
-| `hipaa_category` | `u32` | — |
-| `gdpr_category` | `u32` | — |
-
-#### `struct BreachReport`
-
-| Field | Type | Description |
-|---|---|---|
-| `report_id` | `String` | — |
-| `timestamp` | `u64` | — |
-| `reporter` | `Address` | — |
-| `severity` | `BreachSeverity` | — |
-| `affected_records` | `u32` | — |
-| `affected_patients` | `Vec<Address>` | — |
-| `breach_type` | `String` | — |
-| `description` | `String` | — |
-| `mitigation_steps` | `Vec<String>` | — |
-| `notified_authorities` | `bool` | — |
-| `notified_patients` | `bool` | — |
-| `resolution_status` | `String` | — |
-
-#### `struct ViolationReport`
-
-| Field | Type | Description |
-|---|---|---|
-| `violation_id` | `String` | — |
-| `timestamp` | `u64` | — |
-| `reporter` | `Address` | — |
-| `violation_type` | `ViolationType` | — |
-| `affected_resource` | `String` | — |
-| `actor` | `Address` | — |
-| `details` | `String` | — |
-| `evidence` | `Vec<String>` | — |
-| `resolved` | `bool` | — |
-| `resolution_notes` | `String` | — |
-| `penalty_amount` | `i128` | — |
-
-#### `struct ReportRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `report_id` | `String` | — |
-| `reporter` | `Address` | — |
-| `timestamp` | `u64` | — |
-| `report_hash` | `BytesN<32>` | — |
-| `uri` | `String` | — |
-
-#### `struct ComplianceMetrics`
-
-| Field | Type | Description |
-|---|---|---|
-| `total_audits` | `u32` | — |
-| `successful_audits` | `u32` | — |
-| `failed_audits` | `u32` | — |
-| `total_consents` | `u32` | — |
-| `active_consents` | `u32` | — |
-| `revoked_consents` | `u32` | — |
-| `total_breaches` | `u32` | — |
-| `resolved_breaches` | `u32` | — |
-| `pending_violations` | `u32` | — |
-| `compliance_score` | `u32` | — |
-| `last_audit_timestamp` | `u64` | — |
-
-#### `struct ComplianceConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `hipaa_enabled` | `bool` | — |
-| `gdpr_enabled` | `bool` | — |
-| `hl7_fhir_enabled` | `bool` | — |
-| `audit_logging_enabled` | `bool` | — |
-| `breach_notification_enabled` | `bool` | — |
-| `auto_consent_expiration` | `bool` | — |
-| `default_retention_days` | `u32` | — |
-| `admin_addresses` | `Vec<Address>` | — |
-| `compliance_officers` | `Vec<Address>` | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotAuthorized` | 1 | — |
-| `ContractPaused` | 2 | — |
-| `ConsentNotFound` | 3 | — |
-| `ConsentAlreadyExists` | 4 | — |
-| `InvalidConsentStatus` | 5 | — |
-| `ConsentExpired` | 6 | — |
-| `AuditLogNotFound` | 7 | — |
-| `BreachReportNotFound` | 8 | — |
-| `ViolationNotFound` | 9 | — |
-| `InvalidFramework` | 10 | — |
-| `InvalidResourceType` | 11 | — |
-| `DataBreachAlreadyReported` | 12 | — |
-| `ViolationAlreadyExists` | 13 | — |
-| `InvalidSignature` | 14 | — |
-| `RetentionPolicyNotFound` | 15 | — |
-| `ComplianceConfigNotSet` | 16 | — |
-| `InsufficientPermissions` | 17 | — |
-| `DataPurgeFailed` | 18 | — |
-| `NotificationFailed` | 19 | — |
-| `InvalidPatientAddress` | 20 | — |
-| `ReportAlreadyExists` | 21 | — |
-| `ReportNotFound` | 22 | — |
-| `RecordAlreadyExists` | 23 | — |
-| `RetentionRecordNotFound` | 24 | — |
-| `RecordNotDeletable` | 25 | — |
-| `LegalHoldActive` | 26 | — |
-
-### Examples
-
-#### `test_submit_and_get_compliance_report`
-
-```rust
-let env = Env::default();
-    let (client, _admin) = setup_contract(&env);
-
-    let reporter = Address::generate(&env);
-    let report_id = String::from_str(&env, "report-1");
-    let report_hash = BytesN::from_array(&env, &[1u8; 32]);
-    let uri = String::from_str(&env, "ipfs://report-1");
-
-    let r = client.submit_compliance_report(&reporter, &report_id, &report_hash, &uri);
-```
-
-#### `test_default_retention_policies_exist`
-
-```rust
-let env = Env::default();
-    let (client, _admin) = setup_contract(&env);
-
-    let med = client.get_retention_policy(&DataType::MedicalRecords).expect("policy");
-    let audit = client.get_retention_policy(&DataType::AuditLogs).expect("policy");
-    let temp = client
-        .get_retention_policy(&DataType::TemporaryData)
-        .expect("policy");
-    let pref = client
-```
-
-#### `test_enforce_retention_deletes_expired_temporary_data`
-
-```rust
-let env = Env::default();
-    let (client, _admin) = setup_contract(&env);
-    let actor = Address::generate(&env);
-    let owner = Address::generate(&env);
-    let record_id = String::from_str(&env, "tmp-1");
-
-    env.ledger().with_mut(|li| li.timestamp = 1);
-    client.register_retention_record(
-        &actor,
-```
-
----
-
-## healthcare_compliance_automation
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address, frameworks: Vec<String>` | `()` | — |
-| `add_framework` | `env: Env, admin: Address, framework: String` | `()` | — |
-| `get_supported_frameworks` | `env: Env` | `FrameworkList` | — |
-
-### Types
-
-#### `struct FrameworkList`
-
-| Field | Type | Description |
-|---|---|---|
-| `frameworks` | `Vec<String>` | — |
+| `NotInitialized` | 300 | — |
+| `AlreadyInitialized` | 301 | — |
+| `InvalidState` | 304 | — |
+| `VotingClosed` | 370 | — |
+| `AlreadyVoted` | 371 | — |
+| `NotQueued` | 372 | — |
+| `ProposalDisputed` | 373 | — |
+| `ProposalNotFound` | 450 | — |
+| `ProposalNotSuccessful` | 451 | — |
+| `AlreadyExecuted` | 452 | — |
+| `ProposalThresholdNotMet` | 530 | — |
+| `NoVotingPower` | 531 | — |
+| `Overflow` | 580 | — |
+| `InvalidVoteType` | 280 | — |
 
 ---
 
@@ -6352,7 +3121,7 @@ let env = Env::default();
 
 ### Examples
 
-#### `initialize_smoke_test`
+#### `test_initialize`
 
 ```rust
 let env = Env::default();
@@ -6361,622 +3130,37 @@ let env = Env::default();
     let (client, _id) = setup(&env);
     let admin = Address::generate(&env);
     assert!(client.initialize(&admin));
+
+    // Double initialization should fail
+    let result = client.try_initialize(&admin);
 ```
 
----
-
-## healthcare_data_marketplace
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `register_provider` | `env: Env, provider: Address` | `Result<(), Error>` | — |
-| `reserve_purchase` | `env: Env, buyer: Address, listing_id: u64` | `Result<u64, Error>` | — |
-| `initiate_transaction` | `env: Env, buyer: Address, intent_id: u64` | `Result<u64, Error>` | — |
-| `cancel_listing` | `env: Env, actor: Address, listing_id: u64` | `Result<(), Error>` | — |
-| `get_provider_count` | `env: Env` | `u64` | — |
-| `get_provider` | `env: Env, provider: Address` | `Option<ProviderProfile>` | — |
-| `get_listing` | `env: Env, listing_id: u64` | `Option<Listing>` | — |
-| `get_intent` | `env: Env, intent_id: u64` | `Option<PurchaseIntent>` | — |
-
-### Types
-
-#### `enum DataFormat`
-
-| Variant | Value | Description |
-|---|---|---|
-| `FhirJson` | — | — |
-| `Hl7` | — | — |
-| `Dicom` | — | — |
-| `Csv` | — | — |
-| `Parquet` | — | — |
-| `Custom` | — | — |
-
-#### `enum AnonymizationLevel`
-
-| Variant | Value | Description |
-|---|---|---|
-| `KAnonymity` | — | — |
-| `DifferentialPrivacy` | — | — |
-| `Synthetic` | — | — |
-
-#### `enum ListingStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Active` | — | — |
-| `Reserved` | — | — |
-| `Settled` | — | — |
-| `Cancelled` | — | — |
-
-#### `struct QualityMetrics`
-
-| Field | Type | Description |
-|---|---|---|
-| `completeness_bps` | `u32` | — |
-| `consistency_bps` | `u32` | — |
-| `timeliness_bps` | `u32` | — |
-| `validity_bps` | `u32` | — |
-
-#### `struct RoyaltyPolicy`
-
-| Field | Type | Description |
-|---|---|---|
-| `provider_bps` | `u32` | — |
-| `curator_bps` | `u32` | — |
-| `platform_bps` | `u32` | — |
-
-#### `struct Config`
-
-| Field | Type | Description |
-|---|---|---|
-| `admin` | `Address` | — |
-| `payment_router` | `Address` | — |
-| `escrow_contract` | `Address` | — |
-| `treasury` | `Address` | — |
-| `settlement_window_secs` | `u64` | — |
-
-#### `struct ProviderProfile`
-
-| Field | Type | Description |
-|---|---|---|
-| `provider` | `Address` | — |
-| `active` | `bool` | — |
-| `listings_count` | `u64` | — |
-| `reputation_bps` | `u32` | — |
-
-#### `struct Listing`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `provider` | `Address` | — |
-| `data_ref` | `String` | — |
-| `data_hash` | `BytesN<32>` | — |
-| `format` | `DataFormat` | — |
-| `anonymization` | `AnonymizationLevel` | — |
-| `min_k` | `u32` | — |
-| `dp_epsilon_milli` | `u32` | — |
-| `quality` | `QualityMetrics` | — |
-| `royalty` | `RoyaltyPolicy` | — |
-| `price` | `i128` | — |
-| `token` | `Address` | — |
-| `created_at` | `u64` | — |
-| `status` | `ListingStatus` | — |
-
-#### `struct ListingPayload`
-
-| Field | Type | Description |
-|---|---|---|
-| `data_ref` | `String` | — |
-| `data_hash` | `BytesN<32>` | — |
-| `format` | `DataFormat` | — |
-| `anonymization` | `AnonymizationLevel` | — |
-| `min_k` | `u32` | — |
-| `dp_epsilon_milli` | `u32` | — |
-| `quality` | `QualityMetrics` | — |
-| `royalty` | `RoyaltyPolicy` | — |
-| `price` | `i128` | — |
-| `token` | `Address` | — |
-
-#### `struct PurchaseIntent`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `listing_id` | `u64` | — |
-| `buyer` | `Address` | — |
-| `amount` | `i128` | — |
-| `created_at` | `u64` | — |
-| `escrow_order_id` | `Option<u64>` | — |
-| `settled` | `bool` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Config` | — | — |
-| `ProviderCount` | — | — |
-| `Provider` | — | — |
-| `Address` | — | — |
-| `NextListingId` | — | — |
-| `Listing` | — | — |
-| `u64` | — | — |
-| `NextIntentId` | — | — |
-| `Intent` | — | — |
-| `u64` | — | — |
-| `NextEscrowOrderId` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `Unauthorized` | 3 | — |
-| `ProviderNotActive` | 4 | — |
-| `ProviderExists` | 5 | — |
-| `ListingNotFound` | 6 | — |
-| `InvalidPricing` | 7 | — |
-| `InvalidQuality` | 8 | — |
-| `InvalidRoyalty` | 9 | — |
-| `InvalidAnonymization` | 10 | — |
-| `InvalidSettlementWindow` | 11 | — |
-| `InvalidStatus` | 12 | — |
-| `IntentNotFound` | 13 | — |
-| `EscrowNotLinked` | 14 | — |
-| `SettlementTimeout` | 15 | — |
-
-### Examples
-
-#### `test_create_listing_requires_valid_anonymization_and_quality`
+#### `test_initialize_unauthorized`
 
 ```rust
 let env = Env::default();
     env.mock_all_auths();
-    let (client, _) = setup(&env);
+
+    let (client, _id) = setup(&env);
     let admin = Address::generate(&env);
-    let payment_router = Address::generate(&env);
-    let escrow = Address::generate(&env);
-    let treasury = Address::generate(&env);
-    client.initialize(&admin, &payment_router, &escrow, &treasury, &300u64);
+    let other = Address::generate(&env);
+
+    // First init as admin
+    assert!(client.initialize(&admin));
 ```
 
-#### `test_provider_counter_increments`
+#### `test_register_and_get_conversion_rule`
 
 ```rust
 let env = Env::default();
     env.mock_all_auths();
-    let (client, _) = setup(&env);
+
+    let (client, _id) = setup(&env);
     let admin = Address::generate(&env);
-    client.initialize(
-        &admin,
-        &Address::generate(&env),
-        &Address::generate(&env),
-        &Address::generate(&env),
-```
+    client.initialize(&admin);
 
-#### `test_settlement_timeout_enforced_under_five_minutes`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, _) = setup(&env);
-    let admin = Address::generate(&env);
-    let payment_router = env.register_contract(None, MockPaymentRouter {});
-    let escrow = env.register_contract(None, MockEscrow {});
-    client.initialize(
-        &admin,
-        &payment_router,
-```
-
----
-
-## healthcare_oracle_network
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `add_arbiter` | `env: Env, admin: Address, arbiter: Address` | `Result<(), Error>` | — |
-| `get_consensus` | `env: Env, kind: FeedKind, feed_id: String` | `Option<ConsensusRecord>` | — |
-| `get_oracle` | `env: Env, operator: Address` | `Option<OracleNode>` | — |
-| `get_dispute` | `env: Env, dispute_id: u64` | `Option<Dispute>` | — |
-| `get_config` | `env: Env` | `Option<Config>` | — |
-
-### Examples
-
-#### `test_oracle_must_be_verified_before_submission`
-
-```rust
-let env = Env::default();
-    let (client, _admin, _arbiter) = setup_contract(&env, 1);
-
-    let oracle = Address::generate(&env);
-    let endpoint = String::from_str(&env, "https://oracle.example");
-    let feed_id = String::from_str(&env, "NDC:0002-8215-01:US");
-    let ndc = String::from_str(&env, "0002-8215-01");
-    let currency = String::from_str(&env, "USD");
-```
-
-#### `test_drug_feed_consensus_and_weighted_aggregation`
-
-```rust
-let env = Env::default();
-    let (client, admin, _arbiter) = setup_contract(&env, 2);
-
-    let oracle_1 = Address::generate(&env);
-    let oracle_2 = Address::generate(&env);
-    register_and_verify_oracle(&env, &client, &admin, &oracle_1, "https://o1.example");
-    register_and_verify_oracle(&env, &client, &admin, &oracle_2, "https://o2.example");
-
-    let feed_id = String::from_str(&env, "NDC:55513-1234-1:KE");
-```
-
-#### `test_clinical_trial_and_regulatory_feeds`
-
-```rust
-let env = Env::default();
-    let (client, admin, _arbiter) = setup_contract(&env, 1);
-
-    let oracle = Address::generate(&env);
-    register_and_verify_oracle(&env, &client, &admin, &oracle, "https://clinical.example");
-
-    let trial_id = String::from_str(&env, "NCT-2026-001");
-    let hash_a = String::from_str(&env, "sha256:trial-a");
-    client.submit_clinical_trial(
-```
-
----
-
-## healthcare_payment
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `verify_claim` | `env: Env, claim_id: u64, verifier: Address` | `Result<(), Error>` | — |
-| `approve_claim` | `env: Env, claim_id: u64, approver: Address` | `Result<(), Error>` | — |
-| `process_payment` | `env: Env, claim_id: u64` | `Result<(), Error>` | — |
-| `escrow_claim` | `env: Env, claim_id: u64` | `Result<(), Error>` | — |
-| `approve_preauth` | `env: Env, preauth_id: u64, approver: Address` | `Result<(), Error>` | — |
-| `pay_installment` | `env: Env, plan_id: u64` | `Result<(), Error>` | — |
-| `get_coverage_policy` | `env: Env, coverage_policy_id: u64` | `Result<CoveragePolicy, Error>` | — |
-| `get_eligibility_check` | `env: Env, eligibility_id: u64` | `Result<EligibilityCheck, Error>` | — |
-| `get_claim_submission` | `env: Env, claim_id: u64` | `Result<ClaimSubmission, Error>` | — |
-| `get_patient_responsibility` | `env: Env, patient: Address` | `Option<PatientResponsibility>` | — |
-| `emergency_pause` | `env: Env, caller: Address` | `Result<(), Error>` | Immediately open the circuit (emergency stop). Callable by admin or any authorized pauser. |
-| `begin_recovery` | `env: Env, caller: Address` | `Result<(), Error>` | Transition circuit from Open -> HalfOpen to begin gradual recovery. Admin only. |
-| `resume_operations` | `env: Env, caller: Address` | `Result<(), Error>` | Transition circuit from HalfOpen -> Closed, resetting the failure counter. Admin only. |
-| `add_authorized_pauser` | `env: Env, caller: Address, pauser: Address` | `Result<(), Error>` | Grant an address the ability to trigger an emergency pause. Admin only. |
-| `set_failure_threshold` | `env: Env, caller: Address, threshold: u32` | `Result<(), Error>` | Set the failure threshold for automatic circuit tripping. Admin only. |
-| `get_circuit_state` | `env: Env` | `CircuitState` | Returns the current circuit state (defaults to Closed if never set). |
-| `get_circuit_breaker` | `env: Env` | `Option<CircuitBreaker>` | Returns the full circuit breaker record. |
-
-### Types
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotInitialized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `Unauthorized` | 3 | — |
-| `ClaimNotFound` | 4 | — |
-| `InvalidStatus` | 5 | — |
-| `PreAuthNotFound` | 6 | — |
-| `PaymentPlanNotFound` | 7 | — |
-| `InsufficientFunds` | 8 | — |
-| `FraudDetected` | 9 | — |
-| `EscrowFailed` | 10 | — |
-| `InvalidAmount` | 11 | — |
-| `InsuranceProviderNotFound` | 12 | — |
-| `CoveragePolicyNotFound` | 13 | — |
-| `EligibilityCheckNotFound` | 14 | — |
-| `ClaimSubmissionNotFound` | 15 | — |
-| `EobNotFound` | 16 | — |
-| `InvalidCoverage` | 17 | — |
-| `UnsupportedTransaction` | 18 | — |
-| `PolicyMismatch` | 19 | — |
-| `DeadlineExceeded` | 32 | — |
-| `InvalidSignature` | 33 | — |
-| `UnauthorizedCaller` | 34 | — |
-| `ContractPaused` | 35 | — |
-| `StorageFull` | 36 | — |
-| `CrossChainTimeout` | 37 | — |
-| `CircuitOpen` | 38 | — |
-| `AlreadyInState` | 39 | — |
-| `NotAuthorizedPauser` | 40 | — |
-
-#### `enum ClaimStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Submitted` | 0 | — |
-| `Verified` | 1 | — |
-| `Approved` | 2 | — |
-| `Rejected` | 3 | — |
-| `Paid` | 4 | — |
-| `Disputed` | 5 | — |
-
-#### `enum PreAuthStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | 0 | — |
-| `Approved` | 1 | — |
-| `Denied` | 2 | — |
-| `Expired` | 3 | — |
-
-#### `enum PaymentPlanStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Active` | 0 | — |
-| `Completed` | 1 | — |
-| `Defaulted` | 2 | — |
-| `Cancelled` | 3 | — |
-
-#### `enum CircuitState`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Closed` | — | — |
-| `Open` | — | — |
-| `HalfOpen` | — | — |
-
-#### `struct CircuitBreaker`
-
-| Field | Type | Description |
-|---|---|---|
-| `state` | `CircuitState` | — |
-| `failure_count` | `u32` | — |
-| `failure_threshold` | `u32` | — |
-| `opened_at` | `u64` | — |
-| `last_state_change` | `u64` | — |
-| `triggered_by` | `Option<Address>` | — |
-
-#### `enum ClaimSubmissionStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Submitted` | 0 | — |
-| `Acknowledged` | 1 | — |
-| `Adjudicated` | 2 | — |
-
-#### `struct Claim`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `provider` | `Address` | — |
-| `service_id` | `String` | — |
-| `amount` | `i128` | — |
-| `status` | `ClaimStatus` | — |
-| `policy_id` | `String` | — |
-| `preauth_id` | `Option<u64>` | — |
-| `created_at` | `u64` | — |
-| `updated_at` | `u64` | — |
-
-#### `struct PreAuth`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `provider` | `Address` | — |
-| `service_id` | `String` | — |
-| `estimated_cost` | `i128` | — |
-| `status` | `PreAuthStatus` | — |
-| `expiry` | `u64` | — |
-
-#### `struct PaymentPlan`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `provider` | `Address` | — |
-| `total_amount` | `i128` | — |
-| `remaining_amount` | `i128` | — |
-| `installment_amount` | `i128` | — |
-| `frequency` | `u64` | — |
-| `next_due` | `u64` | — |
-| `status` | `PaymentPlanStatus` | — |
-
-#### `struct FraudReport`
-
-| Field | Type | Description |
-|---|---|---|
-| `claim_id` | `u64` | — |
-| `reporter` | `Address` | — |
-| `reason` | `String` | — |
-| `timestamp` | `u64` | — |
-
-#### `struct InsuranceProvider`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `name` | `String` | — |
-| `payer_code` | `String` | — |
-| `supports_edi_837` | `bool` | — |
-| `supports_edi_834` | `bool` | — |
-| `active` | `bool` | — |
-
-#### `struct CoveragePolicy`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `insurance_provider_id` | `u64` | — |
-| `policy_external_id` | `String` | — |
-| `member_id` | `String` | — |
-| `group_number` | `String` | — |
-| `deductible_total` | `i128` | — |
-| `deductible_met` | `i128` | — |
-| `copay_amount` | `i128` | — |
-| `coinsurance_bps` | `u32` | — |
-| `coverage_active` | `bool` | — |
-| `last_verified_at` | `u64` | — |
-
-#### `struct EligibilityCheck`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `policy_id` | `u64` | — |
-| `service_id` | `String` | — |
-| `eligible` | `bool` | — |
-| `coverage_bps` | `u32` | — |
-| `copay_amount` | `i128` | — |
-| `deductible_remaining` | `i128` | — |
-| `checked_at` | `u64` | — |
-| `provider_ref` | `String` | — |
-
-#### `struct ClaimSubmission`
-
-| Field | Type | Description |
-|---|---|---|
-| `claim_id` | `u64` | — |
-| `policy_id` | `u64` | — |
-| `submission_format` | `String` | — |
-| `transaction_code` | `String` | — |
-| `payer_ref` | `String` | — |
-| `submitted_at` | `u64` | — |
-| `status` | `ClaimSubmissionStatus` | — |
-
-#### `struct CoverageEnrollment`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `policy_id` | `u64` | — |
-| `transaction_code` | `String` | — |
-| `enrollment_ref` | `String` | — |
-| `synced_at` | `u64` | — |
-
-#### `struct ExplanationOfBenefits`
-
-| Field | Type | Description |
-|---|---|---|
-| `claim_id` | `u64` | — |
-| `policy_id` | `u64` | — |
-| `allowed_amount` | `i128` | — |
-| `insurer_paid` | `i128` | — |
-| `patient_responsibility` | `i128` | — |
-| `deductible_applied` | `i128` | — |
-| `copay_amount` | `i128` | — |
-| `adjudication_notes` | `String` | — |
-| `processed_at` | `u64` | — |
-| `edi_transaction` | `String` | — |
-
-#### `struct PatientResponsibility`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `total_copay_tracked` | `i128` | — |
-| `total_deductible_tracked` | `i128` | — |
-| `total_patient_responsibility` | `i128` | — |
-| `last_updated` | `u64` | — |
-
-#### `struct Config`
-
-| Field | Type | Description |
-|---|---|---|
-| `admin` | `Address` | — |
-| `payment_router` | `Address` | — |
-| `escrow_contract` | `Address` | — |
-| `treasury` | `Address` | — |
-| `token` | `Address` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Config` | — | — |
-| `ClaimCount` | — | — |
-| `Claim` | — | — |
-| `u64` | — | — |
-| `PreAuthCount` | — | — |
-| `PreAuth` | — | — |
-| `u64` | — | — |
-| `PaymentPlanCount` | — | — |
-| `PaymentPlan` | — | — |
-| `u64` | — | — |
-| `FraudReport` | — | — |
-| `u64` | — | — |
-| `InsuranceProviderCount` | — | — |
-| `InsuranceProvider` | — | — |
-| `u64` | — | — |
-| `CoveragePolicyCount` | — | — |
-| `CoveragePolicy` | — | — |
-| `u64` | — | — |
-| `PolicyByExternalId` | — | — |
-| `String` | — | — |
-| `EligibilityCount` | — | — |
-| `Eligibility` | — | — |
-| `u64` | — | — |
-| `LatestEligibilityByPolicy` | — | — |
-| `u64` | — | — |
-| `ClaimSubmission` | — | — |
-| `u64` | — | — |
-| `CoverageEnrollmentCount` | — | — |
-| `CoverageEnrollment` | — | — |
-| `u64` | — | — |
-| `Eob` | — | — |
-| `u64` | — | — |
-| `PatientResponsibility` | — | — |
-| `Address` | — | — |
-| `CircuitBreakerState` | — | — |
-| `AuthorizedPausers` | — | — |
-
-### Examples
-
-#### `test_submit_and_approve_claim`
-
-```rust
-let (env, client, admin, provider, patient, treasury, _, token_client) =
-        setup_env_and_clients();
-
-    let claim_id = client.submit_claim(
-        &patient,
-        &provider,
-        &String::from_str(&env, "SERVICE-123"),
-        &1000i128,
-        &String::from_str(&env, "POLICY-XYZ"),
-```
-
-#### `test_escrow_claim`
-
-```rust
-let (env, client, admin, provider, patient, _, _, _) = setup_env_and_clients();
-
-    let claim_id = client.submit_claim(
-        &patient,
-        &provider,
-        &String::from_str(&env, "SERVICE-456"),
-        &2000i128,
-        &String::from_str(&env, "POLICY-ABC"),
-        &None,
-```
-
-#### `test_fraud_report`
-
-```rust
-let (env, client, admin, provider, patient, _, _, _) = setup_env_and_clients();
-
-    let claim_id = client.submit_claim(
-        &patient,
-        &provider,
-        &String::from_str(&env, "SERVICE-789"),
-        &3000i128,
-        &String::from_str(&env, "POLICY-DEF"),
-        &None,
+    let rule = ConversionRule {
+        rule_id: String::from_str(&env, "rule-001"),
 ```
 
 ---
@@ -7389,8 +3573,11 @@ let env = Env::default();
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, owner: Address, network_id: String` | `Result<(), Error>` | Initialize the contract with an owner and network identifier |
-| `initialize_legacy` | `env: Env, owner: Address` | `()` | Legacy initialize for backward compatibility |
+| `health_check` | `env: Env` | `(Symbol, u32, u64)` | Perform a health check on the contract. Returns (status, version, timestamp) with standardized status values: "OK", "PAUSED", "NOT_INIT", "DEGRADED". |
+| `is_paused` | `env: Env` | `bool` | Returns true if the contract is currently paused. |
+| `pause` | `env: Env, caller: Address` | `Result<bool, Error>` | — |
+| `unpause` | `env: Env, caller: Address` | `Result<bool, Error>` | — |
+| `initialize_legacy` | `env: Env, owner: Address, rbac_contract: Address` | `()` | — |
 | `resolve_did` | `env: Env, subject: Address` | `Result<DIDDocument, Error>` | Resolve a DID Document by subject address |
 | `resolve_did_by_string` | `env: Env, did_string: String` | `Result<DIDDocument, Error>` | Resolve a DID Document by DID string |
 | `deactivate_did` | `env: Env, subject: Address` | `Result<(), Error>` | Deactivate a DID (soft delete) |
@@ -7400,46 +3587,41 @@ let env = Env::default();
 | `execute_recovery` | `env: Env, request_id: u64` | `Result<(), Error>` | Execute recovery after timelock and threshold met |
 | `cancel_recovery` | `env: Env, subject: Address` | `Result<(), Error>` | Cancel a recovery request (only subject with existing key) |
 | `remove_service` | `env: Env, subject: Address, service_id: String` | `Result<(), Error>` | Remove/deactivate a service endpoint |
-| `add_verifier` | `env: Env, verifier: Address` | `Result<(), Error>` | Add a verifier (only owner can do this) |
-| `remove_verifier` | `env: Env, verifier: Address` | `Result<(), Error>` | Remove a verifier (only owner can do this) |
+| `add_verifier` | `env: Env, verifier: Address` | `Result<(), Error>` | Add a verifier (only owner can do this).  SECURITY (issue #43): the previously-blind `assign_role(Staff)` call has been guarded so that a verifier who already holds a higher-privileged role (Admin, Doctor, Researcher) keeps that role untouched. Only verifiers without any of those higher roles receive the `Staff` marker. Either way, the local `Verifier(addr) -> true` flag is set so the contract-level verifier registry stays consistent.  Trade-off (intentional): if a verifier was originally added while only holding `Staff` and is later promoted to a higher role (Admin/Doctor /Researcher) without an intervening `remove_verifier`, the `Staff` row will remain in RBAC. `remove_verifier` will then leave it alone because of the higher-role guard. Operators that need the row removed should call `remove_verifier` before the promotion. |
+| `remove_verifier` | `env: Env, verifier: Address` | `Result<(), Error>` | Remove a verifier (only owner can do this).  SECURITY (issue #43): as with `add_verifier`, the `remove_role(Staff)` call is now skipped whenever the target already holds a higher-privileged role (Admin, Doctor, Researcher). Stripping `Staff` from those users could be misinterpreted as a privilege revocation and risks disturbing the higher-privileged role state, so the call is intentionally a no-op in that case. The local `Verifier(addr)` flag is always cleared.  Trade-off (intentional, mirrors `add_verifier`): if a verifier was originally added while only holding `Staff` and was later promoted to a higher role, the pre-existing `Staff` row is preserved by this function alongside the higher role. To clear `Staff` from such an address, demote it back to non-staff roles first. |
 | `is_verifier` | `env: Env, account: Address` | `bool` | Check if an address is a verifier |
 | `get_owner` | `env: Env` | `Result<Address, Error>` | Get the contract owner |
-| `register_identity_hash` | `env: Env, hash: BytesN<32>, subject: Address, meta: String` | `()` | Register an identity hash with metadata (legacy support) |
-| `attest` | `env: Env, verifier: Address, subject: Address, claim_hash: BytesN<32>` | `()` | Create an attestation (legacy - only verifiers can do this) |
 | `get_identity_hash` | `env: Env, subject: Address` | `Option<BytesN<32>>` | Get identity hash for a subject (legacy) |
 | `get_identity_meta` | `env: Env, subject: Address` | `Option<String>` | Get identity metadata for a subject (legacy) |
 | `is_attested` | `env: Env, subject: Address, claim_hash: BytesN<32>` | `bool` | Check if a specific attestation is active (legacy) |
 | `get_attestations` | `env: Env, subject: Address` | `Vec<BytesN<32>>` | Get all active attestations for a subject (legacy) |
+| `withdraw_stake` | `env: Env, provider: Address` | `Result<i128, Error>` | Withdraw stake after lock period if not slashed and in good standing. |
+| `has_role` | `env: Env, address: Address, role: RbacRole` | `Result<bool, RbacError>` | — |
+| `assign_role` | `env: Env, address: Address, role: RbacRole` | `Result<bool, RbacError>` | — |
+| `remove_role` | `env: Env, address: Address, role: RbacRole` | `Result<bool, RbacError>` | — |
 
 ### Types
 
-#### `enum Error`
+#### `enum RbacRole`
 
 | Variant | Value | Description |
 |---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `NotVerifier` | 4 | — |
-| `CannotRemoveOwner` | 5 | — |
-| `DIDNotFound` | 6 | — |
-| `DIDAlreadyExists` | 7 | — |
-| `DIDDeactivated` | 8 | — |
-| `InvalidVerificationMethod` | 9 | — |
-| `VerificationMethodNotFound` | 10 | — |
-| `CredentialNotFound` | 11 | — |
-| `CredentialRevoked` | 12 | — |
-| `CredentialExpired` | 13 | — |
-| `InvalidCredentialType` | 14 | — |
-| `AttestationNotFound` | 15 | — |
-| `RecoveryNotInitiated` | 16 | — |
-| `RecoveryAlreadyPending` | 17 | — |
-| `RecoveryTimelockNotElapsed` | 18 | — |
-| `InvalidRecoveryGuardian` | 19 | — |
-| `InsufficientGuardianApprovals` | 20 | — |
-| `ServiceNotFound` | 21 | — |
-| `InvalidServiceEndpoint` | 22 | — |
-| `KeyRotationCooldown` | 23 | — |
+| `Admin` | 0 | — |
+| `Doctor` | 1 | — |
+| `Patient` | 2 | — |
+| `Staff` | 3 | — |
+| `Insurer` | 4 | — |
+| `Researcher` | 5 | — |
+| `Auditor` | 6 | — |
+| `Service` | 7 | — |
+
+#### `enum RbacError`
+
+| Variant | Value | Description |
+|---|---|---|
+| `Unauthorized` | 100 | — |
+| `NotInitialized` | 300 | — |
+| `AlreadyInitialized` | 301 | — |
 
 #### `enum VerificationMethodType`
 
@@ -7602,6 +3784,17 @@ let env = Env::default();
 | `verifier` | `Address` | — |
 | `is_active` | `bool` | — |
 
+#### `struct ProviderStake`
+
+| Field | Type | Description |
+|---|---|---|
+| `provider` | `Address` | — |
+| `token_address` | `Address` | — |
+| `amount` | `i128` | — |
+| `locked_until` | `u64` | — |
+| `slashed` | `bool` | — |
+| `deposited_at` | `u64` | — |
+
 #### `enum DataKey`
 
 | Variant | Value | Description |
@@ -7611,6 +3804,8 @@ let env = Env::default();
 | `Owner` | — | — |
 | `Initialized` | — | — |
 | `NetworkId` | — | — |
+| `RbacContract` | — | — |
+| `Paused` | — | — |
 | `Verifier` | — | — |
 | `Management` | — | — |
 | `Verifier` | — | — |
@@ -7662,11 +3857,60 @@ let env = Env::default();
 | `ActiveRecovery` | — | — |
 | `Address` | — | — |
 | `RecoveryCounter` | — | — |
+| `SubjectRecoveryId` | — | — |
+| `Address` | — | — |
 | `Key` | — | — |
 | `Rotation` | — | — |
 | `LastKeyRotation` | — | — |
 | `Address` | — | — |
 | `KeyRotationCooldown` | — | — |
+| `Provider` | — | — |
+| `Staking` | — | — |
+| `StakeInfo` | — | — |
+| `Address` | — | — |
+
+#### `enum MockRbacKey`
+
+| Variant | Value | Description |
+|---|---|---|
+| `Role` | — | — |
+| `Address` | — | — |
+| `RbacRole` | — | — |
+
+### Error Codes
+
+| Variant | Code | Description |
+|---|---|---|
+| `Unauthorized` | 100 | — |
+| `NotVerifier` | 110 | — |
+| `CannotRemoveOwner` | 111 | — |
+| `InvalidRecoveryGuardian` | 120 | — |
+| `InsufficientGuardianApprovals` | 121 | — |
+| `GuardianWeightTooHigh` | 122 | — |
+| `InvalidRecoveryThreshold` | 123 | — |
+| `InvalidInput` | 200 | — |
+| `InputTooLong` | 201 | — |
+| `InvalidVerificationMethod` | 250 | — |
+| `InvalidCredentialType` | 251 | — |
+| `InvalidServiceEndpoint` | 252 | — |
+| `NotInitialized` | 300 | — |
+| `AlreadyInitialized` | 301 | — |
+| `ContractPaused` | 302 | — |
+| `RecoveryNotInitiated` | 360 | — |
+| `RecoveryAlreadyPending` | 361 | — |
+| `RecoveryTimelockNotElapsed` | 362 | — |
+| `RecoveryAlreadyExecuted` | 363 | — |
+| `VerificationMethodNotFound` | 450 | — |
+| `ArithmeticOverflow` | 500 | — |
+| `CredentialNotFound` | 460 | — |
+| `AttestationNotFound` | 461 | — |
+| `ServiceNotFound` | 462 | — |
+| `DIDNotFound` | 470 | — |
+| `DIDAlreadyExists` | 471 | — |
+| `DIDDeactivated` | 472 | — |
+| `CredentialExpired` | 605 | — |
+| `CredentialRevoked` | 606 | — |
+| `KeyRotationCooldown` | 603 | — |
 
 ---
 
@@ -8265,17 +4509,21 @@ let (env, _, client) = setup();
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), IoTError>` | — |
-| `pause` | `env: Env, admin: Address` | `Result<(), IoTError>` | — |
-| `unpause` | `env: Env, admin: Address` | `Result<(), IoTError>` | — |
-| `set_role` | `env: Env, admin: Address, user: Address, role: Role` | `Result<(), IoTError>` | — |
+| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
+| `pause` | `env: Env, admin: Address` | `Result<(), Error>` | — |
+| `unpause` | `env: Env, admin: Address` | `Result<(), Error>` | — |
+| `set_role` | `env: Env, admin: Address, user: Address, role: Role` | `Result<(), Error>` | — |
 | `get_role` | `env: Env, user: Address` | `Role` | — |
-| `get_device` | `env: Env, device_id: BytesN<32>` | `Result<Device, IoTError>` | — |
+| `get_manufacturer` | `env: Env, manufacturer_id: BytesN<32>` | `Result<Manufacturer, Error>` | — |
+| `get_device` | `env: Env, device_id: BytesN<32>` | `Result<Device, Error>` | — |
 | `get_device_count` | `env: Env` | `u64` | — |
 | `get_devices_by_operator` | `env: Env, operator: Address` | `Vec<BytesN<32>>` | — |
-| `get_device_uptime_bps` | `env: Env, device_id: BytesN<32>` | `Result<u32, IoTError>` | — |
+| `activate_device` | `env: Env, caller: Address, device_id: BytesN<32>` | `Result<(), Error>` | — |
+| `suspend_device` | `env: Env, caller: Address, device_id: BytesN<32>` | `Result<(), Error>` | — |
+| `get_device_heartbeats` | `env: Env, device_id: BytesN<32>` | `Result<Vec<Heartbeat>, Error>` | — |
+| `get_device_uptime_bps` | `env: Env, device_id: BytesN<32>` | `Result<u32, Error>` | — |
 | `get_active_device_count` | `env: Env` | `u64` | — |
-| `get_comm_channel` | `env: Env, channel_id: BytesN<32>` | `Result<CommChannel, IoTError>` | — |
+| `get_comm_channel` | `env: Env, channel_id: BytesN<32>` | `Result<CommChannel, Error>` | — |
 | `get_devices_by_manufacturer` | `env: Env, manufacturer_id: BytesN<32>` | `Vec<BytesN<32>>` | — |
 | `get_manufacturer_count` | `env: Env` | `u32` | — |
 
@@ -8507,37 +4755,36 @@ let (env, _, client) = setup();
 
 | Variant | Code | Description |
 |---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `ContractPaused` | 3 | — |
-| `NotPaused` | 4 | — |
-| `NotAdmin` | 10 | — |
-| `NotAuthorized` | 11 | — |
-| `NotDeviceOperator` | 12 | — |
-| `NotManufacturer` | 13 | — |
-| `DeviceAlreadyRegistered` | 20 | — |
-| `DeviceNotFound` | 21 | — |
-| `DeviceNotActive` | 22 | — |
-| `DeviceDecommissioned` | 23 | — |
-| `DeviceSuspended` | 24 | — |
-| `InvalidDeviceType` | 25 | — |
-| `InvalidDeviceId` | 26 | — |
-| `ManufacturerNotRegistered` | 27 | — |
-| `ManufacturerAlreadyRegistered` | 28 | — |
-| `FirmwareVersionNotFound` | 40 | — |
-| `FirmwareAlreadyExists` | 41 | — |
-| `FirmwareNotApproved` | 42 | — |
-| `InvalidFirmwareHash` | 43 | — |
-| `DowngradeNotAllowed` | 44 | — |
-| `HeartbeatTooFrequent` | 50 | — |
-| `InvalidMetricValue` | 51 | — |
-| `DeviceOffline` | 52 | — |
-| `InvalidEncryptionKey` | 60 | — |
-| `KeyRotationTooFrequent` | 61 | — |
-| `ChannelNotFound` | 62 | — |
-| `StringTooLong` | 70 | — |
-| `StringTooShort` | 71 | — |
-| `InvalidTimestamp` | 72 | — |
+| `Unauthorized` | 100 | — |
+| `NotAdmin` | 102 | — |
+| `NotDeviceOperator` | 115 | — |
+| `NotManufacturer` | 116 | — |
+| `InputTooLong` | 201 | — |
+| `InputTooShort` | 202 | — |
+| `InvalidDeviceType` | 240 | — |
+| `InvalidFirmwareHash` | 250 | — |
+| `InvalidMetricValue` | 260 | — |
+| `InvalidTimestamp` | 270 | — |
+| `NotInitialized` | 300 | — |
+| `AlreadyInitialized` | 301 | — |
+| `ContractPaused` | 302 | — |
+| `NotPaused` | 303 | — |
+| `DeviceNotFound` | 405 | — |
+| `DeviceAlreadyRegistered` | 420 | — |
+| `ManufacturerNotRegistered` | 425 | — |
+| `ManufacturerAlreadyRegistered` | 426 | — |
+| `FirmwareVersionNotFound` | 430 | — |
+| `FirmwareAlreadyExists` | 431 | — |
+| `ChannelNotFound` | 440 | — |
+| `InvalidEncryptionKey` | 602 | — |
+| `KeyRotationTooFrequent` | 603 | — |
+| `DeviceDecommissioned` | 820 | — |
+| `FirmwareNotApproved` | 821 | — |
+| `HeartbeatTooFrequent` | 822 | — |
+| `DeviceNotActive` | 823 | — |
+| `DeviceSuspended` | 824 | — |
+| `DowngradeNotAllowed` | 825 | — |
+| `DeviceOffline` | 826 | — |
 
 ### Examples
 
@@ -8549,7 +4796,7 @@ let env = Env::default();
     client.initialize(&admin);
     // Calling initialize again should fail
     let result = client.try_initialize(&admin);
-    assert_eq!(result, Err(Ok(IoTError::AlreadyInitialized)));
+    assert_eq!(result, Err(Ok(Error::AlreadyInitialized)));
 ```
 
 #### `test_pause_unpause`
@@ -8562,7 +4809,7 @@ let env = Env::default();
     // set_role should fail when paused
     let user = Address::generate(&env);
     let result = client.try_set_role(&admin, &user, &Role::Operator);
-    assert_eq!(result, Err(Ok(IoTError::ContractPaused)));
+    assert_eq!(result, Err(Ok(Error::ContractPaused)));
     client.unpause(&admin);
 ```
 
@@ -8574,8 +4821,53 @@ let env = Env::default();
     client.initialize(&admin);
     let non_admin = Address::generate(&env);
     let result = client.try_pause(&non_admin);
-    assert_eq!(result, Err(Ok(IoTError::NotAdmin)));
+    assert_eq!(result, Err(Ok(Error::NotAdmin)));
 ```
+
+---
+
+## load_testing
+
+### Functions
+
+| Function | Parameters | Returns | Description |
+|---|---|---|---|
+| `run` | `env: Env, config: LoadTestConfig` | `LoadTestResult` | Execute a load-test run and persist the result.  Each "operation" is a lightweight storage read/write that exercises the contract's execution path.  Latency is measured in ledger sequence units. |
+| `last_result` | `env: Env` | `Option<LoadTestResult>` | Return the result of the most recent run. |
+| `run_count` | `env: Env` | `u32` | Return the total number of runs executed. |
+
+### Types
+
+#### `struct LoadTestConfig`
+
+| Field | Type | Description |
+|---|---|---|
+| `num_requests` | `u32` | — |
+| `concurrency` | `u32` | — |
+| `max_avg_latency` | `u64` | — |
+| `min_success_rate` | `u32` | — |
+
+#### `struct LoadTestResult`
+
+| Field | Type | Description |
+|---|---|---|
+| `total_requests` | `u32` | — |
+| `successful` | `u32` | — |
+| `failed` | `u32` | — |
+| `success_rate` | `u32` | — |
+| `min_latency` | `u64` | — |
+| `max_latency` | `u64` | — |
+| `avg_latency` | `u64` | — |
+| `p95_latency` | `u64` | — |
+| `p99_latency` | `u64` | — |
+| `passed` | `bool` | — |
+
+#### `enum DataKey`
+
+| Variant | Value | Description |
+|---|---|---|
+| `LastResult` | — | — |
+| `RunCount` | — | — |
 
 ---
 
@@ -8911,649 +5203,6 @@ let env = Env::default();
 
         client.initialize(&admin);
         client.add_issuer(&issuer);
-```
-
----
-
-## medical_imaging
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address, safety_threshold_mgy: u32` | `Result<bool, Error>` | — |
-| `set_paused` | `env: Env, caller: Address, paused: bool` | `Result<bool, Error>` | — |
-| `verify_share_access` | `env: Env, image_id: u64, viewer: Address` | `Result<bool, Error>` | — |
-| `get_image` | `env: Env, image_id: u64` | `Option<MedicalImage>` | — |
-| `get_dicom` | `env: Env, image_id: u64` | `Option<DicomMetadata>` | — |
-| `get_image_by_sop` | `env: Env, sop_uid_hash: BytesN<32>` | `Option<u64>` | — |
-| `list_images_by_patient` | `env: Env, patient: Address` | `Vec<u64>` | — |
-| `list_images_by_modality_hash` | `env: Env, modality_code_hash: BytesN<32>` | `Vec<u64>` | — |
-| `list_images_by_body_part_hash` | `env: Env, body_part_hash: BytesN<32>` | `Vec<u64>` | — |
-| `get_compression_ratio_bps` | `env: Env, image_id: u64` | `Result<u32, Error>` | — |
-| `get_metadata_index` | `env: Env, image_id: u64` | `Option<ImageMetadataIndex>` | — |
-| `get_model` | `env: Env, model_id: BytesN<32>` | `Option<AiDiagnosticModel>` | — |
-| `get_diagnostic` | `env: Env, diagnosis_id: u64` | `Option<DiagnosticAssistance>` | — |
-| `get_share_grant` | `env: Env, image_id: u64, grantee: Address` | `Option<ImageShareGrant>` | — |
-| `get_annotation` | `env: Env, annotation_id: u64` | `Option<ImageAnnotation>` | — |
-| `list_annotations_for_image` | `env: Env, image_id: u64` | `Vec<ImageAnnotation>` | — |
-| `get_image_record_link` | `env: Env, image_id: u64` | `Option<ImageRecordLink>` | — |
-| `get_dose_entry` | `env: Env, dose_id: u64` | `Option<RadiationDoseEntry>` | — |
-| `get_dose_summary` | `env: Env, patient: Address` | `Option<DoseSummary>` | — |
-| `get_study` | `env: Env, study_id: u64` | `Option<ImagingStudy>` | — |
-| `get_studies_by_reader` | `env: Env, reader: Address` | `Vec<u64>` | — |
-| `get_studies_by_status` | `env: Env, status: StudyStatus` | `Vec<u64>` | — |
-| `get_studies_by_patient` | `env: Env, patient: Address` | `Vec<u64>` | — |
-| `get_reader_reports` | `env: Env, caller: Address, study_id: u64` | `Vec<ReaderReport>` | — |
-| `get_my_report` | `env: Env, reader: Address, study_id: u64` | `ReaderReport` | — |
-
-### Types
-
-#### `enum ImagingModality`
-
-| Variant | Value | Description |
-|---|---|---|
-| `XRay` | — | — |
-| `MRI` | — | — |
-| `CT` | — | — |
-| `Ultrasound` | — | — |
-| `PET` | — | — |
-| `Mammography` | — | — |
-| `Custom` | — | — |
-| `u32` | — | — |
-
-#### `enum CompressionAlgorithm`
-
-| Variant | Value | Description |
-|---|---|---|
-| `None` | — | — |
-| `LosslessJpeg` | — | — |
-| `Jpeg2000Lossless` | — | — |
-| `Rle` | — | — |
-| `Deflate` | — | — |
-| `Custom` | — | — |
-| `u32` | — | — |
-
-#### `enum ProcessingKind`
-
-| Variant | Value | Description |
-|---|---|---|
-| `EdgeDetection` | — | — |
-| `Segmentation` | — | — |
-
-#### `enum ShareScope`
-
-| Variant | Value | Description |
-|---|---|---|
-| `ViewOnly` | — | — |
-| `Diagnostics` | — | — |
-| `Research` | — | — |
-
-#### `enum AnnotationVisibility`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Private` | — | — |
-| `CareTeam` | — | — |
-| `MultiInstitution` | — | — |
-
-#### `struct DicomMetadata`
-
-| Field | Type | Description |
-|---|---|---|
-| `study_uid_hash` | `BytesN<32>` | — |
-| `series_uid_hash` | `BytesN<32>` | — |
-| `sop_uid_hash` | `BytesN<32>` | — |
-| `modality_code_hash` | `BytesN<32>` | — |
-| `body_part_hash` | `BytesN<32>` | — |
-| `acquisition_timestamp` | `u64` | — |
-| `rows` | `u32` | — |
-| `cols` | `u32` | — |
-| `bits_allocated` | `u32` | — |
-| `pixel_spacing_microns` | `u32` | — |
-
-#### `struct MedicalImage`
-
-| Field | Type | Description |
-|---|---|---|
-| `image_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `uploaded_by` | `Address` | — |
-| `modality` | `ImagingModality` | — |
-| `encrypted_ref` | `String` | — |
-| `compression` | `CompressionAlgorithm` | — |
-| `original_size_bytes` | `u64` | — |
-| `compressed_size_bytes` | `u64` | — |
-| `content_hash` | `BytesN<32>` | — |
-| `encrypted_key_commitment` | `BytesN<32>` | — |
-| `dicom_sop_uid_hash` | `BytesN<32>` | — |
-| `uploaded_at` | `u64` | — |
-| `integrity_verified_at` | `u64` | — |
-| `tamper_detected` | `bool` | — |
-
-#### `struct ImageMetadataIndex`
-
-| Field | Type | Description |
-|---|---|---|
-| `image_id` | `u64` | — |
-| `extracted_by` | `Address` | — |
-| `extracted_at` | `u64` | — |
-| `token_hashes` | `Vec<BytesN<32>>` | — |
-| `finding_hashes` | `Vec<BytesN<32>>` | — |
-
-#### `struct ProcessingResult`
-
-| Field | Type | Description |
-|---|---|---|
-| `image_id` | `u64` | — |
-| `kind` | `ProcessingKind` | — |
-| `processor` | `Address` | — |
-| `algorithm_version` | `u32` | — |
-| `output_ref` | `String` | — |
-| `output_hash` | `BytesN<32>` | — |
-| `quality_score_bps` | `u32` | — |
-| `created_at` | `u64` | — |
-
-#### `struct AiDiagnosticModel`
-
-| Field | Type | Description |
-|---|---|---|
-| `model_id` | `BytesN<32>` | — |
-| `owner` | `Address` | — |
-| `model_name_hash` | `BytesN<32>` | — |
-| `version` | `u32` | — |
-| `modality` | `ImagingModality` | — |
-| `is_active` | `bool` | — |
-| `created_at` | `u64` | — |
-
-#### `struct DiagnosticAssistance`
-
-| Field | Type | Description |
-|---|---|---|
-| `diagnosis_id` | `u64` | — |
-| `image_id` | `u64` | — |
-| `model_id` | `BytesN<32>` | — |
-| `clinician` | `Address` | — |
-| `condition_hash` | `BytesN<32>` | — |
-| `confidence_bps` | `u32` | — |
-| `explanation_ref` | `String` | — |
-| `recommended_action_hash` | `BytesN<32>` | — |
-| `created_at` | `u64` | — |
-
-#### `struct ImageShareGrant`
-
-| Field | Type | Description |
-|---|---|---|
-| `image_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `grantee` | `Address` | — |
-| `granted_by` | `Address` | — |
-| `scope` | `ShareScope` | — |
-| `expires_at` | `u64` | — |
-| `zk_access_commitment` | `BytesN<32>` | — |
-| `watermark_hash` | `BytesN<32>` | — |
-| `revoked` | `bool` | — |
-
-#### `struct ImageAnnotation`
-
-| Field | Type | Description |
-|---|---|---|
-| `annotation_id` | `u64` | — |
-| `image_id` | `u64` | — |
-| `author` | `Address` | — |
-| `visibility` | `AnnotationVisibility` | — |
-| `encrypted_note_ref` | `String` | — |
-| `note_hash` | `BytesN<32>` | — |
-| `region_hash` | `BytesN<32>` | — |
-| `collaborators` | `Vec<Address>` | — |
-| `created_at` | `u64` | — |
-| `resolved` | `bool` | — |
-| `resolved_by` | `Option<Address>` | — |
-| `replies` | `Vec<BytesN<32>>` | — |
-
-#### `struct ImageRecordLink`
-
-| Field | Type | Description |
-|---|---|---|
-| `image_id` | `u64` | — |
-| `record_contract` | `Address` | — |
-| `medical_record_id` | `u64` | — |
-| `linked_by` | `Address` | — |
-| `linked_at` | `u64` | — |
-
-#### `struct RadiationDoseEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `dose_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `image_id` | `u64` | — |
-| `modality` | `ImagingModality` | — |
-| `dose_mgy` | `u32` | — |
-| `warning_threshold_mgy` | `u32` | — |
-| `accumulated_mgy` | `u64` | — |
-| `recorded_at` | `u64` | — |
-| `threshold_exceeded` | `bool` | — |
-
-#### `struct DoseSummary`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `total_mgy` | `u64` | — |
-| `event_count` | `u32` | — |
-| `last_recorded_at` | `u64` | — |
-| `safety_alerts` | `u32` | — |
-
-#### `enum StudyStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | — | — |
-| `Assigned` | — | — |
-| `InReview` | — | — |
-| `PreliminaryReport` | — | — |
-| `DiscrepancyReview` | — | — |
-| `FinalReport` | — | — |
-| `Amended` | — | — |
-
-#### `struct ImagingStudy`
-
-| Field | Type | Description |
-|---|---|---|
-| `study_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `created_by` | `Address` | — |
-| `modality` | `ImagingModality` | — |
-| `image_ids` | `Vec<u64>` | — |
-| `ai_result_ids` | `Vec<u64>` | — |
-| `required_readers` | `u32` | — |
-| `status` | `StudyStatus` | — |
-| `created_at` | `u64` | — |
-| `finalized_at` | `u64` | — |
-
-#### `struct ReaderReport`
-
-| Field | Type | Description |
-|---|---|---|
-| `report_id` | `u64` | — |
-| `study_id` | `u64` | — |
-| `reader` | `Address` | — |
-| `diagnosis_hash` | `BytesN<32>` | — |
-| `findings_hash` | `BytesN<32>` | — |
-| `findings_ref` | `String` | — |
-| `agrees_with_ai` | `bool` | — |
-| `ai_accuracy_feedback_bps` | `u32` | — |
-| `submitted_at` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Roles` | — | — |
-| `Address` | — | — |
-| `Image` | — | — |
-| `u64` | — | — |
-| `ImageIds` | — | — |
-| `Dicom` | — | — |
-| `u64` | — | — |
-| `ImageByPatient` | — | — |
-| `Address` | — | — |
-| `ImageByModality` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `ImageByBodyPart` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `SopLookup` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `MetadataIndex` | — | — |
-| `u64` | — | — |
-| `Processing` | — | — |
-| `u64` | — | — |
-| `ProcessingKind` | — | — |
-| `Model` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Diagnosis` | — | — |
-| `u64` | — | — |
-| `Share` | — | — |
-| `u64` | — | — |
-| `Address` | — | — |
-| `Annotation` | — | — |
-| `u64` | — | — |
-| `ImageAnnotations` | — | — |
-| `u64` | — | — |
-| `Link` | — | — |
-| `u64` | — | — |
-| `DoseEntry` | — | — |
-| `u64` | — | — |
-| `DoseSummary` | — | — |
-| `Address` | — | — |
-| `Study` | — | — |
-| `u64` | — | — |
-| `ReaderReportEntry` | — | — |
-| `u64` | — | — |
-| `StudyReports` | — | — |
-| `u64` | — | — |
-| `StudyReaders` | — | — |
-| `u64` | — | — |
-| `ReaderStudies` | — | — |
-| `Address` | — | — |
-| `StatusStudies` | — | — |
-| `u32` | — | — |
-| `PatientStudies` | — | — |
-| `Address` | — | — |
-| `StudyArbitrator` | — | — |
-| `u64` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `ContractPaused` | 4 | — |
-| `InvalidInput` | 5 | — |
-| `ImageNotFound` | 6 | — |
-| `ModelNotFound` | 7 | — |
-| `ShareNotFound` | 8 | — |
-| `ShareExpired` | 9 | — |
-| `AnnotationNotFound` | 10 | — |
-| `LinkNotFound` | 11 | — |
-| `DuplicateDicomSop` | 12 | — |
-| `IntegrityMismatch` | 13 | — |
-| `StudyNotFound` | 14 | — |
-| `StudyNotInExpectedStatus` | 15 | — |
-| `ReaderNotAssigned` | 16 | — |
-| `ReaderAlreadySubmitted` | 17 | — |
-| `TooManyReaders` | 18 | — |
-| `TooManyImages` | 19 | — |
-| `AllReadersNotSubmitted` | 20 | — |
-| `ArbitratorNotAssigned` | 21 | — |
-| `InvalidStatusTransition` | 22 | — |
-| `ReportsNotYetAvailable` | 23 | — |
-
-### Examples
-
-#### `end_to_end_imaging_flow_with_privacy_ai_and_safety`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, admin) = setup(&env);
-
-    let patient = Address::generate(&env);
-    let tech = Address::generate(&env);
-    let radiologist = Address::generate(&env);
-    let physician = Address::generate(&env);
-    let auditor = Address::generate(&env);
-```
-
-#### `supports_dicom_lookup_and_indexes`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, admin) = setup(&env);
-
-    let patient = Address::generate(&env);
-    let tech = Address::generate(&env);
-    client.assign_role(&admin, &tech, &1u32);
-
-    let md = dicom(&env, 100);
-```
-
-#### `duplicate_dicom_sop_rejected`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, admin) = setup(&env);
-
-    let patient = Address::generate(&env);
-    let tech = Address::generate(&env);
-    client.assign_role(&admin, &tech, &1u32);
-
-    let md = dicom(&env, 150);
-```
-
----
-
-## medical_imaging_ai
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `pause` | `env: Env, admin: Address` | `Result<bool, Error>` | — |
-| `unpause` | `env: Env, admin: Address` | `Result<bool, Error>` | — |
-| `register_evaluator` | `env: Env, admin: Address, evaluator: Address` | `Result<bool, Error>` | — |
-| `revoke_evaluator` | `env: Env, admin: Address, evaluator: Address` | `Result<bool, Error>` | — |
-| `get_analysis` | `env: Env, result_id: u64` | `AnalysisResult` | — |
-| `get_image_analyses` | `env: Env, image_id: u64` | `Vec<u64>` | — |
-| `get_segmentation` | `env: Env, seg_id: u64` | `SegmentationResult` | — |
-| `get_model` | `env: Env, model_id: BytesN<32>` | `CnnModelMetadata` | — |
-| `is_model_active` | `env: Env, model_id: BytesN<32>` | `bool` | — |
-| `get_performance` | `env: Env, model_id: BytesN<32>` | `ModelPerformance` | — |
-
-### Types
-
-#### `enum ImagingModality`
-
-| Variant | Value | Description |
-|---|---|---|
-| `XRay` | — | — |
-| `MRI` | — | — |
-| `CT` | — | — |
-| `Ultrasound` | — | — |
-| `PET` | — | — |
-| `Mammography` | — | — |
-| `Custom` | — | — |
-| `u32` | — | — |
-
-#### `enum ModelStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Active` | — | — |
-| `Degraded` | — | — |
-| `Deactivated` | — | — |
-| `Retired` | — | — |
-
-#### `struct BoundingBox`
-
-| Field | Type | Description |
-|---|---|---|
-| `x_min` | `u32` | — |
-| `y_min` | `u32` | — |
-| `x_max` | `u32` | — |
-| `y_max` | `u32` | — |
-
-#### `struct CnnModelInput`
-
-| Field | Type | Description |
-|---|---|---|
-| `architecture_hash` | `BytesN<32>` | — |
-| `version` | `u32` | — |
-| `layer_count` | `u32` | — |
-| `input_rows` | `u32` | — |
-| `input_cols` | `u32` | — |
-| `input_channels` | `u32` | — |
-| `training_samples` | `u64` | — |
-| `validation_accuracy_bps` | `u32` | — |
-| `training_dataset_hash` | `BytesN<32>` | — |
-| `signing_pubkey` | `BytesN<32>` | — |
-
-#### `struct CnnModelMetadata`
-
-| Field | Type | Description |
-|---|---|---|
-| `model_id` | `BytesN<32>` | — |
-| `owner` | `Address` | — |
-| `version` | `u32` | — |
-| `modality` | `ImagingModality` | — |
-| `architecture_hash` | `BytesN<32>` | — |
-| `layer_count` | `u32` | — |
-| `input_rows` | `u32` | — |
-| `input_cols` | `u32` | — |
-| `input_channels` | `u32` | — |
-| `training_samples` | `u64` | — |
-| `validation_accuracy_bps` | `u32` | — |
-| `training_dataset_hash` | `BytesN<32>` | — |
-| `signing_pubkey` | `BytesN<32>` | — |
-| `status` | `ModelStatus` | — |
-| `registered_at` | `u64` | — |
-| `last_evaluated_at` | `u64` | — |
-
-#### `struct Finding`
-
-| Field | Type | Description |
-|---|---|---|
-| `finding_id` | `u32` | — |
-| `condition_hash` | `BytesN<32>` | — |
-| `confidence_bps` | `u32` | — |
-| `severity` | `u32` | — |
-| `region` | `BoundingBox` | — |
-| `explanation_ref` | `String` | — |
-
-#### `struct AnalysisResult`
-
-| Field | Type | Description |
-|---|---|---|
-| `result_id` | `u64` | — |
-| `image_id` | `u64` | — |
-| `model_id` | `BytesN<32>` | — |
-| `submitter` | `Address` | — |
-| `attestation_hash` | `BytesN<32>` | — |
-| `signature` | `BytesN<64>` | — |
-| `findings` | `Vec<Finding>` | — |
-| `overall_confidence_bps` | `u32` | — |
-| `processing_time_ms` | `u32` | — |
-| `created_at` | `u64` | — |
-
-#### `struct SegmentedRegion`
-
-| Field | Type | Description |
-|---|---|---|
-| `label_hash` | `BytesN<32>` | — |
-| `pixel_count` | `u64` | — |
-| `volume_mm3` | `u64` | — |
-| `mean_intensity` | `u32` | — |
-| `mask_ref` | `String` | — |
-| `bounds` | `BoundingBox` | — |
-
-#### `struct SegmentationResult`
-
-| Field | Type | Description |
-|---|---|---|
-| `seg_id` | `u64` | — |
-| `image_id` | `u64` | — |
-| `model_id` | `BytesN<32>` | — |
-| `submitter` | `Address` | — |
-| `attestation_hash` | `BytesN<32>` | — |
-| `signature` | `BytesN<64>` | — |
-| `regions` | `Vec<SegmentedRegion>` | — |
-| `processing_time_ms` | `u32` | — |
-| `created_at` | `u64` | — |
-
-#### `struct ModelPerformance`
-
-| Field | Type | Description |
-|---|---|---|
-| `model_id` | `BytesN<32>` | — |
-| `modality` | `ImagingModality` | — |
-| `total_evaluated` | `u64` | — |
-| `correct_count` | `u64` | — |
-| `lifetime_accuracy_bps` | `u32` | — |
-| `window_size` | `u64` | — |
-| `window_correct` | `u64` | — |
-| `window_total` | `u64` | — |
-| `rolling_accuracy_bps` | `u32` | — |
-| `avg_processing_time_ms` | `u32` | — |
-| `warning_threshold_bps` | `u32` | — |
-| `critical_threshold_bps` | `u32` | — |
-| `min_sample_size` | `u64` | — |
-| `last_updated` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `CnnModel` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `AnalysisResult` | — | — |
-| `u64` | — | — |
-| `SegResult` | — | — |
-| `u64` | — | — |
-| `Performance` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `ImageResults` | — | — |
-| `u64` | — | — |
-| `ImageSegResults` | — | — |
-| `u64` | — | — |
-| `Evaluator` | — | — |
-| `Address` | — | — |
-| `DefaultWarningBps` | — | — |
-| `DefaultCriticalBps` | — | — |
-| `DefaultMinSamples` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `ContractPaused` | 4 | — |
-| `InvalidInput` | 5 | — |
-| `ModelNotFound` | 6 | — |
-| `ModelNotActive` | 7 | — |
-| `ModelAlreadyExists` | 8 | — |
-| `ResultNotFound` | 9 | — |
-| `SegmentationNotFound` | 10 | — |
-| `TooManyFindings` | 11 | — |
-| `TooManyRegions` | 12 | — |
-| `InvalidConfidence` | 13 | — |
-| `InvalidSeverity` | 14 | — |
-| `InvalidThreshold` | 15 | — |
-| `AttestationInvalid` | 16 | — |
-| `DuplicateResult` | 17 | — |
-| `InsufficientSamples` | 18 | — |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (_, _) = setup(&env);
-```
-
-#### `test_pause_unpause`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, admin) = setup(&env);
-    client.pause(&admin);
-    client.unpause(&admin);
-```
-
-#### `test_register_and_revoke_evaluator`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, admin) = setup(&env);
-    let evaluator = Address::generate(&env);
-    client.register_evaluator(&admin, &evaluator);
-    client.revoke_evaluator(&admin, &evaluator);
 ```
 
 ---
@@ -9895,89 +5544,6 @@ let env = Env::default();
 
 ---
 
-## medical_record_hash_registry
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize the contract with an admin |
-| `get_patient_by_hash` | `env: Env, record_hash: BytesN<32>` | `Option<Address>` | Get the patient ID associated with a specific record hash |
-| `get_patient_records` | `env: Env, patient_id: Address` | `Option<PatientRecords>` | Get all records for a patient |
-| `get_record_count` | `env: Env, patient_id: Address` | `u32` | Get the count of records for a patient |
-| `get_admin` | `env: Env` | `Result<Address, Error>` | Get the current admin |
-
-### Types
-
-#### `struct RecordEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `record_hash` | `BytesN<32>` | — |
-| `timestamp` | `u64` | — |
-| `verified` | `bool` | — |
-
-#### `struct PatientRecords`
-
-| Field | Type | Description |
-|---|---|---|
-| `records` | `Vec<RecordEntry>` | — |
-| `record_count` | `u32` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initialized` | — | — |
-| `Admin` | — | — |
-| `RecordStorage` | — | — |
-| `Address` | — | — |
-| `patient_id` | — | — |
-| `PatientRecords` | — | — |
-| `HashIndex` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `record_hash` | — | — |
-| `patient_id` | — | — |
-
-### Error Codes
-
-| Variant | Code | Description |
-|---|---|---|
-| `NotInitialized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `DuplicateRecord` | 4 | — |
-| `RecordNotFound` | 5 | — |
-| `InvalidPatientId` | 6 | — |
-| `InvalidRecordHash` | 7 | — |
-| `InsufficientFunds` | 10 | — |
-| `DeadlineExceeded` | 11 | — |
-| `InvalidSignature` | 12 | — |
-| `UnauthorizedCaller` | 13 | — |
-| `ContractPaused` | 14 | — |
-| `StorageFull` | 15 | — |
-| `CrossChainTimeout` | 16 | — |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let (env, client, admin) = setup();
-        let result = client.initialize(&admin);
-        assert!(result.is_ok());
-    }
-
-    #[test]
-    fn test_initialize_twice_fails() {
-        let (env, client, admin) = setup();
-        client.initialize(&admin).unwrap();
-```
-
----
-
 ## medical_record_search
 
 ### Functions
@@ -10198,1501 +5764,36 @@ let env = Env::default();
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `bool` | — |
-| `get_audit_forensics` | `env: Env` | `Option<Address>` | — |
-| `is_user_qkd_capable` | `env: Env, user: Address` | `bool` | — |
-| `deactivate_user` | `env: Env, caller: Address, user: Address` | `Result<bool, Error>` | — |
-| `get_user_role` | `env: Env, user: Address` | `Role` | — |
-| `pause` | `env: Env, caller: Address` | `Result<bool, Error>` | — |
-| `unpause` | `env: Env, caller: Address` | `Result<bool, Error>` | — |
-| `get_record` | `env: Env, caller: Address, record_id: u64` | `Result<MedicalRecord, Error>` | — |
-| `get_record_metadata` | `env: Env, record_id: u64` | `Result<RecordMetadata, Error>` | — |
-| `get_record_count` | `env: Env` | `u64` | — |
-| `get_patient_record_count` | `env: Env, patient: Address` | `u64` | — |
-| `get_patient_record_id` | `env: Env, patient: Address, index: u64` | `Option<u64>` | — |
-| `get_zk_verifier_contract` | `env: Env` | `Option<Address>` | — |
-| `get_credential_registry_contract` | `env: Env` | `Option<Address>` | — |
-| `set_zk_enforced` | `env: Env, caller: Address, enforced: bool` | `Result<bool, Error>` | — |
-| `is_zk_enforced` | `env: Env` | `bool` | — |
-| `set_zk_grant_ttl` | `env: Env, caller: Address, ttl_secs: u64` | `Result<bool, Error>` | — |
-| `get_zk_grant_ttl` | `env: Env` | `u64` | — |
-| `get_record_commitment` | `env: Env, record_id: u64` | `Option<BytesN<32>>` | — |
-| `has_valid_zk_access_grant` | `env: Env, requester: Address, record_id: u64` | `bool` | — |
-| `get_crypto_registry` | `env: Env` | `Option<Address>` | — |
-| `get_homomorphic_registry` | `env: Env` | `Option<Address>` | — |
-| `set_mpc_manager` | `env: Env, caller: Address, manager: Address` | `Result<bool, Error>` | — |
-| `get_mpc_manager` | `env: Env` | `Option<Address>` | — |
-| `is_encryption_required` | `env: Env` | `bool` | — |
-| `get_regulatory_compliance` | `env: &Env` | `Option<Address>` | — |
-| `is_require_pq_envelopes` | `env: Env` | `bool` | — |
-| `set_quantum_threat_level` | `env: Env, admin: Address, level: u32` | `Result<(), Error>` | — |
-| `get_quantum_threat_level` | `env: Env` | `u32` | — |
-| `get_identity_registry` | `env: Env` | `Option<Address>` | — |
-| `get_did_auth_level` | `env: Env` | `DIDAuthLevel` | — |
-| `get_user_did` | `env: Env, user: Address` | `Option<String>` | — |
-| `verify_professional_credential` | `env: Env, user: Address` | `bool` | Minimal on-chain verifier used by tests: returns true iff the user is an active Doctor. |
-| `get_ai_config` | `env: Env` | `Option<AIConfig>` | — |
-| `get_patient_emergency_grants` | `env: Env, patient: Address` | `Vec<EmergencyAccess>` | — |
-| `get_access_logs` | `env: Env, page: u32, page_size: u32` | `Vec<AccessRequest>` | — |
-| `approve_recovery` | `env: Env, caller: Address, proposal_id: u64` | `Result<bool, Error>` | — |
-| `execute_recovery` | `env: Env, caller: Address, proposal_id: u64` | `Result<bool, Error>` | — |
-| `is_cross_chain_enabled` | `env: Env` | `bool` | — |
-| `get_all_cross_chain_refs` | `env: Env, record_id: u64` | `Vec<CrossChainRecordRef>` | — |
-| `version` | `env: Env` | `u32` | — |
+| `get_record` | `env: Env, record_id: u64` | `Option<Record>` | — |
 
 ### Types
 
-#### `enum ChainId`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Stellar` | — | — |
-| `Ethereum` | — | — |
-| `Polygon` | — | — |
-| `Avalanche` | — | — |
-| `BinanceSmartChain` | — | — |
-| `Arbitrum` | — | — |
-| `Optimism` | — | — |
-| `Custom` | — | — |
-| `u32` | — | — |
-
-#### `struct CrossChainRecordRef`
-
-| Field | Type | Description |
-|---|---|---|
-| `local_record_id` | `u64` | — |
-| `external_chain` | `ChainId` | — |
-| `external_record_hash` | `BytesN<32>` | — |
-| `sync_timestamp` | `u64` | — |
-| `is_synced` | `bool` | — |
-
-#### `struct RecordMetadata`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `patient_id` | `Address` | — |
-| `timestamp` | `u64` | — |
-| `category` | `String` | — |
-| `is_confidential` | `bool` | — |
-| `record_hash` | `BytesN<32>` | — |
-| `tags` | `Vec<String>` | — |
-| `custom_fields` | `Map<String` | — |
-| `version` | `u32` | — |
-| `history` | `Vec<RecordMetadataHistoryEntry>` | — |
-
-#### `struct RecordMetadataHistoryEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `version` | `u32` | — |
-| `timestamp` | `u64` | — |
-| `tags` | `Vec<String>` | — |
-| `custom_fields` | `Map<String` | — |
-
-#### `enum Role`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Admin` | — | — |
-| `Doctor` | — | — |
-| `Patient` | — | — |
-| `None` | — | — |
-
-#### `enum Permission`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Admin` | — | — |
-| `Management` | — | — |
-| `ManageUsers` | 1 | — |
-| `ManageSystem` | 2 | — |
-| `Record` | — | — |
-| `Access` | — | — |
-| `CreateRecord` | 10 | — |
-| `ReadRecord` | 11 | — |
-| `UpdateRecord` | 12 | — |
-| `DeleteRecord` | 13 | — |
-| `Privacy` | — | — |
-| `ReadConfidential` | 20 | — |
-| `Advanced` | — | — |
-| `DelegatePermission` | 30 | — |
-
-#### `struct PermissionGrant`
-
-| Field | Type | Description |
-|---|---|---|
-| `permission` | `Permission` | — |
-| `granter` | `Address` | — |
-| `expires_at` | `u64` | — |
-| `is_delegatable` | `bool` | — |
-
-#### `struct UserProfile`
-
-| Field | Type | Description |
-|---|---|---|
-| `role` | `Role` | — |
-| `active` | `bool` | — |
-| `did_reference` | `Option<String>` | — |
-| `qkd_capable` | `bool` | — |
-
-#### `enum DIDAuthLevel`
-
-| Variant | Value | Description |
-|---|---|---|
-| `None` | — | — |
-| `Basic` | — | — |
-| `CredentialRequired` | — | — |
-| `Full` | — | — |
-
-#### `struct AccessRequest`
-
-| Field | Type | Description |
-|---|---|---|
-| `requester` | `Address` | — |
-| `patient` | `Address` | — |
-| `record_id` | `u64` | — |
-| `purpose` | `String` | — |
-| `timestamp` | `u64` | — |
-| `granted` | `bool` | — |
-
-#### `struct EmergencyAccess`
-
-| Field | Type | Description |
-|---|---|---|
-| `grantee` | `Address` | — |
-| `patient` | `Address` | — |
-| `expires_at` | `u64` | — |
-| `record_scope` | `Vec<u64>` | — |
-| `is_active` | `bool` | — |
-
-#### `struct ZkPublicInputs`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `record_commitment` | `BytesN<32>` | — |
-| `credential_root` | `BytesN<32>` | — |
-| `issuer` | `Address` | — |
-| `requester_commitment` | `BytesN<32>` | — |
-| `provider_commitment` | `BytesN<32>` | — |
-| `claim_commitment` | `BytesN<32>` | — |
-| `min_timestamp` | `u64` | — |
-| `max_timestamp` | `u64` | — |
-| `nullifier` | `BytesN<32>` | — |
-| `pseudonym` | `BytesN<32>` | — |
-| `vk_version` | `u32` | — |
-
-#### `struct ZkAccessGrant`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `requester` | `Address` | — |
-| `expires_at` | `u64` | — |
-| `nullifier` | `BytesN<32>` | — |
-| `pseudonym` | `BytesN<32>` | — |
-| `vk_version` | `u32` | — |
-
-#### `struct ZkAuditRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `pseudonym` | `BytesN<32>` | — |
-| `timestamp` | `u64` | — |
-| `proof_verified` | `bool` | — |
-| `nullifier_present` | `bool` | — |
-| `nullifier` | `BytesN<32>` | — |
-
-#### `struct MedicalRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `doctor_id` | `Address` | — |
-| `timestamp` | `u64` | — |
-| `diagnosis` | `String` | — |
-| `treatment` | `String` | — |
-| `is_confidential` | `bool` | — |
-| `tags` | `Vec<String>` | — |
-| `category` | `String` | — |
-| `treatment_type` | `String` | — |
-| `data_ref` | `String` | — |
-| `doctor_did` | `Option<String>` | — |
-
-#### `enum AIInsightType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AnomalyScore` | — | — |
-| `RiskScore` | — | — |
-
-#### `struct AIInsight`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `record_id` | `u64` | — |
-| `model_id` | `BytesN<32>` | — |
-| `insight_type` | `AIInsightType` | — |
-| `score_bps` | `u32` | — |
-| `explanation_ref` | `String` | — |
-| `explanation_summary` | `String` | — |
-| `created_at` | `u64` | — |
-| `model_version` | `String` | — |
-
-#### `struct AIConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `ai_coordinator` | `Address` | — |
-| `dp_epsilon` | `u32` | — |
-| `min_participants` | `u32` | — |
-
-#### `struct RecoveryProposal`
-
-| Field | Type | Description |
-|---|---|---|
-| `proposal_id` | `u64` | — |
-| `token_contract` | `Address` | — |
-| `to` | `Address` | — |
-| `amount` | `i128` | — |
-| `created_at` | `u64` | — |
-| `executed` | `bool` | — |
-| `approvals` | `Vec<Address>` | — |
-
-#### `enum EnvelopeAlgorithm`
-
-| Variant | Value | Description |
-|---|---|---|
-| `X25519` | — | — |
-| `Kyber768` | — | — |
-| `Kyber1024` | — | — |
-| `Hybrid` | — | — |
-| `classical` | — | — |
-| `PQ` | — | — |
-| `wrapped` | — | — |
-| `keys` | — | — |
-| `stored` | — | — |
-| `in` | — | — |
-| `both` | — | — |
-| `fields` | — | — |
-| `HybridX25519Kyber768` | — | — |
-| `HybridX25519Kyber1024` | — | — |
-| `Advanced` | — | — |
-| `hybrid` | — | — |
-| `with` | — | — |
-| `code` | — | — |
-| `based` | — | — |
-| `crypto` | — | — |
-| `HybridKyberMcEliece` | — | — |
-| `McEliece` | — | — |
-| `Custom` | — | — |
-| `u32` | — | — |
-
-#### `struct KeyEnvelope`
-
-| Field | Type | Description |
-|---|---|---|
-| `recipient` | `Address` | — |
-| `key_version` | `u32` | — |
-| `algorithm` | `EnvelopeAlgorithm` | — |
-| `wrapped_key` | `Bytes` | — |
-| `pq_wrapped_key` | `Option<Bytes>` | — |
-
-#### `struct EncryptedRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `doctor_id` | `Address` | — |
-| `timestamp` | `u64` | — |
-| `is_confidential` | `bool` | — |
-| `tags` | `Vec<String>` | — |
-| `category` | `String` | — |
-| `treatment_type` | `String` | — |
-| `ciphertext_ref` | `String` | — |
-| `ciphertext_hash` | `BytesN<32>` | — |
-| `envelopes` | `Vec<KeyEnvelope>` | — |
-| `doctor_did` | `Option<String>` | — |
-
-#### `struct EncryptedRecordHeader`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `patient_id` | `Address` | — |
-| `doctor_id` | `Address` | — |
-| `timestamp` | `u64` | — |
-| `is_confidential` | `bool` | — |
-| `tags` | `Vec<String>` | — |
-| `category` | `String` | — |
-| `treatment_type` | `String` | — |
-| `ciphertext_ref` | `String` | — |
-| `ciphertext_hash` | `BytesN<32>` | — |
-| `doctor_did` | `Option<String>` | — |
-
-#### `struct UserAccessAttribute`
-
-| Field | Type | Description |
-|---|---|---|
-| `namespace` | `String` | — |
-| `value` | `String` | — |
-| `issued_by` | `Address` | — |
-| `issued_at` | `u64` | — |
-| `expires_at` | `u64` | — |
-| `revoked_at` | `u64` | — |
-| `epoch` | `u32` | — |
-| `is_active` | `bool` | — |
-| `is_verified` | `bool` | — |
-
-#### `struct AbePolicyMetadata`
-
-| Field | Type | Description |
-|---|---|---|
-| `policy_ref` | `String` | — |
-| `policy_hash` | `BytesN<32>` | — |
-| `access_ciphertext_ref` | `String` | — |
-| `access_ciphertext_hash` | `BytesN<32>` | — |
-| `required_permission` | `Permission` | — |
-| `attribute_count` | `u32` | — |
-| `compiled_at` | `u64` | — |
-| `valid_until` | `u64` | — |
-| `revocation_epoch` | `u32` | — |
-
-#### `struct AdvancedAccessState`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_policies` | `Map<u64` | — |
-| `user_attributes` | `Map<Address` | — |
-| `attribute_epochs` | `Map<BytesN<32>` | — |
-
-#### `struct AdvancedEncryptedRecordInput`
-
-| Field | Type | Description |
-|---|---|---|
-| `ciphertext_ref` | `String` | — |
-| `ciphertext_hash` | `BytesN<32>` | — |
-| `envelopes` | `Vec<KeyEnvelope>` | — |
-| `policy_ref` | `String` | — |
-| `policy_hash` | `BytesN<32>` | — |
-| `access_ciphertext_ref` | `String` | — |
-| `access_ciphertext_hash` | `BytesN<32>` | — |
-| `required_permission` | `Permission` | — |
-| `attribute_count` | `u32` | — |
-| `valid_until` | `u64` | — |
-| `revocation_epoch` | `u32` | — |
-
-#### `enum CryptoAuditAction`
-
-| Variant | Value | Description |
-|---|---|---|
-| `CryptoRegistrySet` | — | — |
-| `HomomorphicRegistrySet` | — | — |
-| `MpcManagerSet` | — | — |
-| `EncryptionRequiredSet` | — | — |
-| `EncryptedRecordCreated` | — | — |
-| `EnvelopeUpdated` | — | — |
-| `RequirePqEnvelopesSet` | — | — |
-| `CryptoConfigProposed` | — | — |
-| `CryptoConfigApproved` | — | — |
-| `CryptoConfigExecuted` | — | — |
-| `QuantumThreatDetected` | — | — |
-| `QuantumMigrationStarted` | — | — |
-| `QuantumMigrationCompleted` | — | — |
-
-#### `struct CryptoAuditEntry`
+#### `struct Record`
 
 | Field | Type | Description |
 |---|---|---|
 | `id` | `u64` | — |
+| `patient_id` | `String` | — |
+| `record_type` | `String` | — |
+| `content` | `String` | — |
 | `timestamp` | `u64` | — |
-| `actor` | `Address` | — |
-| `action` | `CryptoAuditAction` | — |
-| `record_id` | `Option<u64>` | — |
-| `details_hash` | `BytesN<32>` | — |
-| `details_ref` | `Option<String>` | — |
+| `owner` | `Address` | — |
 
-#### `struct CryptoConfigProposal`
+#### `enum RecordError`
 
-| Field | Type | Description |
+| Variant | Value | Description |
 |---|---|---|
-| `proposal_id` | `u64` | — |
-| `created_at` | `u64` | — |
-| `executed` | `bool` | — |
-| `approvals` | `Vec<Address>` | — |
-| `new_crypto_registry` | `Option<Address>` | — |
-| `new_homomorphic_registry` | `Option<Address>` | — |
-| `new_mpc_manager` | `Option<Address>` | — |
-| `encryption_required` | `Option<bool>` | — |
-| `require_pq_envelopes` | `Option<bool>` | — |
+| `InvalidInput` | 1 | — |
+| `Unauthorized` | 2 | — |
+| `RecordNotFound` | 3 | — |
+| `EncryptionFailed` | 4 | — |
 
 #### `enum DataKey`
 
 | Variant | Value | Description |
 |---|---|---|
-| `Lifecycle` | — | — |
-| `Initialized` | — | — |
-| `Paused` | — | — |
-| `ContractVersion` | — | — |
-| `Users` | — | — |
-| `DID` | — | — |
-| `Users` | — | — |
-| `IdentityRegistry` | — | — |
-| `DidAuthLevel` | — | — |
-| `UserPermissions` | — | — |
-| `Address` | — | — |
-| `Records` | — | — |
-| `NextId` | — | — |
-| `RecordCount` | — | — |
 | `Record` | — | — |
 | `u64` | — | — |
-| `RecordMeta` | — | — |
-| `u64` | — | — |
-| `RecordCommitment` | — | — |
-| `u64` | — | — |
-| `PatientRecords` | — | — |
-| `Address` | — | — |
-| `PatientRecordCount` | — | — |
-| `Address` | — | — |
-| `PatientRecord` | — | — |
-| `Address` | — | — |
-| `u64` | — | — |
-| `TagIndex` | — | — |
-| `String` | — | — |
-| `tag_value` | — | — |
-| `Vec` | — | — |
-| `u64` | — | — |
-| `record` | — | — |
-| `IDs` | — | — |
-| `with` | — | — |
-| `this` | — | — |
-| `tag` | — | — |
-| `Logs` | — | — |
-| `AccessLogCount` | — | — |
-| `AccessLog` | — | — |
-| `u64` | — | — |
-| `PatientAccessLogCount` | — | — |
-| `Address` | — | — |
-| `PatientAccessLog` | — | — |
-| `Address` | — | — |
-| `u64` | — | — |
-| `Emergency` | — | — |
-| `PatientEmergencyGrants` | — | — |
-| `Address` | — | — |
-| `AI` | — | — |
-| `AIConfig` | — | — |
-| `PatientRisk` | — | — |
-| `Address` | — | — |
-| `RecordAnomaly` | — | — |
-| `u64` | — | — |
-| `Recovery` | — | — |
-| `proposals` | — | — |
-| `Proposal` | — | — |
-| `u64` | — | — |
-| `CryptoConfigProposal` | — | — |
-| `u64` | — | — |
-| `Cross` | — | — |
-| `chain` | — | — |
-| `BridgeContract` | — | — |
-| `CrossChainIdentityContract` | — | — |
-| `CrossChainAccessContract` | — | — |
-| `CrossChainEnabled` | — | — |
-| `CrossChainRef` | — | — |
-| `u64` | — | — |
-| `ChainId` | — | — |
-| `Crypto` | — | — |
-| `config` | — | — |
-| `CryptoRegistry` | — | — |
-| `HomomorphicRegistry` | — | — |
-| `MpcManager` | — | — |
-| `EncryptionRequired` | — | — |
-| `RequirePqEnvelopes` | — | — |
-| `Encrypted` | — | — |
-| `records` | — | — |
-| `EncryptedRecord` | — | — |
-| `u64` | — | — |
-| `PatientEncryptedRecords` | — | — |
-| `Address` | — | — |
-| `Crypto` | — | — |
-| `audit` | — | — |
-| `log` | — | — |
-| `CryptoAuditCount` | — | — |
-| `CryptoAudit` | — | — |
-| `u64` | — | — |
-| `Audit` | — | — |
-| `Forensics` | — | — |
-| `AuditForensicsContract` | — | — |
-| `Compliance` | — | — |
-| `RegulatoryCompliance` | — | — |
-| `ZK` | — | — |
-| `ZkVerifierContract` | — | — |
-| `CredentialRegistryContract` | — | — |
-| `ZkEnforced` | — | — |
-| `ZkGrantTtl` | — | — |
-| `ZkUsedNullifier` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `ZkAccessGrant` | — | — |
-| `Address` | — | — |
-| `u64` | — | — |
-| `Rate` | — | — |
-| `limiting` | — | — |
-| `RateLimitCfg` | — | — |
-| `u32` | — | — |
-| `operation_id` | — | — |
-| `RateLimitConfig` | — | — |
-| `RateLimit` | — | — |
-| `Address` | — | — |
-| `u32` | — | — |
-| `caller` | — | — |
-| `operation_id` | — | — |
-| `RateLimitEntry` | — | — |
-| `RateLimitBypass` | — | — |
-| `Address` | — | — |
-| `bool` | — | — |
-| `admin` | — | — |
-| `granted` | — | — |
-| `bypass` | — | — |
-| `flag` | — | — |
-| `QuantumThreatLevel` | — | — |
-| `0` | — | — |
-| `100` | — | — |
-| `percentage` | — | — |
-
-#### `struct FailureInfo`
-
-| Field | Type | Description |
-|---|---|---|
-| `index` | `u32` | — |
-| `error_code` | `u32` | — |
-
-#### `struct BatchResult`
-
-| Field | Type | Description |
-|---|---|---|
-| `successes` | `Vec<u64>` | — |
-| `failures` | `Vec<FailureInfo>` | — |
-
-#### `struct RateLimitConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `doctor_max_calls` | `u32` | — |
-| `patient_max_calls` | `u32` | — |
-| `admin_max_calls` | `u32` | — |
-| `window_secs` | `u64` | — |
-
-#### `struct RateLimitEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `count` | `u32` | — |
-| `window_start` | `u64` | — |
-
-#### `enum MedicalRecordType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `General` | — | — |
-| `Laboratory` | — | — |
-| `Prescription` | — | — |
-| `Imaging` | — | — |
-| `Surgical` | — | — |
-| `Emergency` | — | — |
-
-#### `struct DataQualityScore`
-
-| Field | Type | Description |
-|---|---|---|
-| `overall_score` | `u32` | — |
-| `completeness_score` | `u32` | — |
-| `format_score` | `u32` | — |
-| `consistency_score` | `u32` | — |
-| `fhir_compliance_score` | `u32` | — |
-| `issue_count` | `u32` | — |
-
-#### `enum ValidationSeverity`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Info` | — | — |
-| `Warning` | — | — |
-| `ValidationErr` | — | — |
-| `Critical` | — | — |
-
-#### `struct ValidationIssue`
-
-| Field | Type | Description |
-|---|---|---|
-| `severity` | `ValidationSeverity` | — |
-| `field_name` | `String` | — |
-| `issue_description` | `String` | — |
-| `suggestion` | `String` | — |
-
-#### `struct ValidationReport`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `quality_score` | `DataQualityScore` | — |
-| `issues` | `Vec<ValidationIssue>` | — |
-| `is_fhir_compliant` | `bool` | — |
-| `validated_at` | `u64` | — |
-
-#### `struct FieldCompleteness`
-
-| Field | Type | Description |
-|---|---|---|
-| `has_diagnosis` | `bool` | — |
-| `has_treatment` | `bool` | — |
-| `has_category` | `bool` | — |
-| `has_treatment_type` | `bool` | — |
-| `has_data_ref` | `bool` | — |
-| `has_tags` | `bool` | — |
-| `has_doctor_did` | `bool` | — |
-| `total_fields` | `u32` | — |
-| `completed_fields` | `u32` | — |
-
-#### `enum CorrectionPriority`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Blocks` | — | — |
-| `record` | — | — |
-| `acceptance` | — | — |
-| `requires` | — | — |
-| `immediate` | — | — |
-| `attention` | — | — |
-| `maps` | — | — |
-| `to` | — | — |
-| `Critical` | — | — |
-| `severity` | — | — |
-| `Critical` | — | — |
-| `Required` | — | — |
-| `for` | — | — |
-| `record` | — | — |
-| `validity` | — | — |
-| `must` | — | — |
-| `be` | — | — |
-| `resolved` | — | — |
-| `maps` | — | — |
-| `to` | — | — |
-| `ValidationErr` | — | — |
-| `severity` | — | — |
-| `High` | — | — |
-| `Recommended` | — | — |
-| `fix` | — | — |
-| `that` | — | — |
-| `improves` | — | — |
-| `quality` | — | — |
-| `maps` | — | — |
-| `to` | — | — |
-| `Warning` | — | — |
-| `severity` | — | — |
-| `Medium` | — | — |
-| `Optional` | — | — |
-| `enhancement` | — | — |
-| `maps` | — | — |
-| `to` | — | — |
-| `Info` | — | — |
-| `severity` | — | — |
-| `Low` | — | — |
-
-#### `enum CorrectionAction`
-
-| Variant | Value | Description |
-|---|---|---|
-| `A` | — | — |
-| `required` | — | — |
-| `field` | — | — |
-| `is` | — | — |
-| `absent` | — | — |
-| `and` | — | — |
-| `must` | — | — |
-| `be` | — | — |
-| `provided` | — | — |
-| `AddMissingField` | — | — |
-| `A` | — | — |
-| `field` | — | — |
-| `value` | — | — |
-| `is` | — | — |
-| `present` | — | — |
-| `but` | — | — |
-| `fails` | — | — |
-| `format` | — | — |
-| `or` | — | — |
-| `length` | — | — |
-| `constraints` | — | — |
-| `FixFormat` | — | — |
-| `A` | — | — |
-| `field` | — | — |
-| `value` | — | — |
-| `can` | — | — |
-| `be` | — | — |
-| `auto` | — | — |
-| `normalized` | — | — |
-| `e` | — | — |
-| `g` | — | — |
-| `category` | — | — |
-| `casing` | — | — |
-| `NormalizeValue` | — | — |
-| `Two` | — | — |
-| `or` | — | — |
-| `more` | — | — |
-| `fields` | — | — |
-| `have` | — | — |
-| `an` | — | — |
-| `inconsistent` | — | — |
-| `relationship` | — | — |
-| `CheckConsistency` | — | — |
-| `The` | — | — |
-| `field` | — | — |
-| `does` | — | — |
-| `not` | — | — |
-| `satisfy` | — | — |
-| `a` | — | — |
-| `FHIR` | — | — |
-| `R4` | — | — |
-| `structural` | — | — |
-| `requirement` | — | — |
-| `ReviewFhirRequirement` | — | — |
-
-#### `struct CorrectionItem`
-
-| Field | Type | Description |
-|---|---|---|
-| `field_name` | `String` | — |
-| `action` | `CorrectionAction` | — |
-| `description` | `String` | — |
-| `suggested_value` | `Option<String>` | — |
-| `priority` | `CorrectionPriority` | — |
-
-#### `struct CorrectionWorkflow`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `u64` | — |
-| `total_issues` | `u32` | — |
-| `critical_count` | `u32` | — |
-| `error_count` | `u32` | — |
-| `warning_count` | `u32` | — |
-| `info_count` | `u32` | — |
-| `corrections` | `Vec<CorrectionItem>` | — |
-| `can_auto_fix` | `bool` | — |
-| `workflow_created_at` | `u64` | — |
-
-#### `struct CleanseResult`
-
-| Field | Type | Description |
-|---|---|---|
-| `record` | `MedicalRecord` | — |
-| `changes_made` | `Vec<String>` | — |
-| `was_modified` | `bool` | — |
-
-#### `enum LogLevel`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Info` | — | — |
-| `Warning` | — | — |
-| `ErrorLevel` | — | — |
-
-#### `struct StructuredLog`
-
-| Field | Type | Description |
-|---|---|---|
-| `timestamp` | `u64` | — |
-| `level` | `LogLevel` | — |
-| `operation` | `String` | — |
-| `actor` | `Option<Address>` | — |
-| `target_id` | `Option<Address>` | — |
-| `record_id` | `Option<u64>` | — |
-| `message` | `String` | — |
-
-### Error Codes
-
-| Variant | Code | Description |
-|---|---|---|
-| `ContractPaused` | 1 | — |
-| `ProposalAlreadyExecuted` | 6 | — |
-| `TimelockNotElasped` | 7 | — |
-| `NotEnoughApproval` | 8 | — |
-| `NotInitialized` | 48 | — |
-| `CryptoRegistryNotSet` | 49 | — |
-| `EncryptionRequired` | 50 | — |
-| `RateLimitExceeded` | 51 | — |
-| `NotAuthorized` | 2 | — |
-| `CrossChainAccessDenied` | 15 | — |
-| `EmergencyAccessExpired` | 24 | — |
-| `EmergencyAccessNotFound` | 25 | — |
-| `NotAICoordinator` | 28 | — |
-| `DIDNotFound` | 18 | — |
-| `DIDNotActive` | 19 | — |
-| `InvalidCredential` | 20 | — |
-| `CredentialExpired` | 21 | — |
-| `CredentialRevoked` | 22 | — |
-| `MissingRequiredCredential` | 23 | — |
-| `IdentityRegistryNotSet` | 26 | — |
-| `InvalidCategory` | 3 | — |
-| `EmptyTreatment` | 4 | — |
-| `EmptyDiagnosis` | 30 | — |
-| `EmptyTag` | 5 | — |
-| `EmptyDataRef` | 9 | — |
-| `InvalidInput` | 45 | — |
-| `InvalidDataRefLength` | 10 | — |
-| `InvalidDataRefCharset` | 11 | — |
-| `InvalidDiagnosisLength` | 31 | — |
-| `InvalidTreatmentLength` | 32 | — |
-| `InvalidPurposeLength` | 33 | — |
-| `InvalidTagLength` | 34 | — |
-| `InvalidModelVersionLength` | 38 | — |
-| `InvalidExplanationLength` | 39 | — |
-| `InvalidTreatmentTypeLength` | 42 | — |
-| `AIConfigNotSet` | 27 | — |
-| `InvalidAIScore` | 29 | — |
-| `InvalidScore` | 35 | — |
-| `InvalidDPEpsilon` | 36 | — |
-| `InvalidParticipantCount` | 37 | — |
-| `RecordNotFound` | 14 | — |
-| `RecordAlreadySynced` | 16 | — |
-| `InvalidChain` | 17 | — |
-| `CrossChainNotEnabled` | 12 | — |
-| `CrossChainContractsNotSet` | 13 | — |
-| `InvalidAddress` | 40 | — |
-| `SameAddress` | 41 | — |
-| `BatchTooLarge` | 43 | — |
-| `InvalidBatch` | 44 | — |
-| `NumberOutOfBounds` | 46 | — |
-| `InsufficientFunds` | 71 | — |
-| `DeadlineExceeded` | 72 | — |
-| `InvalidSignature` | 73 | — |
-| `UnauthorizedCaller` | 74 | — |
-| `StorageFull` | 75 | — |
-| `CrossChainTimeout` | 76 | — |
-
-### Examples
-
-#### `test_add_and_get_record`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let (client, admin) = create_contract(&env);
-    let doctor = Address::generate(&env);
-    let patient = Address::generate(&env);
-    let diagnosis = String::from_str(&env, "Common cold");
-    let treatment = String::from_str(&env, "Rest and fluids");
-    let is_confidential = false;
-```
-
-#### `test_empty_data_ref`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, admin) = create_contract(&env);
-    let doctor = Address::generate(&env);
-    let patient = Address::generate(&env);
-
-    client.manage_user(&admin, &doctor, &Role::Doctor);
-    client.manage_user(&admin, &patient, &Role::Patient);
-```
-
-#### `test_data_ref_too_short`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let (client, admin) = create_contract(&env);
-    let doctor = Address::generate(&env);
-    let patient = Address::generate(&env);
-
-    client.manage_user(&admin, &doctor, &Role::Doctor);
-    client.manage_user(&admin, &patient, &Role::Patient);
-```
-
----
-
-## medication_management
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `get_schedule` | `env: Env, schedule_id: u64` | `Result<MedicationSchedule, Error>` | — |
-| `get_refill_status` | `env: Env, schedule_id: u64` | `Result<RefillReminder, Error>` | — |
-| `get_patient_schedules` | `env: Env, patient: Address` | `Vec<u64>` | — |
-| `generate_adherence_report` | `env: Env, schedule_id: u64` | `Result<AdherenceReport, Error>` | — |
-| `get_catalog_size` | `env: Env` | `u64` | — |
-
-### Types
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `Unauthorized` | 3 | — |
-| `MedicationNotFound` | 4 | — |
-| `ScheduleNotFound` | 5 | — |
-| `InvalidData` | 6 | — |
-| `RefillNotFound` | 7 | — |
-| `InteractionAlreadyExists` | 8 | — |
-| `DuplicateMedication` | 9 | — |
-| `DoseAlreadyRecorded` | 10 | — |
-| `AutoRefillDisabled` | 11 | — |
-
-#### `enum MedicationSource`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Fda` | — | — |
-| `ManualClinicalEntry` | — | — |
-| `FhirMedicationStatement` | — | — |
-| `TelemedicinePrescription` | — | — |
-
-#### `enum Severity`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Low` | — | — |
-| `Moderate` | — | — |
-| `High` | — | — |
-| `Contraindicated` | — | — |
-
-#### `enum ScheduleStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Active` | — | — |
-| `Paused` | — | — |
-| `Completed` | — | — |
-| `Cancelled` | — | — |
-
-#### `enum AdherenceEventStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Taken` | — | — |
-| `Missed` | — | — |
-| `Skipped` | — | — |
-
-#### `enum RefillStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Monitoring` | — | — |
-| `ReminderDue` | — | — |
-| `Requested` | — | — |
-| `Processing` | — | — |
-| `Fulfilled` | — | — |
-
-#### `enum DosingSchedule`
-
-| Variant | Value | Description |
-|---|---|---|
-| `OnceDaily` | — | — |
-| `TwiceDaily` | — | — |
-| `ThreeTimesDaily` | — | — |
-| `EveryNHours` | — | — |
-| `u32` | — | — |
-| `EveryNDays` | — | — |
-| `u32` | — | — |
-| `Weekly` | — | — |
-| `SpecificTimes` | — | — |
-| `Vec` | — | — |
-| `u32` | — | — |
-
-#### `struct Config`
-
-| Field | Type | Description |
-|---|---|---|
-| `admin` | `Address` | — |
-| `pharmacist` | `Address` | — |
-| `fda_oracle` | `Address` | — |
-| `medical_records_contract` | `Address` | — |
-| `healthcare_payment_contract` | `Address` | — |
-
-#### `struct MedicationDefinition`
-
-| Field | Type | Description |
-|---|---|---|
-| `code` | `String` | — |
-| `ndc_code` | `String` | — |
-| `name` | `String` | — |
-| `generic_name` | `String` | — |
-| `manufacturer` | `String` | — |
-| `dosage_form` | `String` | — |
-| `strength` | `String` | — |
-| `controlled_substance` | `bool` | — |
-| `source` | `MedicationSource` | — |
-| `last_fda_sync` | `u64` | — |
-
-#### `struct MedicationSchedule`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `provider` | `Address` | — |
-| `medication_code` | `String` | — |
-| `dosage_amount` | `String` | — |
-| `schedule` | `DosingSchedule` | — |
-| `start_time` | `u64` | — |
-| `end_time` | `Option<u64>` | — |
-| `instructions` | `String` | — |
-| `status` | `ScheduleStatus` | — |
-| `linked_record_id` | `Option<u64>` | — |
-| `linked_claim_id` | `Option<u64>` | — |
-| `prescription_ref` | `Option<String>` | — |
-| `refill` | `RefillPolicy` | — |
-| `adherence_baseline_bps` | `u32` | — |
-| `created_at` | `u64` | — |
-| `updated_at` | `u64` | — |
-
-#### `struct ScheduleLinks`
-
-| Field | Type | Description |
-|---|---|---|
-| `linked_record_id` | `Option<u64>` | — |
-| `linked_claim_id` | `Option<u64>` | — |
-| `prescription_ref` | `Option<String>` | — |
-
-#### `struct ScheduleRequest`
-
-| Field | Type | Description |
-|---|---|---|
-| `medication_code` | `String` | — |
-| `dosage_amount` | `String` | — |
-| `schedule` | `DosingSchedule` | — |
-| `start_time` | `u64` | — |
-| `end_time` | `Option<u64>` | — |
-| `instructions` | `String` | — |
-| `links` | `ScheduleLinks` | — |
-| `refill` | `RefillPolicy` | — |
-| `adherence_baseline_bps` | `u32` | — |
-
-#### `struct RefillPolicy`
-
-| Field | Type | Description |
-|---|---|---|
-| `enabled` | `bool` | — |
-| `auto_refill` | `bool` | — |
-| `total_authorized_refills` | `u32` | — |
-| `refills_used` | `u32` | — |
-| `reminder_window_days` | `u32` | — |
-| `doses_remaining` | `u32` | — |
-| `low_supply_threshold` | `u32` | — |
-| `last_refill_at` | `u64` | — |
-
-#### `struct RefillReminder`
-
-| Field | Type | Description |
-|---|---|---|
-| `schedule_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `status` | `RefillStatus` | — |
-| `reminder_due_at` | `u64` | — |
-| `last_notified_at` | `Option<u64>` | — |
-| `next_refill_eta` | `Option<u64>` | — |
-| `auto_refill_triggered_at` | `Option<u64>` | — |
-
-#### `struct DrugInteraction`
-
-| Field | Type | Description |
-|---|---|---|
-| `medication_a` | `String` | — |
-| `medication_b` | `String` | — |
-| `severity` | `Severity` | — |
-| `advisory` | `String` | — |
-| `clinical_guidance` | `String` | — |
-| `source_ref` | `String` | — |
-| `updated_at` | `u64` | — |
-
-#### `struct InteractionAlert`
-
-| Field | Type | Description |
-|---|---|---|
-| `schedule_id` | `u64` | — |
-| `interacting_schedule_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `medication_a` | `String` | — |
-| `medication_b` | `String` | — |
-| `severity` | `Severity` | — |
-| `advisory` | `String` | — |
-| `created_at` | `u64` | — |
-
-#### `struct DoseEvent`
-
-| Field | Type | Description |
-|---|---|---|
-| `schedule_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `scheduled_for` | `u64` | — |
-| `recorded_at` | `u64` | — |
-| `status` | `AdherenceEventStatus` | — |
-| `notes` | `String` | — |
-
-#### `struct AdherenceReport`
-
-| Field | Type | Description |
-|---|---|---|
-| `schedule_id` | `u64` | — |
-| `patient` | `Address` | — |
-| `expected_doses` | `u32` | — |
-| `recorded_doses` | `u32` | — |
-| `taken_doses` | `u32` | — |
-| `missed_doses` | `u32` | — |
-| `skipped_doses` | `u32` | — |
-| `adherence_bps` | `u32` | — |
-| `baseline_bps` | `u32` | — |
-| `improvement_bps` | `i32` | — |
-| `target_improvement_met` | `bool` | — |
-| `generated_at` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Config` | — | — |
-| `MedicationCount` | — | — |
-| `ScheduleCount` | — | — |
-| `Medication` | — | — |
-| `String` | — | — |
-| `Schedule` | — | — |
-| `u64` | — | — |
-| `PatientSchedules` | — | — |
-| `Address` | — | — |
-| `Interaction` | — | — |
-| `String` | — | — |
-| `String` | — | — |
-| `ScheduleAlerts` | — | — |
-| `u64` | — | — |
-| `RefillReminder` | — | — |
-| `u64` | — | — |
-| `DoseEvents` | — | — |
-| `u64` | — | — |
-
----
-
-## mental_health_support
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), MentalHealthError>` | — |
-| `get_telemedicine_contract` | `env: Env` | `Result<Option<Address>, MentalHealthError>` | — |
-| `get_notification_contract` | `env: Env` | `Result<Option<Address>, MentalHealthError>` | — |
-| `pause` | `env: Env, caller: Address` | `Result<(), MentalHealthError>` | — |
-| `unpause` | `env: Env, caller: Address` | `Result<(), MentalHealthError>` | — |
-| `enroll` | `env: Env, patient: Address` | `Result<(), MentalHealthError>` | — |
-| `is_enrolled` | `env: Env, patient: Address` | `Result<bool, MentalHealthError>` | — |
-| `get_mood` | `env: Env, id: u64` | `Result<MoodEntry, MentalHealthError>` | — |
-| `get_booking` | `env: Env, id: u64` | `Result<TeletherapyBooking, MentalHealthError>` | — |
-| `get_crisis` | `env: Env, id: u64` | `Result<CrisisIntervention, MentalHealthError>` | — |
-| `open_crisis_queue` | `env: Env` | `Result<Vec<u64>, MentalHealthError>` | — |
-
-### Types
-
-#### `enum MentalHealthError`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAdmin` | 3 | — |
-| `Paused` | 4 | — |
-| `NotEnrolled` | 5 | — |
-| `CommunityNotFound` | 6 | — |
-| `AlreadyMember` | 7 | — |
-| `InvalidInput` | 8 | — |
-
-#### `enum CrisisSeverity`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Elevated` | — | — |
-| `High` | — | — |
-| `Imminent` | — | — |
-
-#### `enum TherapyModality`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Cbt` | — | — |
-| `Dbt` | — | — |
-| `Psychodynamic` | — | — |
-| `Group` | — | — |
-| `Family` | — | — |
-| `MedicationManagement` | — | — |
-| `Other` | — | — |
-
-#### `struct MoodEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `recorded_at` | `u64` | — |
-| `mood_score` | `u32` | — |
-| `symptom_blob_hash` | `BytesN<32>` | — |
-
-#### `struct TeletherapyBooking`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `modality` | `TherapyModality` | — |
-| `telemedicine_session_id` | `BytesN<32>` | — |
-| `scheduled_at` | `u64` | — |
-| `notes` | `String` | — |
-
-#### `struct CrisisIntervention`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `severity` | `CrisisSeverity` | — |
-| `detail_hash` | `BytesN<32>` | — |
-| `created_at` | `u64` | — |
-| `notification_id` | `Option<u64>` | — |
-
-#### `struct PeerCommunity`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `name` | `String` | — |
-| `created_at` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initialized` | — | — |
-| `Admin` | — | — |
-| `Paused` | — | — |
-| `Telemedicine` | — | — |
-| `Notification` | — | — |
-| `EmergencyMetaHash` | — | — |
-| `NextMoodId` | — | — |
-| `Mood` | — | — |
-| `u64` | — | — |
-| `NextBookingId` | — | — |
-| `Booking` | — | — |
-| `u64` | — | — |
-| `NextCrisisId` | — | — |
-| `Crisis` | — | — |
-| `u64` | — | — |
-| `NextCommunityId` | — | — |
-| `Community` | — | — |
-| `u64` | — | — |
-| `CommunityMembers` | — | — |
-| `u64` | — | — |
-| `Enrolled` | — | — |
-| `Address` | — | — |
-| `PatientMoodIds` | — | — |
-| `Address` | — | — |
-| `PatientBookingIds` | — | — |
-| `Address` | — | — |
-| `PatientCrisisIds` | — | — |
-| `Address` | — | — |
-| `PatientCommunities` | — | — |
-| `Address` | — | — |
-| `OpenCrisisQueue` | — | — |
-
-### Examples
-
-#### `enroll_mood_booking_community`
-
-```rust
-let env = Env::default();
-    let (client, admin) = setup(&env);
-    let patient = Address::generate(&env);
-    client.try_enroll(&patient).unwrap().unwrap();
-    assert!(client.try_is_enrolled(&patient).unwrap().unwrap());
-
-    let mid = client
-        .try_log_mood(&patient, &6u32, &BytesN::from_array(&env, &[1u8; 32]))
-        .unwrap()
-```
-
-#### `crisis_is_queued`
-
-```rust
-let env = Env::default();
-    let (mh, admin) = setup(&env);
-
-    let tele = Address::generate(&env);
-    let notif = Address::generate(&env);
-    mh.try_set_integration_contracts(&admin, &tele, &notif)
-        .unwrap()
-        .unwrap();
-```
-
----
-
-## meta_tx_forwarder
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `deactivate_relayer` | `env: Env, owner: Address, relayer: Address` | `Result<(), Error>` | Deactivate a relayer  # Arguments * `owner` - Contract owner * `relayer` - Address of the relayer to deactivate |
-| `get_nonce` | `env: Env, user: Address` | `u64` | Get the current nonce for a user  # Arguments * `user` - Address of the user |
-| `is_relayer` | `env: Env, relayer: Address` | `bool` | Check if an address is an active relayer  # Arguments * `relayer` - Address to check |
-| `get_relayer_config` | `env: Env, relayer: Address` | `Option<RelayerConfig>` | Get relayer configuration  # Arguments * `relayer` - Address of the relayer |
-| `get_trusted_forwarder` | `env: Env` | `Address` | Get the trusted forwarder address (this contract) |
-
-### Types
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `InvalidSignature` | 1 | — |
-| `InvalidNonce` | 2 | — |
-| `RequestExpired` | 3 | — |
-| `ExecutionFailed` | 4 | — |
-| `Unauthorized` | 5 | — |
-| `AlreadyInitialized` | 6 | — |
-| `OwnerNotSet` | 7 | — |
-| `BatchLengthMismatch` | 8 | — |
-
-#### `struct ForwardRequest`
-
-| Field | Type | Description |
-|---|---|---|
-| `from` | `Address` | — |
-| `to` | `Address` | — |
-| `value` | `i128` | — |
-| `gas` | `u32` | — |
-| `nonce` | `u64` | — |
-| `deadline` | `u64` | — |
-| `data` | `Bytes` | — |
-
-#### `struct RelayerConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `address` | `Address` | — |
-| `is_active` | `bool` | — |
-| `fee_percentage` | `u32` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Owner` | — | — |
-| `Nonce` | — | — |
-| `Address` | — | — |
-| `User` | — | — |
-| `nonces` | — | — |
-| `Relayer` | — | — |
-| `Address` | — | — |
-| `Relayer` | — | — |
-| `configurations` | — | — |
-| `TrustedForwarder` | — | — |
-| `This` | — | — |
-| `contract` | — | — |
-| `s` | — | — |
-| `address` | — | — |
-| `for` | — | — |
-| `ERC` | — | — |
-| `2771` | — | — |
-| `FeeCollector` | — | — |
-| `Address` | — | — |
-| `to` | — | — |
-| `collect` | — | — |
-| `relay` | — | — |
-| `fees` | — | — |
-| `MinRelayerStake` | — | — |
-| `Minimum` | — | — |
-| `stake` | — | — |
-| `required` | — | — |
-| `for` | — | — |
-| `relayers` | — | — |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let owner = Address::generate(&env);
-    let fee_collector = Address::generate(&env);
-    let min_stake = 1000i128;
-
-    let (_, forwarder) = create_forwarder_contract(&env);
-```
-
-#### `test_register_relayer`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let owner = Address::generate(&env);
-    let fee_collector = Address::generate(&env);
-    let relayer = Address::generate(&env);
-    let min_stake = 1000i128;
-    let _fee_percentage = 100u32;
-```
-
-#### `test_get_nonce`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let owner = Address::generate(&env);
-    let fee_collector = Address::generate(&env);
-    let user = Address::generate(&env);
-    let min_stake = 1000i128;
-
-    let (_, forwarder) = create_forwarder_contract(&env);
-```
-
----
-
-## mfa
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address, config: MFAConfig` | `()` | Initialize with global MFA configuration |
-| `start_session` | `env: Env, user: Address, required: Vec<FactorType>` | `u64` | Initiate an authentication session requiring specific factors |
-| `verify_mfa_factor` | `env: Env, user: Address, factor: FactorType, proof: Bytes` | `bool` | Verify a specific factor for an existing session |
-| `is_authenticated` | `env: Env, user: Address` | `bool` | Check if the user has a valid verified MFA session |
-| `initiate_recovery` | `env: Env, user: Address, secret_hash: BytesN<32>` | `()` | Recovery mechanism for lost factors |
-| `emergency_override` | `env: Env, admin: Address, target_user: Address` | `bool` | Emergency override using admin signatures (multi-sig simulation) |
-
-### Examples
-
-#### `test_mfa_lifecycle`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-
-    let admin = Address::generate(&env);
-    let contract_id = env.register_contract(None, MultiFactorAuth);
-    let client = MultiFactorAuthClient::new(&env, &contract_id);
-
-    let config = MFAConfig {
-        session_ttl: 3600,
-```
 
 ---
 
@@ -11891,126 +5992,6 @@ let env = Env::default();
 
 ---
 
-## multi_region_orchestrator
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
-| `set_paused` | `env: Env, caller: Address, paused: bool` | `Result<(), Error>` | — |
-| `assign_role` | `env: Env, caller: Address, user: Address, role_mask: u32` | `Result<(), Error>` | — |
-| `list_regions` | `env: Env` | `Vec<RegionNode>` | — |
-| `get_region_status` | `env: Env, region_id: u32` | `Option<RegionStatus>` | — |
-| `get_failover_events` | `env: Env` | `Vec<FailoverEvent>` | — |
-| `get_sync_operations` | `env: Env` | `Vec<SyncOperation>` | — |
-| `check_health` | `env: Env, caller: Address` | `Result<bool, Error>` | — |
-| `get_uptime_metrics` | `env: Env` | `Vec<UptimeMetric>` | — |
-| `get_current_uptime` | `env: Env` | `u32` | — |
-| `set_policy` | `env: Env, caller: Address, policy: DRPolicy` | `Result<(), Error>` | — |
-| `get_policy` | `env: Env` | `DRPolicy` | — |
-
-### Types
-
-#### `enum GeoRegion`
-
-| Variant | Value | Description |
-|---|---|---|
-| `UsEast` | 0 | — |
-| `UsWest` | 1 | — |
-| `EuCentral` | 2 | — |
-| `EuWest` | 3 | — |
-| `ApSouth` | 4 | — |
-| `ApNorth` | 5 | — |
-| `SaEast` | 6 | — |
-| `AfSouth` | 7 | — |
-| `Custom` | 8 | — |
-
-#### `enum RegionStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Active` | 0 | — |
-| `Degraded` | 1 | — |
-| `Unavailable` | 2 | — |
-| `RecoveryInProgress` | 3 | — |
-
-#### `struct RegionNode`
-
-| Field | Type | Description |
-|---|---|---|
-| `region` | `GeoRegion` | — |
-| `node_id` | `u32` | — |
-| `status` | `RegionStatus` | — |
-| `endpoint_hash` | `u64` | — |
-| `last_heartbeat` | `u64` | — |
-| `replica_count` | `u32` | — |
-| `is_primary` | `bool` | — |
-| `failure_count` | `u32` | — |
-
-#### `struct FailoverEvent`
-
-| Field | Type | Description |
-|---|---|---|
-| `event_id` | `u64` | — |
-| `triggered_at` | `u64` | — |
-| `source_region` | `GeoRegion` | — |
-| `target_region` | `GeoRegion` | — |
-| `reason` | `Symbol` | — |
-| `rto_ms` | `u64` | — |
-| `success` | `bool` | — |
-
-#### `struct UptimeMetric`
-
-| Field | Type | Description |
-|---|---|---|
-| `start_time` | `u64` | — |
-| `end_time` | `u64` | — |
-| `uptime_basis_points` | `u32` | — |
-| `outages` | `u32` | — |
-| `total_outage_ms` | `u64` | — |
-
-#### `struct DRPolicy`
-
-| Field | Type | Description |
-|---|---|---|
-| `min_replicas_per_region` | `u32` | — |
-| `max_regions` | `u32` | — |
-| `failover_timeout_ms` | `u64` | — |
-| `sync_interval_ms` | `u64` | — |
-| `health_check_interval_ms` | `u64` | — |
-| `auto_failover_enabled` | `bool` | — |
-| `rto_target_ms` | `u64` | — |
-
-#### `struct SyncOperation`
-
-| Field | Type | Description |
-|---|---|---|
-| `sync_id` | `u64` | — |
-| `source_region` | `GeoRegion` | — |
-| `target_regions` | `Vec<GeoRegion>` | — |
-| `data_hash` | `u64` | — |
-| `started_at` | `u64` | — |
-| `completed_at` | `u64` | — |
-| `success` | `bool` | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `InvalidInput` | 4 | — |
-| `MaxRegionsExceeded` | 5 | — |
-| `AllRegionsUnavailable` | 6 | — |
-| `FailoverFailed` | 7 | — |
-| `SyncFailed` | 8 | — |
-| `RtoExceeded` | 9 | — |
-| `InsufficientReplicas` | 10 | — |
-
----
-
 ## notification_system
 
 ### Functions
@@ -12150,29 +6131,29 @@ let env = Env::default();
 
 | Variant | Code | Description |
 |---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `SenderNotAuthorized` | 4 | — |
-| `MaxSendersReached` | 5 | — |
-| `MaxRulesReached` | 6 | — |
-| `MaxNotificationsReached` | 7 | — |
-| `MaxTemplatesReached` | 8 | — |
-| `TitleTooLong` | 9 | — |
-| `MessageTooLong` | 10 | — |
-| `NameTooLong` | 11 | — |
-| `LocaleTooLong` | 12 | — |
-| `InvalidNotifType` | 13 | — |
-| `BatchTooLarge` | 14 | — |
-| `RecipientsEmpty` | 15 | — |
-| `TooManyEnabledTypes` | 16 | — |
-| `NotificationNotFound` | 17 | — |
-| `AlertRuleNotFound` | 18 | — |
-| `TemplateNotFound` | 19 | — |
-| `SenderNotFound` | 20 | — |
-| `AlreadyRead` | 21 | — |
-| `AlreadyArchived` | 22 | — |
-| `RateLimitExceeded` | 23 | — |
+| `Unauthorized` | 100 | — |
+| `SenderNotAuthorized` | 120 | — |
+| `BatchTooLarge` | 208 | — |
+| `RecipientsEmpty` | 209 | — |
+| `TitleTooLong` | 221 | — |
+| `MessageTooLong` | 222 | — |
+| `NameTooLong` | 223 | — |
+| `LocaleTooLong` | 224 | — |
+| `InvalidNotifType` | 241 | — |
+| `TooManyEnabledTypes` | 242 | — |
+| `NotInitialized` | 300 | — |
+| `AlreadyInitialized` | 301 | — |
+| `RateLimitExceeded` | 307 | — |
+| `AlreadyRead` | 330 | — |
+| `AlreadyArchived` | 331 | — |
+| `NotificationNotFound` | 450 | — |
+| `AlertRuleNotFound` | 451 | — |
+| `TemplateNotFound` | 452 | — |
+| `SenderNotFound` | 453 | — |
+| `MaxSendersReached` | 510 | — |
+| `MaxRulesReached` | 511 | — |
+| `MaxNotificationsReached` | 512 | — |
+| `MaxTemplatesReached` | 513 | — |
 
 ### Examples
 
@@ -12205,504 +6186,6 @@ let env = Env::default();
     let client = NotificationContractClient::new(&env, &contract_id);
     env.mock_all_auths();
     assert!(client.try_get_admin().is_err());
-```
-
----
-
-## patient_consent_management
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize the contract with an admin |
-| `grant_consent` | `env: Env, patient: Address, provider: Address` | `Result<(), Error>` | Grant consent for a provider to access patient data Only the patient can grant consent to a provider |
-| `revoke_consent` | `env: Env, patient: Address, provider: Address` | `Result<(), Error>` | Revoke consent for a provider to access patient data Only the patient who granted the consent can revoke it |
-| `check_consent` | `env: Env, patient: Address, provider: Address` | `Result<bool, Error>` | Check if a provider has active consent from a patient Can be called by anyone to verify consent status (read-only, no auth required) |
-| `get_patient_consents` | `env: Env, patient: Address` | `Option<ConsentLog>` | Get all consent records for a patient Patient can view their own consent history |
-| `get_active_consent_count` | `env: Env, patient: Address` | `u32` | Get count of active consents for a patient |
-| `get_admin` | `env: Env` | `Result<Address, Error>` | Get the current admin |
-
-### Types
-
-#### `struct ConsentRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `provider` | `Address` | — |
-| `granted_at` | `u64` | — |
-| `revoked_at` | `u64` | — |
-| `active` | `bool` | — |
-
-#### `struct ConsentLog`
-
-| Field | Type | Description |
-|---|---|---|
-| `records` | `Vec<ConsentRecord>` | — |
-| `record_count` | `u32` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initialized` | — | — |
-| `Admin` | — | — |
-| `ConsentStorage` | — | — |
-| `Address` | — | — |
-| `patient` | — | — |
-| `ConsentLog` | — | — |
-| `ProviderIndex` | — | — |
-| `Address` | — | — |
-| `Address` | — | — |
-| `patient` | — | — |
-| `provider` | — | — |
-| `ConsentRecord` | — | — |
-
-### Error Codes
-
-| Variant | Code | Description |
-|---|---|---|
-| `NotInitialized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `InvalidPatient` | 4 | — |
-| `InvalidProvider` | 5 | — |
-| `ConsentNotFound` | 6 | — |
-| `ConsentAlreadyExists` | 7 | — |
-| `UnauthorizedAccess` | 8 | — |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let (env, client, admin) = setup();
-        let result = client.initialize(&admin);
-        assert!(result.is_ok());
-    }
-
-    #[test]
-    fn test_initialize_twice_fails() {
-        let (env, client, admin) = setup();
-        client.initialize(&admin).unwrap();
-```
-
----
-
-## patient_gamification
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `get_achievement` | `env: Env, achievement_id: u64` | `Result<Achievement, Error>` | — |
-| `get_patient_achievements` | `env: Env, patient_id: Address` | `Result<Vec<u64>, Error>` | — |
-| `get_challenge` | `env: Env, challenge_id: u64` | `Result<HealthChallenge, Error>` | — |
-| `get_reward_points` | `env: Env, patient_id: Address` | `Result<RewardPoints, Error>` | — |
-| `get_social_profile` | `env: Env, patient_id: Address` | `Result<SocialProfile, Error>` | — |
-| `get_leaderboard` | `env: Env, limit: u32` | `Result<Vec<LeaderboardEntry>, Error>` | — |
-| `get_patient_rank` | `env: Env, patient_id: Address` | `Result<u32, Error>` | — |
-| `get_daily_streak` | `env: Env, patient_id: Address` | `Result<DailyStreak, Error>` | — |
-| `get_config` | `env: Env` | `Result<GamificationConfig, Error>` | — |
-| `get_total_achievements` | `env: Env` | `Result<u64, Error>` | — |
-| `get_total_challenges` | `env: Env` | `Result<u64, Error>` | — |
-
-### Types
-
-#### `struct GamificationConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `admin` | `Address` | — |
-| `points_per_achievement` | `u32` | — |
-| `points_per_challenge` | `u32` | — |
-| `points_per_streak_day` | `u32` | — |
-| `max_daily_points` | `u32` | — |
-| `privacy_threshold` | `u32` | — |
-| `enabled` | `bool` | — |
-
-#### `struct Achievement`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `name` | `String` | — |
-| `description` | `String` | — |
-| `category` | `String` | — |
-| `points_reward` | `u32` | — |
-| `badge_uri` | `String` | — |
-| `requirement_type` | `String` | — |
-| `requirement_value` | `u32` | — |
-| `is_active` | `bool` | — |
-| `created_at` | `u64` | — |
-
-#### `struct PatientAchievement`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `achievement_id` | `u64` | — |
-| `earned_at` | `u64` | — |
-| `progress` | `u32` | — |
-| `is_completed` | `bool` | — |
-
-#### `struct HealthChallenge`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `name` | `String` | — |
-| `description` | `String` | — |
-| `challenge_type` | `String` | — |
-| `metric_name` | `String` | — |
-| `target_value` | `u32` | — |
-| `start_time` | `u64` | — |
-| `end_time` | `u64` | — |
-| `points_reward` | `u32` | — |
-| `max_participants` | `u32` | — |
-| `current_participants` | `u32` | — |
-| `is_active` | `bool` | — |
-| `created_at` | `u64` | — |
-
-#### `struct ChallengeParticipant`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `challenge_id` | `u64` | — |
-| `current_value` | `u32` | — |
-| `joined_at` | `u64` | — |
-| `completed_at` | `Option<u64>` | — |
-| `is_completed` | `bool` | — |
-
-#### `struct RewardPoints`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `total_points` | `u64` | — |
-| `available_points` | `u64` | — |
-| `lifetime_points` | `u64` | — |
-| `last_updated` | `u64` | — |
-
-#### `struct RandomBonusCommitment`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `reveal_hash` | `BytesN<32>` | — |
-| `target_ledger` | `u32` | — |
-| `expires_at_ledger` | `u32` | — |
-| `max_bonus_points` | `u32` | — |
-| `committed_at` | `u64` | — |
-
-#### `struct RandomBonusOutcome`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `random_value` | `u64` | — |
-| `bonus_points` | `u32` | — |
-| `target_ledger` | `u32` | — |
-| `revealed_at` | `u64` | — |
-
-#### `struct LeaderboardEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `display_name` | `String` | — |
-| `points` | `u64` | — |
-| `achievements_count` | `u32` | — |
-| `challenges_completed` | `u32` | — |
-| `rank` | `u32` | — |
-| `last_updated` | `u64` | — |
-
-#### `struct SocialProfile`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `display_name` | `String` | — |
-| `bio` | `String` | — |
-| `avatar_uri` | `String` | — |
-| `is_public` | `bool` | — |
-| `show_achievements` | `bool` | — |
-| `show_challenges` | `bool` | — |
-| `show_points` | `bool` | — |
-| `created_at` | `u64` | — |
-| `last_active` | `u64` | — |
-
-#### `struct HealthMetric`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `metric_name` | `String` | — |
-| `value` | `u32` | — |
-| `unit` | `String` | — |
-| `recorded_at` | `u64` | — |
-| `source` | `String` | — |
-
-#### `struct DailyStreak`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `Address` | — |
-| `current_streak` | `u32` | — |
-| `longest_streak` | `u32` | — |
-| `last_activity_date` | `u64` | — |
-| `total_active_days` | `u32` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Config` | — | — |
-| `AchievementCounter` | — | — |
-| `Achievement` | — | — |
-| `u64` | — | — |
-| `PatientAchievement` | — | — |
-| `Address` | — | — |
-| `u64` | — | — |
-| `PatientAchievements` | — | — |
-| `Address` | — | — |
-| `ChallengeCounter` | — | — |
-| `Challenge` | — | — |
-| `u64` | — | — |
-| `ChallengeParticipant` | — | — |
-| `u64` | — | — |
-| `Address` | — | — |
-| `ChallengeParticipants` | — | — |
-| `u64` | — | — |
-| `RewardPoints` | — | — |
-| `Address` | — | — |
-| `RandomBonusCommitment` | — | — |
-| `Address` | — | — |
-| `Leaderboard` | — | — |
-| `SocialProfile` | — | — |
-| `Address` | — | — |
-| `HealthMetric` | — | — |
-| `Address` | — | — |
-| `String` | — | — |
-| `u64` | — | — |
-| `HealthMetrics` | — | — |
-| `Address` | — | — |
-| `String` | — | — |
-| `DailyStreak` | — | — |
-| `Address` | — | — |
-| `Admin` | — | — |
-| `Address` | — | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotAuthorized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `NotInitialized` | 3 | — |
-| `InvalidInput` | 4 | — |
-| `AchievementNotFound` | 5 | — |
-| `ChallengeNotFound` | 6 | — |
-| `ChallengeFull` | 7 | — |
-| `ChallengeEnded` | 8 | — |
-| `AlreadyParticipating` | 9 | — |
-| `NotParticipating` | 10 | — |
-| `InsufficientPoints` | 11 | — |
-| `PrivacyThresholdNotMet` | 12 | — |
-| `InvalidTimeRange` | 13 | — |
-| `AlreadyCompleted` | 14 | — |
-| `RandomnessAlreadyCommitted` | 15 | — |
-| `RandomnessCommitNotFound` | 16 | — |
-| `RandomnessRevealTooEarly` | 17 | — |
-| `RandomnessRevealMismatch` | 18 | — |
-| `RandomnessCommitExpired` | 19 | — |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, PatientGamificationContract);
-    let client = PatientGamificationContractClient::new(&env, &contract_id);
-
-    let admin = Address::random(&env);
-
-    let result = client.initialize(
-        &admin,
-        &100u32,  // points_per_achievement
-```
-
-#### `test_create_achievement`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, PatientGamificationContract);
-    let client = PatientGamificationContractClient::new(&env, &contract_id);
-
-    let admin = Address::random(&env);
-
-    client.initialize(
-        &admin,
-        &100u32,
-```
-
-#### `test_achievement_progress`
-
-```rust
-let env = Env::default();
-    let contract_id = env.register_contract(None, PatientGamificationContract);
-    let client = PatientGamificationContractClient::new(&env, &contract_id);
-
-    let admin = Address::random(&env);
-    let patient = Address::random(&env);
-
-    client.initialize(
-        &admin,
-```
-
----
-
-## patient_portal
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), PatientPortalError>` | — |
-| `get_medical_records_contract` | `env: Env` | `Result<Option<Address>, PatientPortalError>` | — |
-| `get_identity_registry_contract` | `env: Env` | `Result<Option<Address>, PatientPortalError>` | — |
-| `pause` | `env: Env, caller: Address` | `Result<(), PatientPortalError>` | — |
-| `unpause` | `env: Env, caller: Address` | `Result<(), PatientPortalError>` | — |
-| `get_profile` | `env: Env, patient: Address` | `Result<PortalProfile, PatientPortalError>` | — |
-| `get_export` | `env: Env, id: u64` | `Result<PhrExportManifest, PatientPortalError>` | — |
-
-### Types
-
-#### `enum PatientPortalError`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAdmin` | 3 | — |
-| `Paused` | 4 | — |
-| `AlreadyRegistered` | 5 | — |
-| `NotRegistered` | 6 | — |
-| `AppointmentNotFound` | 7 | — |
-| `ExportTooManyRecords` | 8 | — |
-| `InvalidInput` | 9 | — |
-| `NotAppointmentOwner` | 10 | — |
-
-#### `enum AppointmentStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Requested` | — | — |
-| `Confirmed` | — | — |
-| `Completed` | — | — |
-| `Cancelled` | — | — |
-
-#### `struct PortalProfile`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `registered_at` | `u64` | — |
-| `identity_commitment` | `BytesN<32>` | — |
-| `locale` | `String` | — |
-
-#### `struct PortalAppointment`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `provider` | `Address` | — |
-| `start_ts` | `u64` | — |
-| `end_ts` | `u64` | — |
-| `status` | `AppointmentStatus` | — |
-| `telemedicine_appointment_id` | `BytesN<32>` | — |
-| `notes` | `String` | — |
-
-#### `struct MedicationAdherenceEvent`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `medication_ref` | `String` | — |
-| `scheduled_for` | `u64` | — |
-| `taken` | `bool` | — |
-| `logged_at` | `u64` | — |
-
-#### `struct PhrExportManifest`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `patient` | `Address` | — |
-| `record_ids` | `Vec<u64>` | — |
-| `requested_at` | `u64` | — |
-| `manifest_hash` | `BytesN<32>` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Initialized` | — | — |
-| `Admin` | — | — |
-| `Paused` | — | — |
-| `MedicalRecords` | — | — |
-| `IdentityRegistry` | — | — |
-| `NextAppointmentId` | — | — |
-| `Appointment` | — | — |
-| `u64` | — | — |
-| `NextAdherenceId` | — | — |
-| `Adherence` | — | — |
-| `u64` | — | — |
-| `NextExportId` | — | — |
-| `Export` | — | — |
-| `u64` | — | — |
-| `Profile` | — | — |
-| `Address` | — | — |
-| `PatientAppointmentIds` | — | — |
-| `Address` | — | — |
-| `PatientAdherenceIds` | — | — |
-| `Address` | — | — |
-| `PatientExportIds` | — | — |
-| `Address` | — | — |
-
-### Examples
-
-#### `register_and_integrations`
-
-```rust
-let env = Env::default();
-    let (client, admin) = setup(&env);
-    let med = Address::generate(&env);
-    let ident = Address::generate(&env);
-    client
-        .try_set_integration_contracts(&admin, &med, &ident)
-        .unwrap()
-        .unwrap();
-    assert_eq!(
-```
-
-#### `appointments_and_adherence_and_export`
-
-```rust
-let env = Env::default();
-    let (client, _admin) = setup(&env);
-    let patient = Address::generate(&env);
-    let provider = Address::generate(&env);
-    client
-        .try_register(
-            &patient,
-            &BytesN::from_array(&env, &[0u8; 32]),
-            &String::from_str(&env, "en"),
 ```
 
 ---
@@ -12838,7 +6321,6 @@ let env = Env::default();
 | `get_fee_config` | `env: Env` | `Option<RouterFeeConfig>` | — |
 | `get_nonce` | `env: Env, caller: Address` | `u64` | — |
 | `compute_split` | `env: Env, amount: i128` | `Result<(i128, i128), Error>` | — |
-| `route_payment` | `env: Env, payer: Address, recipient: Address, amount: i128, next_nonce: u64` | `Result<(), Error>` | — |
 
 ### Types
 
@@ -12893,6 +6375,7 @@ let env = Env::default();
 | `BatchNotFound` | 6 | — |
 | `ShipmentNotFound` | 7 | — |
 | `InvalidInput` | 8 | — |
+| `BatchAlreadyExists` | 9 | — |
 
 #### `enum BatchStatus`
 
@@ -13002,6 +6485,8 @@ let env = Env::default();
 | `BatchCount` | — | — |
 | `Batch` | — | — |
 | `u64` | — | — |
+| `BatchByLotNumber` | — | — |
+| `String` | — | — |
 | `ShipmentCount` | — | — |
 | `Shipment` | — | — |
 | `u64` | — | — |
@@ -13073,11 +6558,44 @@ let env = Env::default();
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address, identity_registry: Address` | `Result<(), Error>` | Initialize the provider directory contract |
-| `get_profile` | `env: Env, provider: Address` | `Result<ProviderProfile, Error>` | Get a provider profile |
-| `get_availability` | `env: Env, provider: Address` | `Result<Vec<Availability>, Error>` | Get provider availability |
-| `search_by_specialty` | `env: Env, specialty: Symbol` | `Vec<ProviderProfile>` | Search providers by specialty |
-| `verify_provider` | `env: Env, admin: Address, provider: Address` | `Result<(), Error>` | Verify a provider (Admin only) |
+| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
+
+### Types
+
+#### `enum Error`
+
+| Variant | Value | Description |
+|---|---|---|
+| `NotInitialized` | 1 | — |
+| `AlreadyInitialized` | 2 | — |
+| `RateLimitExceeded` | 3 | — |
+| `NotAuthorized` | 4 | — |
+
+#### `enum DataKey`
+
+| Variant | Value | Description |
+|---|---|---|
+| `Admin` | — | — |
+| `RateLimitConfig` | — | — |
+| `SearchRateLimit` | — | — |
+| `Address` | — | — |
+| `ExemptInstitution` | — | — |
+| `Address` | — | — |
+
+#### `struct RateLimitConfig`
+
+| Field | Type | Description |
+|---|---|---|
+| `max_searches` | `u32` | — |
+| `window_secs` | `u64` | — |
+
+#### `struct Provider`
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | `Address` | — |
+| `name` | `String` | — |
+| `specialty` | `String` | — |
 
 ### Examples
 
@@ -13428,137 +6946,14 @@ let env = Env::default();
 
 ---
 
-## rbac
+## reentrancy_guard
 
 ### Functions
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address, config: RBACConfig` | `()` | Initialize the RBAC contract  # Arguments * `env` - The contract environment * `admin` - The admin address (usually the contract deployer) * `config` - RBAC configuration  # Panics Panics if already initialized |
-| `assign_role` | `env: Env, address: Address, role: Role` | `bool` | Assign a role to an address (admin only)  # Arguments * `env` - The contract environment * `address` - The address to assign the role to * `role` - The role to assign  # Returns true if role was assigned, false if already had role or max roles exceeded  # Panics Panics if caller is not admin or contract not initialized |
-| `remove_role` | `env: Env, address: Address, role: Role` | `bool` | Remove a role from an address (admin only)  # Arguments * `env` - The contract environment * `address` - The address to remove the role from * `role` - The role to remove  # Returns true if role was removed, false if address didn't have that role  # Panics Panics if caller is not admin or contract not initialized |
-| `has_role` | `env: Env, address: Address, role: Role` | `bool` | Check if an address has a specific role  # Arguments * `env` - The contract environment * `address` - The address to check * `role` - The role to check for  # Returns true if address has the role, false otherwise |
-| `get_roles` | `env: Env, address: Address` | `Vec<Role>` | Get all roles for an address  # Arguments * `env` - The contract environment * `address` - The address to get roles for  # Returns Vector of roles assigned to the address |
-| `has_any_role` | `env: Env, address: Address, roles: Vec<Role>` | `bool` | Check if an address has any of the specified roles  # Arguments * `env` - The contract environment * `address` - The address to check * `roles` - Vector of roles to check against  # Returns true if address has any of the specified roles |
-| `has_all_roles` | `env: Env, address: Address, roles: Vec<Role>` | `bool` | Check if an address has all of the specified roles  # Arguments * `env` - The contract environment * `address` - The address to check * `roles` - Vector of roles to check for  # Returns true if address has all specified roles |
-| `get_address_roles` | `env: Env, address: Address` | `types::AddressRoles` | Get role information for an address  # Arguments * `env` - The contract environment * `address` - The address to get info for  # Returns AddressRoles struct with all roles and count |
-| `get_role_members` | `env: Env, role: Role` | `Vec<Address>` | Get all members of a specific role  # Arguments * `env` - The contract environment * `role` - The role to get members for  # Returns Vector of all addresses with the specified role |
-| `get_role_member_count` | `env: Env, role: Role` | `u32` | Get count of addresses with a specific role  # Arguments * `env` - The contract environment * `role` - The role to count members for  # Returns Number of addresses with the specified role |
-| `is_admin` | `env: Env, address: Address` | `bool` | Check if an address is an admin  # Arguments * `env` - The contract environment * `address` - The address to check  # Returns true if address is an admin |
-| `is_doctor` | `env: Env, address: Address` | `bool` | Check if an address is a doctor  # Arguments * `env` - The contract environment * `address` - The address to check  # Returns true if address is a doctor |
-| `is_patient` | `env: Env, address: Address` | `bool` | Check if an address is a patient  # Arguments * `env` - The contract environment * `address` - The address to check  # Returns true if address is a patient |
-| `is_staff` | `env: Env, address: Address` | `bool` | Check if an address is staff  # Arguments * `env` - The contract environment * `address` - The address to check  # Returns true if address is staff |
-| `update_config` | `env: Env, config: RBACConfig` | `()` | Update RBAC configuration (admin only)  # Arguments * `env` - The contract environment * `config` - New configuration |
-| `get_config` | `env: Env` | `RBACConfig` | Get current RBAC configuration  # Returns The current RBACConfig |
-
-### Examples
-
-#### `test_initialize`
-
-```rust
-let env = create_test_env();
-        let admin = Address::random(&env);
-        let config = RBACConfig {
-            emit_events: true,
-            max_roles_per_address: 10,
-        };
-
-        RBAC::initialize(env.clone(), admin.clone(), config.clone());
-```
-
----
-
-## regional_node_manager
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
-| `assign_role` | `env: Env, caller: Address, user: Address, role_mask: u32` | `Result<(), Error>` | — |
-| `get_node` | `env: Env, node_id: u32` | `Option<RegionalNode>` | — |
-| `list_nodes` | `env: Env` | `Vec<RegionalNode>` | — |
-| `get_health_checks` | `env: Env` | `Vec<HealthCheckResult>` | — |
-| `get_recent_health_check` | `env: Env, node_id: u32` | `Option<HealthCheckResult>` | — |
-| `get_replicas_for_node` | `env: Env, node_id: u32` | `Vec<ReplicaInfo>` | — |
-| `set_configuration` | `env: Env, caller: Address, config: NodeConfiguration` | `Result<(), Error>` | — |
-| `get_configuration` | `env: Env` | `NodeConfiguration` | — |
-
-### Types
-
-#### `enum NodeStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Healthy` | 0 | — |
-| `Degraded` | 1 | — |
-| `Unhealthy` | 2 | — |
-| `Unreachable` | 3 | — |
-
-#### `struct RegionalNode`
-
-| Field | Type | Description |
-|---|---|---|
-| `node_id` | `u32` | — |
-| `region_name` | `String` | — |
-| `status` | `NodeStatus` | — |
-| `cpu_usage_percent` | `u32` | — |
-| `memory_usage_percent` | `u32` | — |
-| `disk_usage_percent` | `u32` | — |
-| `last_heartbeat` | `u64` | — |
-| `replica_lag_ms` | `u64` | — |
-| `total_uptime_ms` | `u64` | — |
-| `failure_count` | `u32` | — |
-
-#### `struct HealthCheckResult`
-
-| Field | Type | Description |
-|---|---|---|
-| `check_id` | `u64` | — |
-| `node_id` | `u32` | — |
-| `checked_at` | `u64` | — |
-| `status` | `NodeStatus` | — |
-| `cpu_usage` | `u32` | — |
-| `memory_usage` | `u32` | — |
-| `disk_usage` | `u32` | — |
-| `response_time_ms` | `u64` | — |
-
-#### `struct ReplicaInfo`
-
-| Field | Type | Description |
-|---|---|---|
-| `replica_id` | `u32` | — |
-| `node_id` | `u32` | — |
-| `data_hash` | `u64` | — |
-| `last_synced` | `u64` | — |
-| `lag_ms` | `u64` | — |
-| `is_in_sync` | `bool` | — |
-
-#### `struct NodeConfiguration`
-
-| Field | Type | Description |
-|---|---|---|
-| `max_cpu_threshold` | `u32` | — |
-| `max_memory_threshold` | `u32` | — |
-| `max_disk_threshold` | `u32` | — |
-| `max_replica_lag_ms` | `u64` | — |
-| `heartbeat_timeout_ms` | `u64` | — |
-| `health_check_interval_ms` | `u64` | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `InvalidInput` | 4 | — |
-| `NodeNotFound` | 5 | — |
-| `HealthCheckFailed` | 6 | — |
-| `ReplicaOutOfSync` | 7 | — |
-| `NodeUnreachable` | 8 | — |
-| `InvalidThreshold` | 9 | — |
-| `DuplicateNode` | 10 | — |
+| `enter` | `env: &Env` | `bool` | Try to acquire the per-contract reentrancy lock. Returns `true` when the lock was acquired, or `false` if already locked. |
+| `exit` | `env: &Env` | `()` | Release the per-contract reentrancy lock. |
 
 ---
 
@@ -13636,66 +7031,6 @@ let env = create_test_env();
 
 ---
 
-## remote_patient_monitoring
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `()` | — |
-| `add_caregiver` | `env: Env, caller: Address, device_id: u64, caregiver: Address` | `()` | — |
-| `update_battery_level` | `env: Env, caller: Address, device_id: u64, battery_level: u32` | `()` | — |
-| `get_device` | `env: Env, device_id: u64` | `Option<Device>` | — |
-| `get_vitals` | `_env: Env, _patient: Address, _limit: u32` | `Vec<VitalSign>` | — |
-| `get_alerts` | `_env: Env, _patient: Address, _limit: u32` | `Vec<Alert>` | — |
-| `get_caregiver_alerts` | `_env: Env, _caregiver: Address` | `Vec<Alert>` | — |
-
-### Types
-
-#### `struct Device`
-
-| Field | Type | Description |
-|---|---|---|
-| `id` | `u64` | — |
-| `device_type` | `u32` | — |
-| `patient` | `Address` | — |
-| `caregivers` | `Vec<Address>` | — |
-| `connectivity` | `Vec<String>` | — |
-| `battery_level` | `Option<u32>` | — |
-
-#### `struct VitalSign`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `device_id` | `u64` | — |
-| `timestamp` | `u64` | — |
-| `vital_type` | `String` | — |
-| `value` | `i64` | — |
-| `unit` | `String` | — |
-| `quality` | `u32` | — |
-
-#### `struct Alert`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient` | `Address` | — |
-| `alert_type` | `u32` | — |
-| `message` | `String` | — |
-| `timestamp` | `u64` | — |
-| `severity` | `u32` | — |
-
-#### `struct Threshold`
-
-| Field | Type | Description |
-|---|---|---|
-| `vital_type` | `String` | — |
-| `min_value` | `i64` | — |
-| `max_value` | `i64` | — |
-| `alert_severity` | `u32` | — |
-
----
-
 ## reputation
 
 ### Functions
@@ -13715,6 +7050,8 @@ let env = create_test_env();
 |---|---|---|
 | `AlreadyInitialized` | 1 | — |
 | `NotInitialized` | 2 | — |
+| `NegativeAmount` | 3 | — |
+| `InvalidAmount` | 4 | — |
 
 ---
 
@@ -13946,80 +7283,129 @@ let env = create_test_env();
 
 ---
 
+## runtime_validation
+
+### Functions
+
+| Function | Parameters | Returns | Description |
+|---|---|---|---|
+| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize the runtime validation system |
+| `verify_permission` | `env: Env, check_id: String, user_role: String` | `Result<bool, Error>` | Check permission |
+| `get_violation_report` | `env: Env, violation_id: u64` | `Result<ValidationReport, Error>` | Get validation report |
+| `get_violation_count` | `env: Env` | `u64` | Get total violations |
+
+### Error Codes
+
+| Variant | Code | Description |
+|---|---|---|
+| `NotInitialized` | 1 | — |
+| `AlreadyInitialized` | 2 | — |
+| `NotAuthorized` | 3 | — |
+| `CheckNotFound` | 4 | — |
+| `CheckAlreadyExists` | 5 | — |
+| `CheckNotActive` | 6 | — |
+| `InvalidSeverity` | 7 | — |
+| `InvalidResourceLimit` | 8 | — |
+| `ResourceLimitExceeded` | 9 | — |
+| `ViolationNotFound` | 10 | — |
+
+### Examples
+
+#### `test_initialize`
+
+```rust
+let env = Env::default();
+        env.mock_all_auths();
+
+        let admin = Address::generate(&env);
+        let contract_id = env.register_contract(None, RuntimeValidation);
+        let client = RuntimeValidationClient::new(&env, &contract_id);
+
+        client.initialize(&admin);
+    }
+```
+
+---
+
+## sanitization
+
+### Functions
+
+| Function | Parameters | Returns | Description |
+|---|---|---|---|
+| `sanitize_string` | `_env: &Env, input: &String, max_len: u32` | `Result<(), SanitizationError>` | Validates a general-purpose string: non-empty, within `max_len` bytes, no null bytes, no ASCII control characters (allows tab/LF/CR). |
+| `sanitize_name` | `_env: &Env, input: &String` | `Result<(), SanitizationError>` | Validates a human name: letters (any UTF-8), digits, spaces, hyphens, apostrophes, commas, and periods only (ASCII subset). |
+| `sanitize_email` | `_env: &Env, input: &String` | `Result<(), SanitizationError>` | Validates an email address: single '@', non-empty local and domain parts, domain contains at least one '.', all chars from the RFC 5321 allowed set. |
+| `sanitize_id` | `_env: &Env, input: &String` | `Result<(), SanitizationError>` | Validates an identifier: alphanumeric chars, hyphens, underscores, colons, dots, and forward slashes (covers DIDs, slugs, and resource paths). |
+| `sanitize_url` | `_env: &Env, input: &String` | `Result<(), SanitizationError>` | Validates a URL: printable ASCII only, length within MAX_URL_LEN. |
+
+### Types
+
+#### `enum SanitizationError`
+
+| Variant | Value | Description |
+|---|---|---|
+| `InputTooLong` | 1 | — |
+| `EmptyInput` | 2 | — |
+| `NullByte` | 3 | — |
+| `InvalidCharacter` | 4 | — |
+| `InvalidFormat` | 5 | — |
+
+---
+
 ## secure_enclave
 
 ### Functions
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `()` | — |
-| `verify_attestation` | `env: Env, admin: Address, node_id: BytesN<32>, is_valid: bool` | `()` | — |
-| `assign_task` | `env: Env, admin: Address, task_id: BytesN<32>, node_id: BytesN<32>` | `()` | — |
-| `fallback_to_mpc` | `env: Env, admin: Address, task_id: BytesN<32>, mpc_manager_id: Address` | `()` | — |
+| `initialize` | `env: Env, genesis_key: BytesN<32>` | `()` | Initialize enclave infrastructure with a genesis signing key. |
+| `rotate_signing_key` | `env: Env, new_key: BytesN<32>, grace_period_seconds: u64` | `()` | Performs atomic key rotation using a programmatic expiration cutoff window. |
+| `verify_signature` | `env: Env, signer: BytesN<32>` | `bool` | Validates payload cryptographic authenticity across active key state boundaries. |
+| `housekeeping` | `env: Env` | `bool` | Housekeeping endpoint used to explicitly clear old records and save storage fees. |
+| `get_node` | `env: Env, node_id: BytesN<32>` | `Option<EnclaveNode>` | Resolves an existing registered Enclave Node data record. |
+| `get_task` | `env: Env, task_id: BytesN<32>` | `Option<ProcessingTask>` | Resolves an existing assigned Processing Task details record. |
 
 ### Types
 
-#### `enum DataKey`
+#### `enum EnclaveError`
 
 | Variant | Value | Description |
 |---|---|---|
-| `Admin` | — | — |
-| `Node` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `node_id` | — | — |
-| `Task` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `task_id` | — | — |
-| `NodeList` | — | — |
-
-#### `enum CloudProvider`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AWSNitro` | — | — |
-| `IntelSGX` | — | — |
-| `GCPConfidentialSpace` | — | — |
-
-#### `enum EnclaveStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `PendingRegistration` | — | — |
-| `Active` | — | — |
-| `Compromised` | — | — |
-| `Offline` | — | — |
+| `NotInitialized` | 1 | — |
+| `UnauthenticatedSigner` | 2 | — |
+| `AlreadyInitialized` | 3 | — |
+| `AttestationFailed` | 4 | — |
+| `TaskNotFound` | 5 | — |
 
 #### `struct EnclaveNode`
 
 | Field | Type | Description |
 |---|---|---|
-| `provider` | `CloudProvider` | — |
-| `quote` | `Bytes` | — |
+| `id` | `BytesN<32>` | — |
 | `public_key` | `BytesN<32>` | — |
-| `status` | `EnclaveStatus` | — |
-
-#### `enum TaskStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Submitted` | — | — |
-| `Processing` | — | — |
-| `Completed` | — | — |
-| `Failed` | — | — |
-| `FallbackMPC` | — | — |
+| `status` | `u32` | — |
+| `reputation_score` | `u32` | — |
 
 #### `struct ProcessingTask`
 
 | Field | Type | Description |
 |---|---|---|
-| `submitter` | `Address` | — |
+| `task_id` | `BytesN<32>` | — |
 | `payload_hash` | `BytesN<32>` | — |
-| `status` | `TaskStatus` | — |
-| `result` | `Option<Bytes>` | — |
-| `assigned_node` | `Bytes` | — |
-| `require_zk_proof` | `bool` | — |
+| `completed` | `bool` | — |
+| `handled_by` | `BytesN<32>` | — |
+
+#### `enum CoreStorageKey`
+
+| Variant | Value | Description |
+|---|---|---|
+| `NodeRegistry` | — | — |
+| `BytesN` | — | — |
+| `32` | — | — |
+| `TaskRegistry` | — | — |
+| `BytesN` | — | — |
+| `32` | — | — |
 
 ### Examples
 
@@ -14336,571 +7722,6 @@ let env = Env::default();
 
 ---
 
-## sync_manager
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
-| `assign_role` | `env: Env, caller: Address, user: Address, role_mask: u32` | `Result<(), Error>` | — |
-| `get_sync_operation` | `env: Env, operation_id: u64` | `Option<SyncOperation>` | — |
-| `list_sync_operations` | `env: Env` | `Vec<SyncOperation>` | — |
-| `get_replication_lags` | `env: Env` | `Vec<ReplicationLag>` | — |
-| `get_region_lag` | `env: Env, source_region_id: u32, target_region_id: u32` | `Option<ReplicationLag>` | — |
-| `get_conflicts` | `env: Env` | `Vec<ConflictResolution>` | — |
-| `set_sync_policy` | `env: Env, caller: Address, policy: SyncPolicy` | `Result<(), Error>` | — |
-| `get_sync_policy` | `env: Env` | `SyncPolicy` | — |
-
-### Types
-
-#### `enum SyncStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | 0 | — |
-| `InProgress` | 1 | — |
-| `Completed` | 2 | — |
-| `Failed` | 3 | — |
-| `PartialSuccess` | 4 | — |
-
-#### `enum ConsistencyLevel`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Eventual` | 0 | — |
-| `Strong` | 1 | — |
-| `Causal` | 2 | — |
-
-#### `struct SyncOperation`
-
-| Field | Type | Description |
-|---|---|---|
-| `operation_id` | `u64` | — |
-| `source_region_id` | `u32` | — |
-| `target_region_ids` | `Vec<u32>` | — |
-| `data_hash` | `u64` | — |
-| `initiated_at` | `u64` | — |
-| `completed_at` | `u64` | — |
-| `status` | `SyncStatus` | — |
-| `consistency_level` | `ConsistencyLevel` | — |
-| `retry_count` | `u32` | — |
-| `success_count` | `u32` | — |
-| `failure_count` | `u32` | — |
-
-#### `struct SyncWindow`
-
-| Field | Type | Description |
-|---|---|---|
-| `window_id` | `u64` | — |
-| `region_id` | `u32` | — |
-| `start_ts` | `u64` | — |
-| `end_ts` | `u64` | — |
-| `data_version` | `u64` | — |
-| `checksum` | `u64` | — |
-| `is_applied` | `bool` | — |
-
-#### `struct ReplicationLag`
-
-| Field | Type | Description |
-|---|---|---|
-| `lag_id` | `u64` | — |
-| `source_region_id` | `u32` | — |
-| `target_region_id` | `u32` | — |
-| `lag_ms` | `u64` | — |
-| `measured_at` | `u64` | — |
-| `acceptable` | `bool` | — |
-
-#### `struct SyncPolicy`
-
-| Field | Type | Description |
-|---|---|---|
-| `sync_interval_ms` | `u64` | — |
-| `max_lag_ms` | `u64` | — |
-| `consistency_mode` | `ConsistencyLevel` | — |
-| `max_retries` | `u32` | — |
-| `auto_sync_enabled` | `bool` | — |
-| `conflict_resolution_strategy` | `u32` | — |
-
-#### `struct ConflictResolution`
-
-| Field | Type | Description |
-|---|---|---|
-| `conflict_id` | `u64` | — |
-| `operation_id` | `u64` | — |
-| `source_region_id` | `u32` | — |
-| `conflicting_regions` | `Vec<u32>` | — |
-| `detected_at` | `u64` | — |
-| `resolved` | `bool` | — |
-| `resolution_strategy` | `u32` | — |
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `InvalidInput` | 4 | — |
-| `SyncOperationNotFound` | 5 | — |
-| `SyncFailed` | 6 | — |
-| `ConflictDetected` | 7 | — |
-| `MaxRetriesExceeded` | 8 | — |
-| `InconsistentState` | 9 | — |
-| `TargetUnavailable` | 10 | — |
-
----
-
-## telemedicine
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), TelemedicineError>` | — |
-| `pause` | `env: Env` | `Result<(), TelemedicineError>` | — |
-| `unpause` | `env: Env` | `Result<(), TelemedicineError>` | — |
-| `get_provider` | `env: &Env, provider_id: BytesN<32>` | `Result<Provider, TelemedicineError>` | — |
-| `get_patient` | `env: &Env, patient_id: BytesN<32>` | `Result<Patient, TelemedicineError>` | — |
-| `revoke_consent` | `env: &Env, consent_id: BytesN<32>` | `Result<(), TelemedicineError>` | — |
-| `get_emergency_protocol` | `env: &Env` | `EmergencyProtocol` | — |
-| `get_active_emergencies` | `env: &Env` | `Vec<BytesN<32>>` | — |
-| `get_platform_stats` | `env: Env` | `(u64, u64, u64, u64, u64, u64)` | — |
-
-### Types
-
-#### `enum TelemedicineError`
-
-| Variant | Value | Description |
-|---|---|---|
-| `ContractPaused` | 1 | — |
-| `NotPaused` | 2 | — |
-| `NotAdmin` | 3 | — |
-| `ProviderAlreadyRegistered` | 4 | — |
-| `ProviderNotFound` | 5 | — |
-| `ProviderNotActive` | 6 | — |
-| `LicenseExpired` | 7 | — |
-| `PatientAlreadyRegistered` | 8 | — |
-| `PatientNotFound` | 9 | — |
-| `ConsentNotGiven` | 10 | — |
-| `ConsultationNotFound` | 11 | — |
-| `ConsultationNotScheduled` | 12 | — |
-| `ConsultationNotActive` | 13 | — |
-| `ConsultationAlreadyCompleted` | 14 | — |
-| `PrescriptionNotFound` | 15 | — |
-| `MonitoringSessionNotFound` | 16 | — |
-| `AppointmentNotFound` | 17 | — |
-| `DigitalTherapeuticNotFound` | 18 | — |
-| `QualityAssessmentNotFound` | 19 | — |
-| `EmergencyNotFound` | 20 | — |
-| `EmergencyAlreadyResolved` | 21 | — |
-| `InvalidJurisdiction` | 22 | — |
-| `DataTransferNotApproved` | 23 | — |
-| `UnsupportedLanguage` | 24 | — |
-| `ChatbotInquiryNotFound` | 25 | — |
-| `InvalidChatMessage` | 26 | — |
-| `KnowledgeEntryAlreadyExists` | 27 | — |
-| `KnowledgeEntryNotFound` | 28 | — |
-
-#### `enum ConsentType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `VideoConsultation` | 0 | — |
-| `RemoteMonitoring` | 1 | — |
-| `DigitalTherapeutic` | 2 | — |
-| `EmergencyContact` | 3 | — |
-| `DataSharing` | 4 | — |
-
-#### `enum ConsultationStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Scheduled` | 0 | — |
-| `Active` | 1 | — |
-| `Completed` | 2 | — |
-| `Cancelled` | 3 | — |
-
-#### `enum EmergencyLevel`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Low` | 0 | — |
-| `Medium` | 1 | — |
-| `High` | 2 | — |
-| `Critical` | 3 | — |
-
-#### `enum QualityRating`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Poor` | 0 | — |
-| `Fair` | 1 | — |
-| `Good` | 2 | — |
-| `VeryGood` | 3 | — |
-| `Excellent` | 4 | — |
-
-#### `enum ChatIntent`
-
-| Variant | Value | Description |
-|---|---|---|
-| `SymptomCheck` | 0 | — |
-| `HealthEducation` | 1 | — |
-| `MedicationGuidance` | 2 | — |
-| `EmergencySupport` | 3 | — |
-| `GeneralInquiry` | 4 | — |
-
-#### `struct Provider`
-
-| Field | Type | Description |
-|---|---|---|
-| `provider_id` | `BytesN<32>` | — |
-| `address` | `Address` | — |
-| `name` | `String` | — |
-| `credentials` | `BytesN<32>` | — |
-| `jurisdictions` | `Vec<String>` | — |
-| `specialty` | `String` | — |
-| `license_expiry` | `u64` | — |
-| `is_active` | `bool` | — |
-| `registration_date` | `u64` | — |
-
-#### `struct Patient`
-
-| Field | Type | Description |
-|---|---|---|
-| `patient_id` | `BytesN<32>` | — |
-| `address` | `Address` | — |
-| `primary_care_physician` | `BytesN<32>` | — |
-| `monitoring_device` | `String` | — |
-| `jurisdiction` | `String` | — |
-| `contact_info` | `String` | — |
-| `preferred_language` | `String` | — |
-| `registration_date` | `u64` | — |
-
-#### `struct ConsentRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `consent_id` | `BytesN<32>` | — |
-| `patient_id` | `BytesN<32>` | — |
-| `consent_type` | `ConsentType` | — |
-| `granted` | `bool` | — |
-| `timestamp` | `u64` | — |
-| `expiry` | `u64` | — |
-| `scope` | `String` | — |
-
-#### `struct Consultation`
-
-| Field | Type | Description |
-|---|---|---|
-| `session_id` | `BytesN<32>` | — |
-| `patient_id` | `BytesN<32>` | — |
-| `provider_id` | `BytesN<32>` | — |
-| `scheduled_time` | `u64` | — |
-| `start_time` | `u64` | — |
-| `end_time` | `u64` | — |
-| `status` | `ConsultationStatus` | — |
-| `recording_hash` | `BytesN<32>` | — |
-| `appointment_id` | `BytesN<32>` | — |
-| `consultation_type` | `String` | — |
-| `quality_score` | `u32` | — |
-
-#### `struct Prescription`
-
-| Field | Type | Description |
-|---|---|---|
-| `prescription_id` | `BytesN<32>` | — |
-| `consultation_id` | `BytesN<32>` | — |
-| `patient_id` | `BytesN<32>` | — |
-| `provider_id` | `BytesN<32>` | — |
-| `medications` | `Vec<String>` | — |
-| `issued_date` | `u64` | — |
-| `valid_days` | `u64` | — |
-| `pharmacy_id` | `String` | — |
-| `is_active` | `bool` | — |
-| `cross_border` | `bool` | — |
-| `jurisdiction` | `String` | — |
-
-#### `struct VitalSigns`
-
-| Field | Type | Description |
-|---|---|---|
-| `heart_rate` | `u32` | — |
-| `blood_pressure_systolic` | `u32` | — |
-| `blood_pressure_diastolic` | `u32` | — |
-| `spo2` | `u32` | — |
-| `temperature` | `u32` | — |
-| `respiratory_rate` | `u32` | — |
-| `blood_glucose` | `u32` | — |
-| `device_id` | `String` | — |
-| `timestamp` | `u64` | — |
-
-#### `struct MonitoringSession`
-
-| Field | Type | Description |
-|---|---|---|
-| `session_id` | `BytesN<32>` | — |
-| `patient_id` | `BytesN<32>` | — |
-| `provider_id` | `BytesN<32>` | — |
-| `start_time` | `u64` | — |
-| `end_time` | `u64` | — |
-| `is_active` | `bool` | — |
-| `vital_signs_count` | `u32` | — |
-| `alerts_count` | `u32` | — |
-
-#### `struct AppointmentSlot`
-
-| Field | Type | Description |
-|---|---|---|
-| `appointment_id` | `BytesN<32>` | — |
-| `provider_id` | `BytesN<32>` | — |
-| `patient_id` | `BytesN<32>` | — |
-| `start_time` | `u64` | — |
-| `end_time` | `u64` | — |
-| `consultation_type` | `String` | — |
-| `is_confirmed` | `bool` | — |
-| `telemedicine_room` | `String` | — |
-
-#### `struct ComplianceRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `record_id` | `BytesN<32>` | — |
-| `consultation_id` | `BytesN<32>` | — |
-| `patient_jurisdiction` | `String` | — |
-| `provider_jurisdiction` | `String` | — |
-| `compliance_framework` | `String` | — |
-| `data_transfer_approved` | `bool` | — |
-| `gdpr_compliant` | `bool` | — |
-| `hipaa_compliant` | `bool` | — |
-| `local_law_compliant` | `bool` | — |
-| `verification_timestamp` | `u64` | — |
-| `verified_by` | `Address` | — |
-
-#### `struct DigitalTherapeutic`
-
-| Field | Type | Description |
-|---|---|---|
-| `therapeutic_id` | `BytesN<32>` | — |
-| `patient_id` | `BytesN<32>` | — |
-| `provider_id` | `BytesN<32>` | — |
-| `program_name` | `String` | — |
-| `program_hash` | `BytesN<32>` | — |
-| `enrollment_date` | `u64` | — |
-| `completion_percentage` | `u32` | — |
-| `adherence_score` | `u32` | — |
-| `session_count` | `u32` | — |
-| `duration_days` | `u32` | — |
-| `is_active` | `bool` | — |
-
-#### `struct QualityAssessment`
-
-| Field | Type | Description |
-|---|---|---|
-| `assessment_id` | `BytesN<32>` | — |
-| `consultation_id` | `BytesN<32>` | — |
-| `assessor_provider` | `Address` | — |
-| `technical_quality` | `QualityRating` | — |
-| `clinical_quality` | `QualityRating` | — |
-| `patient_satisfaction` | `u32` | — |
-| `connection_quality` | `u32` | — |
-| `issues` | `Vec<String>` | — |
-| `assessment_date` | `u64` | — |
-
-#### `struct EmergencyCase`
-
-| Field | Type | Description |
-|---|---|---|
-| `emergency_id` | `BytesN<32>` | — |
-| `patient_id` | `BytesN<32>` | — |
-| `reporting_provider` | `BytesN<32>` | — |
-| `responding_provider` | `BytesN<32>` | — |
-| `emergency_level` | `EmergencyLevel` | — |
-| `reported_symptoms` | `String` | — |
-| `triage_notes_hash` | `BytesN<32>` | — |
-| `triggered_at` | `u64` | — |
-| `response_time` | `u64` | — |
-| `resolved_at` | `u64` | — |
-| `is_resolved` | `bool` | — |
-| `escalated_to_physical` | `bool` | — |
-
-#### `struct MedicalKnowledgeEntry`
-
-| Field | Type | Description |
-|---|---|---|
-| `entry_id` | `BytesN<32>` | — |
-| `category` | `String` | — |
-| `language` | `String` | — |
-| `title` | `String` | — |
-| `summary` | `String` | — |
-| `guidance` | `String` | — |
-| `source_ref` | `String` | — |
-| `content_hash` | `BytesN<32>` | — |
-| `updated_at` | `u64` | — |
-| `is_active` | `bool` | — |
-
-#### `struct EmergencyProtocol`
-
-| Field | Type | Description |
-|---|---|---|
-| `protocol_id` | `BytesN<32>` | — |
-| `emergency_contact` | `String` | — |
-| `escalation_message_en` | `String` | — |
-| `escalation_message_sw` | `String` | — |
-| `escalation_message_fr` | `String` | — |
-| `ambulance_ref` | `String` | — |
-| `updated_at` | `u64` | — |
-
-#### `struct ChatbotInquiry`
-
-| Field | Type | Description |
-|---|---|---|
-| `inquiry_id` | `BytesN<32>` | — |
-| `patient_id` | `BytesN<32>` | — |
-| `patient_address` | `Address` | — |
-| `original_message` | `String` | — |
-| `normalized_message` | `String` | — |
-| `detected_language` | `String` | — |
-| `intent` | `ChatIntent` | — |
-| `confidence_bps` | `u32` | — |
-| `triage_level` | `EmergencyLevel` | — |
-| `emergency_detected` | `bool` | — |
-| `escalation_required` | `bool` | — |
-| `recommended_action` | `String` | — |
-| `health_education` | `String` | — |
-| `knowledge_source_ref` | `String` | — |
-| `matched_articles` | `Vec<BytesN<32>>` | — |
-| `emergency_case_id` | `BytesN<32>` | — |
-| `response_time_ms` | `u32` | — |
-| `created_at` | `u64` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Fix` | — | — |
-| `store` | — | — |
-| `admin` | — | — |
-| `as` | — | — |
-| `a` | — | — |
-| `simple` | — | — |
-| `key` | — | — |
-| `not` | — | — |
-| `keyed` | — | — |
-| `by` | — | — |
-| `address` | — | — |
-| `so` | — | — |
-| `require_admin` | — | — |
-| `can` | — | — |
-| `retrieve` | — | — |
-| `it` | — | — |
-| `without` | — | — |
-| `knowing` | — | — |
-| `the` | — | — |
-| `address` | — | — |
-| `Admin` | — | — |
-| `Paused` | — | — |
-| `Provider` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Patient` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Consent` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Index` | — | — |
-| `patient_id` | — | — |
-| `Vec` | — | — |
-| `of` | — | — |
-| `consent_ids` | — | — |
-| `for` | — | — |
-| `that` | — | — |
-| `patient` | — | — |
-| `PatientConsents` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Consultation` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Prescription` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `MonitoringSession` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Appointment` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `ComplianceRecord` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `DigitalTherapeutic` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `QualityAssessment` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `Emergency` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `KnowledgeEntry` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `KnowledgeIndex` | — | — |
-| `EmergencyProtocol` | — | — |
-| `ChatbotInquiry` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `LatestPatientInquiry` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `ProviderSchedule` | — | — |
-| `BytesN` | — | — |
-| `32` | — | — |
-| `ActiveEmergencies` | — | — |
-| `PlatformStats` | — | — |
-
-### Examples
-
-#### `test_initialize_contract`
-
-```rust
-let env = Env::default();
-    env.mock_all_auths();
-    let contract_id = env.register_contract(None, TelemedicineContract);
-    let client = TelemedicineContractClient::new(&env, &contract_id);
-    let admin = generate_test_address(&env);
-
-    client.initialize(&admin);
-
-    let (providers, patients, consultations, prescriptions, alerts, emergencies) =
-```
-
-#### `test_double_initialization`
-
-```rust
-let ctx = TestContext::new();
-    let result = ctx.client.try_initialize(&ctx.admin);
-    assert_err!(result, TelemedicineError::NotPaused);
-```
-
-#### `test_pause_unpause`
-
-```rust
-let ctx = TestContext::new();
-
-    ctx.client.pause();
-
-    let result = ctx.client.try_register_patient(
-        &BytesN::from_array(&ctx.env, &[3u8; 32]),
-        &ctx.patient,
-        &BytesN::from_array(&ctx.env, &[4u8; 32]),
-        &String::from_str(&ctx.env, "KE"),
-```
-
----
-
 ## timelock
 
 ### Functions
@@ -14929,22 +7750,23 @@ let ctx = TestContext::new();
 | `call` | `BytesN<32>` | — |
 | `eta` | `u64` | — |
 
-#### `enum Error`
+### Error Codes
 
-| Variant | Value | Description |
+| Variant | Code | Description |
 |---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `AlreadyQueued` | 3 | — |
-| `NotQueued` | 4 | — |
-| `NotReady` | 5 | — |
-| `InsufficientFunds` | 10 | — |
-| `DeadlineExceeded` | 11 | — |
-| `InvalidSignature` | 12 | — |
-| `UnauthorizedCaller` | 13 | — |
-| `ContractPaused` | 14 | — |
-| `StorageFull` | 15 | — |
-| `CrossChainTimeout` | 16 | — |
+| `Unauthorized` | 100 | — |
+| `InvalidSignature` | 207 | — |
+| `NotInitialized` | 300 | — |
+| `AlreadyInitialized` | 301 | — |
+| `ContractPaused` | 302 | — |
+| `DeadlineExceeded` | 306 | — |
+| `AlreadyQueued` | 375 | — |
+| `NotQueued` | 372 | — |
+| `NotReady` | 376 | — |
+| `ReentrancyRejected` | 377 | — |
+| `InsufficientFunds` | 500 | — |
+| `StorageFull` | 502 | — |
+| `CrossChainTimeout` | 702 | — |
 
 ---
 
@@ -14954,15 +7776,10 @@ let ctx = TestContext::new();
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `buy` | `env: Env, buyer: Address, phase_id: u32, token: Address, amount: u128, next_nonce: u64` | `Result<(), Error>` | Buy sale tokens with caller nonce replay protection |
-| `contribute` | `env: Env, contributor: Address, phase_id: u32, token: Address, amount: u128` | `Result<(), Error>` | Legacy contribution entrypoint |
-| `get_nonce` | `env: Env, user: Address` | `u64` | Return caller nonce sequence |
 
-### Types
+### Error Codes
 
-#### `enum Error`
-
-| Variant | Value | Description |
+| Variant | Code | Description |
 |---|---|---|
 | `AlreadyInitialized` | 1 | — |
 | `InvalidArgument` | 2 | — |
@@ -14975,6 +7792,7 @@ let ctx = TestContext::new();
 | `RefundsNotEnabled` | 9 | — |
 | `Paused` | 10 | — |
 | `ReplayDetected` | 11 | — |
+| `InsufficientFunds` | 500 | — |
 
 ### Examples
 
@@ -15022,149 +7840,17 @@ let env = Env::default();
 
 ---
 
-## treasury_controller
-
-### Functions
-
-| Function | Parameters | Returns | Description |
-|---|---|---|---|
-| `add_supported_token` | `env: Env, token_address: Address` | `Result<(), Error>` | Add supported token for treasury operations |
-| `approve_proposal` | `env: Env, signer: Address, proposal_id: u64` | `Result<(), Error>` | Approve a treasury proposal |
-| `execute_proposal` | `env: Env, executor: Address, proposal_id: u64` | `Result<(), Error>` | Execute an approved proposal after timelock |
-| `emergency_halt` | `env: Env, caller: Address` | `Result<(), Error>` | Emergency halt all treasury operations |
-| `resume_operations` | `env: Env, caller: Address` | `Result<(), Error>` | Resume operations after emergency halt |
-| `get_config` | `env: Env` | `TreasuryConfig` | Get treasury configuration |
-| `get_proposal` | `env: Env, proposal_id: u64` | `TreasuryProposal` | Get proposal details |
-| `get_proposal_count` | `env: Env` | `u64` | Get total number of proposals |
-| `is_proposal_executable` | `env: Env, proposal_id: u64` | `bool` | Check if proposal is ready for execution |
-| `gnosis_get_threshold` | `env: Env` | `u32` | Get threshold for Gnosis Safe compatibility |
-| `gnosis_get_owners` | `env: Env` | `Vec<Address>` | Get owners for Gnosis Safe compatibility |
-
-### Types
-
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `NotInitialized` | 1 | — |
-| `AlreadyInitialized` | 2 | — |
-| `InvalidThreshold` | 3 | — |
-| `InvalidTimelock` | 4 | — |
-| `NotSigner` | 5 | — |
-| `ProposalNotFound` | 6 | — |
-| `NotPending` | 7 | — |
-| `AlreadyApproved` | 8 | — |
-| `TimelockNotExpired` | 9 | — |
-| `NotApproved` | 10 | — |
-| `Halted` | 11 | — |
-| `NotAuthorized` | 12 | — |
-| `SymbolTooLong` | 13 | — |
-| `TransferFailed` | 14 | — |
-
-#### `enum ProposalType`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Withdrawal` | — | — |
-| `ConfigChange` | — | — |
-| `EmergencyHalt` | — | — |
-
-#### `enum ProposalStatus`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Pending` | — | — |
-| `Approved` | — | — |
-| `Executed` | — | — |
-| `Rejected` | — | — |
-| `Expired` | — | — |
-
-#### `struct TreasuryProposal`
-
-| Field | Type | Description |
-|---|---|---|
-| `proposal_id` | `u64` | — |
-| `proposal_type` | `ProposalType` | — |
-| `proposer` | `Address` | — |
-| `target_address` | `Address` | — |
-| `token_contract` | `Address` | — |
-| `amount` | `i128` | — |
-| `purpose` | `String` | — |
-| `metadata` | `String` | — |
-| `created_at` | `u64` | — |
-| `timelock_end` | `u64` | — |
-| `status` | `ProposalStatus` | — |
-| `approvals` | `Vec<Address>` | — |
-| `rejections` | `Vec<Address>` | — |
-| `execution_data` | `Bytes` | — |
-
-#### `struct MultisigConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `signers` | `Vec<Address>` | — |
-| `threshold` | `u32` | — |
-| `timelock_duration` | `u64` | — |
-| `emergency_threshold` | `u32` | — |
-
-#### `struct TreasuryConfig`
-
-| Field | Type | Description |
-|---|---|---|
-| `admin` | `Address` | — |
-| `multisig_config` | `MultisigConfig` | — |
-| `max_withdrawal_amount` | `i128` | — |
-| `emergency_halted` | `bool` | — |
-| `supported_tokens` | `Vec<Address>` | — |
-
-#### `struct WithdrawalRecord`
-
-| Field | Type | Description |
-|---|---|---|
-| `proposal_id` | `u64` | — |
-| `token_contract` | `Address` | — |
-| `amount` | `i128` | — |
-| `recipient` | `Address` | — |
-| `purpose` | `String` | — |
-| `executed_at` | `u64` | — |
-| `executed_by` | `Address` | — |
-| `transaction_hash` | `BytesN<32>` | — |
-
-#### `enum DataKey`
-
-| Variant | Value | Description |
-|---|---|---|
-| `Config` | — | — |
-| `Proposals` | — | — |
-| `ProposalCount` | — | — |
-| `Withdrawals` | — | — |
-
-### Examples
-
-#### `test_error_types_exist`
-
-```rust
-// Simple test to verify error types are defined correctly
-        let _error = Error::NotInitialized;
-        let _error = Error::TransferFailed;
-    }
-
-    #[test]
-    fn test_proposal_types_exist() {
-        // Test that our proposal types are properly defined
-        let _withdrawal = ProposalType::Withdrawal;
-```
-
----
-
 ## upgrade_manager
 
 ### Functions
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `execute` | `env: Env, proposal_id: u64` | `Result<(), UpgradeManagerError>` | — |
-| `execute_emergency` | `env: Env, proposal_id: u64` | `Result<(), UpgradeManagerError>` | — |
+| `initialize` | `env: Env, admin: Address, validators: Vec<Address>` | `Result<(), Error>` | — |
+| `approve` | `env: Env, validator: Address, proposal_id: u64` | `Result<(), Error>` | — |
+| `execute` | `env: Env, proposal_id: u64` | `Result<(), Error>` | — |
+| `execute_emergency` | `env: Env, proposal_id: u64` | `Result<(), Error>` | — |
+| `validate_proposal` | `env: Env, proposal_id: u64` | `Result<UpgradeValidation, Error>` | — |
 
 ### Types
 
@@ -15184,19 +7870,6 @@ let env = Env::default();
 | `approvals` | `Vec<Address>` | — |
 | `is_emergency` | `bool` | — |
 
-#### `enum UpgradeManagerError`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotAValidator` | 2 | — |
-| `ProposalNotFound` | 3 | — |
-| `AlreadyApproved` | 4 | — |
-| `InvalidState` | 5 | — |
-| `TimelockNotExpired` | 6 | — |
-| `NotEnoughApprovals` | 7 | — |
-| `ConfigNotFound` | 8 | — |
-
 #### `struct Config`
 
 | Field | Type | Description |
@@ -15206,6 +7879,19 @@ let env = Env::default();
 | `required_approvals` | `u32` | — |
 | `validators` | `Vec<Address>` | — |
 | `emergency_approvals` | `u32` | — |
+
+### Error Codes
+
+| Variant | Code | Description |
+|---|---|---|
+| `NotAValidator` | 110 | — |
+| `NotEnoughApprovals` | 120 | — |
+| `AlreadyInitialized` | 301 | — |
+| `InvalidState` | 304 | — |
+| `TimelockNotExpired` | 376 | — |
+| `ConfigNotFound` | 390 | — |
+| `ProposalNotFound` | 450 | — |
+| `AlreadyApproved` | 451 | — |
 
 ### Examples
 
@@ -15220,6 +7906,32 @@ let env = Env::default();
     let v2 = Address::generate(&env);
     let v3 = Address::generate(&env);
     let validators = Vec::from_array(&env, [v1.clone(), v2.clone(), v3.clone()]);
+```
+
+#### `test_error_codes_are_stable`
+
+```rust
+use crate::errors::Error;
+    assert_eq!(Error::NotAValidator as u32, 110);
+    assert_eq!(Error::NotEnoughApprovals as u32, 120);
+    assert_eq!(Error::AlreadyInitialized as u32, 301);
+    assert_eq!(Error::InvalidState as u32, 304);
+    assert_eq!(Error::TimelockNotExpired as u32, 376);
+    assert_eq!(Error::ProposalNotFound as u32, 450);
+```
+
+#### `test_get_suggestion_returns_expected_hint`
+
+```rust
+use crate::errors::{get_suggestion, Error};
+    assert_eq!(
+        get_suggestion(Error::NotAValidator),
+        symbol_short!("CHK_AUTH")
+    );
+    assert_eq!(
+        get_suggestion(Error::AlreadyInitialized),
+        symbol_short!("ALREADY")
+    );
 ```
 
 ---
@@ -15291,11 +8003,12 @@ let env = Env::default();
 let env = Env::default();
     env.mock_all_auths();
 
+    let contract_id = env.register_contract(None, TestContract);
     let admin = Address::generate(&env);
-    storage::set_admin(&env, &admin);
 
     let deprecation = sample_deprecation(&env);
-    let deprecations = Vec::from_array(&env, [deprecation.clone()]);
+
+    env.as_contract(&contract_id, || {
 ```
 
 #### `test_deprecation_warning_emits_event`
@@ -15304,11 +8017,12 @@ let env = Env::default();
 let env = Env::default();
     env.mock_all_auths();
 
+    let contract_id = env.register_contract(None, TestContract);
     let admin = Address::generate(&env);
-    storage::set_admin(&env, &admin);
 
-    let deprecations = Vec::from_array(&env, [sample_deprecation(&env)]);
-    set_deprecated_functions(&env, deprecations).unwrap();
+    let deprecation = sample_deprecation(&env);
+
+    env.as_contract(&contract_id, || {
 ```
 
 ---
@@ -15378,22 +8092,17 @@ let env = Env::default();
 | `BytesN` | — | — |
 | `32` | — | — |
 
-#### `enum Error`
-
-| Variant | Value | Description |
-|---|---|---|
-| `AlreadyInitialized` | 1 | — |
-| `NotInitialized` | 2 | — |
-| `NotAuthorized` | 3 | — |
-| `InvalidInput` | 4 | — |
-| `VersionNotFound` | 5 | — |
-
 ### Error Codes
 
 | Variant | Code | Description |
 |---|---|---|
-| `InvalidProof` | 1 | — |
-| `VerificationFailed` | 2 | — |
+| `Unauthorized` | 100 | — |
+| `InvalidInput` | 200 | — |
+| `NotInitialized` | 300 | — |
+| `AlreadyInitialized` | 301 | — |
+| `VersionNotFound` | 430 | — |
+| `InvalidProof` | 600 | — |
+| `VerificationFailed` | 601 | — |
 
 ---
 
@@ -15403,10 +8112,10 @@ let env = Env::default();
 
 | Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | Initialize the ZKP registry |
-| `get_range_proof` | `env: Env, proof_id: BytesN<32>` | `Result<RangeProof, Error>` | Get range proof |
-| `get_circuit_params` | `env: Env, circuit_id: String` | `Result<ZKPCircuitParams, Error>` | Get circuit parameters |
-| `get_gas_stats` | `env: Env, user: Address` | `Result<u64, Error>` | Get gas usage statistics |
+| `initialize` | `env: Env, admin: Address` | `Result<(), Error>` | — |
+| `get_range_proof` | `env: Env, proof_id: BytesN<32>` | `Result<RangeProof, Error>` | — |
+| `get_circuit_params` | `env: Env, circuit_id: String` | `Result<ZKPCircuitParams, Error>` | — |
+| `get_gas_stats` | `env: Env, user: Address` | `Result<u64, Error>` | — |
 
 ### Types
 
@@ -15414,30 +8123,10 @@ let env = Env::default();
 
 | Variant | Value | Description |
 |---|---|---|
-| `zk` | — | — |
 | `SNARK` | — | — |
-| `for` | — | — |
-| `general` | — | — |
-| `computations` | — | — |
-| `SNARK` | — | — |
-| `zk` | — | — |
 | `STARK` | — | — |
-| `for` | — | — |
-| `transparent` | — | — |
-| `setup` | — | — |
-| `STARK` | — | — |
-| `Bulletproofs` | — | — |
-| `for` | — | — |
-| `range` | — | — |
-| `proofs` | — | — |
 | `Bulletproof` | — | — |
-| `Pedersen` | — | — |
-| `commitment` | — | — |
-| `scheme` | — | — |
 | `PedersenCommitment` | — | — |
-| `Recursive` | — | — |
-| `proof` | — | — |
-| `composition` | — | — |
 | `Recursive` | — | — |
 
 #### `enum ZKPHashFunction`
@@ -15445,23 +8134,8 @@ let env = Env::default();
 | Variant | Value | Description |
 |---|---|---|
 | `Poseidon` | — | — |
-| `hash` | — | — |
-| `ZKP` | — | — |
-| `friendly` | — | — |
-| `Poseidon` | — | — |
 | `MiMC` | — | — |
-| `hash` | — | — |
-| `ZKP` | — | — |
-| `friendly` | — | — |
-| `MiMC` | — | — |
-| `SHA` | — | — |
-| `256` | — | — |
-| `standard` | — | — |
 | `SHA256` | — | — |
-| `Rescue` | — | — |
-| `hash` | — | — |
-| `ZKP` | — | — |
-| `friendly` | — | — |
 | `Rescue` | — | — |
 
 #### `struct ZKProof`
@@ -15601,56 +8275,52 @@ let env = Env::default();
 | `ProofTooLarge` | 13 | — |
 | `RecursiveDepthExceeded` | 14 | — |
 | `InvalidHashFunction` | 15 | — |
-| `InsufficientFunds` | 20 | — |
-| `DeadlineExceeded` | 21 | — |
-| `InvalidSignature` | 22 | — |
-| `UnauthorizedCaller` | 23 | — |
-| `ContractPaused` | 24 | — |
-| `StorageFull` | 25 | — |
-| `CrossChainTimeout` | 26 | — |
+| `CommitmentMismatch` | 16 | — |
+| `InvalidRangeProof` | 17 | — |
+| `VersionMismatch` | 18 | — |
 
 ### Examples
 
-#### `test_zkp_registry_initialization`
+#### `test_initialize_and_register_circuit`
 
 ```rust
 let env = Env::default();
     env.mock_all_auths();
+    env.ledger().set_timestamp(1_000_000);
 
     let (client, _id) = setup(&env);
     let admin = Address::generate(&env);
-
     client.initialize(&admin);
 
-    let result = client.try_get_circuit_params(&String::from_str(&env, "test_circuit"));
+    let circuit_id = String::from_str(&env, "circuit-a");
 ```
 
-#### `test_circuit_registration`
+#### `test_submit_zkp_smoke`
 
 ```rust
 let env = Env::default();
     env.mock_all_auths();
+    env.ledger().set_timestamp(1_000_000);
 
-    let (client, _id) = setup(&env);
+    let (client, _) = setup(&env);
     let admin = Address::generate(&env);
     client.initialize(&admin);
 
-    let circuit_id = String::from_str(&env, "medical_authenticity");
-    let vk_hash = BytesN::from_array(&env, &[1u8; 32]);
+    let circuit_id = String::from_str(&env, "circuit-b");
 ```
 
-#### `test_zkp_submission_and_verification`
+#### `test_create_credential_proof_valid_future_window`
 
 ```rust
 let env = Env::default();
     env.mock_all_auths();
+    env.ledger().set_timestamp(1_000_000);
+    let (client, _) = init_contract(&env);
 
-    let (client, _id) = setup(&env);
-    let admin = Address::generate(&env);
-    client.initialize(&admin);
-
-    let circuit_id = String::from_str(&env, "test_circuit");
-    let vk_hash = BytesN::from_array(&env, &[1u8; 32]);
+    let holder = Address::generate(&env);
+    let issuer = Address::generate(&env);
+    let credential_type = String::from_str(&env, "medical_license");
+    let validity_proof = make_proof(&env, b"validity", ZKPType::SNARK, ZKPHashFunction::SHA256);
 ```
 
 ---

@@ -10,6 +10,8 @@ pub enum Error {
     CannotRemoveOwner = 111,
     InvalidRecoveryGuardian = 120,
     InsufficientGuardianApprovals = 121,
+    GuardianWeightTooHigh = 122,
+    InvalidRecoveryThreshold = 123,
 
     // --- Input Validation (200–299) ---
     InvalidInput = 200,
@@ -29,6 +31,9 @@ pub enum Error {
 
     // --- Entity Existence (400–499) ---
     VerificationMethodNotFound = 450,
+
+    // --- Arithmetic (500–599) ---
+    ArithmeticOverflow = 500,
     CredentialNotFound = 460,
     AttestationNotFound = 461,
     ServiceNotFound = 462,

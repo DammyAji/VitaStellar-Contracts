@@ -387,6 +387,8 @@
 | 111 | CannotRemoveOwner | Generated from contract source |
 | 120 | InvalidRecoveryGuardian | Generated from contract source |
 | 121 | InsufficientGuardianApprovals | Generated from contract source |
+| 122 | GuardianWeightTooHigh | Generated from contract source |
+| 123 | InvalidRecoveryThreshold | Generated from contract source |
 | 200 | InvalidInput | Generated from contract source |
 | 201 | InputTooLong | Generated from contract source |
 | 250 | InvalidVerificationMethod | Generated from contract source |
@@ -406,6 +408,7 @@
 | 470 | DIDNotFound | Generated from contract source |
 | 471 | DIDAlreadyExists | Generated from contract source |
 | 472 | DIDDeactivated | Generated from contract source |
+| 500 | ArithmeticOverflow | Generated from contract source |
 | 603 | KeyRotationCooldown | Generated from contract source |
 | 605 | CredentialExpired | Generated from contract source |
 | 606 | CredentialRevoked | Generated from contract source |
