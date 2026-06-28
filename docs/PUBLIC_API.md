@@ -3,8 +3,8 @@
 > **Single source of truth.** Generated from `/// ` doc comments and `pub fn` signatures in each contract's `src/lib.rs`.
 > Do not edit manually — run `make docs` to regenerate.
 
-- **Generated**: `2026-06-20T14:53:13.852Z`
-- **Contracts**: 56
+- **Generated**: `2026-06-27T06:00:08.948Z`
+- **Contracts**: 58
 
 ## Table of Contents
 
@@ -42,6 +42,7 @@
 - [medical_consent_nft](#medical-consent-nft)
 - [medical_record_backup](#medical-record-backup)
 - [medical_record_search](#medical-record-search)
+- [medical_records](#medical-records)
 - [mpc_manager](#mpc-manager)
 - [notification_system](#notification-system)
 - [patient_risk_stratification](#patient-risk-stratification)
@@ -49,6 +50,7 @@
 - [predictive_analytics](#predictive-analytics)
 - [provider_directory](#provider-directory)
 - [public_health_surveillance](#public-health-surveillance)
+- [reentrancy_guard](#reentrancy-guard)
 - [regulatory_compliance](#regulatory-compliance)
 - [reputation](#reputation)
 - [reputation_access_control](#reputation-access-control)
@@ -516,7 +518,15 @@ pub fn get_fee_config(env: Env) -> Option<RouterFeeConfig>
 ```
 
 ```rust
+pub fn get_nonce(env: Env, caller: Address) -> u64
+```
+
+```rust
 pub fn compute_split(env: Env, amount: i128) -> Result<(i128, i128), Error>
+```
+
+```rust
+pub fn route_payment( env: Env, payer: Address, recipient: Address, amount: i128, next_nonce: u64, ) -> Result<(), Error>
 ```
 
 ---
@@ -1004,6 +1014,18 @@ pub fn get_owned_modules(env: Env, owner: Address) -> Vec<String>
 
 ```rust
 pub fn get_suggestion(error: CommonError) -> Symbol
+```
+
+> Read a value from instance storage, returning `V::default()` if absent.
+
+```rust
+pub fn read_or_default<K, V>(env: &Env, key: &K) -> V where K: IntoVal<Env, Val>, V: TryFromVal<Env, Val> + Default,
+```
+
+> Read a value from instance storage, returning `None` if absent.
+
+```rust
+pub fn try_read<K, V>(env: &Env, key: &K) -> Option<V> where K: IntoVal<Env, Val>, V: TryFromVal<Env, Val>,
 ```
 
 ---
@@ -1777,11 +1799,11 @@ pub fn get_platform_health_score(env: Env) -> u32
 ```
 
 ```rust
-pub fn get_token_volume(env: Env, _token: Address) -> i128
+pub fn get_token_volume(env: Env, token: Address) -> i128
 ```
 
 ```rust
-pub fn get_donor_reputation(env: Env, _donor: Address) -> u32
+pub fn get_donor_reputation(env: Env, donor: Address) -> u32
 ```
 
 ```rust
@@ -3020,6 +3042,18 @@ pub fn get_indexed_entry(env: Env, record_id: u64) -> Result<SearchIndexEntry, E
 
 ---
 
+## medical_records
+
+```rust
+pub fn write_record( env: Env, owner: Address, patient_id: String, record_type: String, content: String, timestamp: u64, ) -> Result<(), RecordError>
+```
+
+```rust
+pub fn get_record(env: Env, record_id: u64) -> Option<Record>
+```
+
+---
+
 ## mpc_manager
 
 ```rust
@@ -3533,6 +3567,23 @@ pub fn get_privacy_budget(env: Env, user: Address) -> Result<u64, Error>
 
 ---
 
+## reentrancy_guard
+
+> Try to acquire the per-contract reentrancy lock.
+> Returns `true` when the lock was acquired, or `false` if already locked.
+
+```rust
+pub fn enter(env: &Env) -> bool
+```
+
+> Release the per-contract reentrancy lock.
+
+```rust
+pub fn exit(env: &Env)
+```
+
+---
+
 ## regulatory_compliance
 
 ```rust
@@ -3809,32 +3860,52 @@ pub fn sanitize_url(_env: &Env, input: &String) -> Result<(), SanitizationError>
 
 ## secure_enclave
 
-```rust
-pub fn initialize(env: Env, admin: Address)
-```
+> Initialize enclave infrastructure with a genesis signing key.
 
 ```rust
-pub fn register_enclave( env: Env, caller: Address, node_id: BytesN<32>, provider: CloudProvider, quote: Bytes, public_key: BytesN<32>, )
+pub fn initialize(env: Env, genesis_key: BytesN<32>)
 ```
 
-```rust
-pub fn verify_attestation(env: Env, admin: Address, node_id: BytesN<32>, is_valid: bool)
-```
+> Performs atomic key rotation using a programmatic expiration cutoff window.
 
 ```rust
-pub fn submit_task( env: Env, submitter: Address, task_id: BytesN<32>, payload_hash: BytesN<32>, require_zk_proof: bool, )
+pub fn rotate_signing_key(env: Env, new_key: BytesN<32>, grace_period_seconds: u64)
 ```
 
-```rust
-pub fn assign_task(env: Env, admin: Address, task_id: BytesN<32>, node_id: BytesN<32>)
-```
+> Validates payload cryptographic authenticity across active key state boundaries.
 
 ```rust
-pub fn complete_task( env: Env, node_address: Address, task_id: BytesN<32>, result: Bytes, zk_proof: Option<Bytes>, )
+pub fn verify_signature(env: Env, signer: BytesN<32>) -> bool
 ```
 
+> Housekeeping endpoint used to explicitly clear old records and save storage fees.
+
 ```rust
-pub fn fallback_to_mpc(env: Env, admin: Address, task_id: BytesN<32>, mpc_manager_id: Address)
+pub fn housekeeping(env: Env) -> bool
+```
+
+> Verifies hardware attestation proofs submitted by distributed enclave nodes.
+
+```rust
+pub fn verify_attestation( env: Env, node_id: BytesN<32>, public_key: BytesN<32>, _evidence: String, ) -> bool
+```
+
+> Allocates an off-chain privacy computation task tracking payload state.
+
+```rust
+pub fn submit_task( env: Env, task_id: BytesN<32>, payload_hash: BytesN<32>, node_id: BytesN<32>, )
+```
+
+> Resolves an existing registered Enclave Node data record.
+
+```rust
+pub fn get_node(env: Env, node_id: BytesN<32>) -> Option<EnclaveNode>
+```
+
+> Resolves an existing assigned Processing Task details record.
+
+```rust
+pub fn get_task(env: Env, task_id: BytesN<32>) -> Option<ProcessingTask>
 ```
 
 ---
@@ -4231,7 +4302,43 @@ pub fn initialize(env: Env, admin: Address) -> Result<(), Error>
 ```
 
 ```rust
+pub fn register_circuit( env: Env, admin: Address, circuit_id: String, circuit_type: ZKPType, num_public_inputs: u32, num_private_inputs: u32, num_constraints: u32, security_param: u32, vk_hash: BytesN<32>, pk_hash: BytesN<32>, trusted_setup: bool, ) -> Result<(), Error>
+```
+
+```rust
+pub fn submit_zkp( env: Env, submitter: Address, proof_id: BytesN<32>, proof_type: ZKPType, hash_function: ZKPHashFunction, circuit_id: String, public_inputs: Vec<Bytes>, proof_data: Bytes, vk_hash: BytesN<32>, verification_gas: u64, ) -> Result<(), Error>
+```
+
+```rust
+pub fn create_medical_record_proof( env: Env, patient: Address, record_id: u64, authenticity_proof: ZKProof, access_proof: ZKProof, metadata_hash: BytesN<32>, ) -> Result<(), Error>
+```
+
+```rust
+pub fn create_range_proof( env: Env, prover: Address, proof_id: BytesN<32>, encrypted_value: Bytes, min_value: u64, max_value: u64, proof_data: Bytes, vk_hash: BytesN<32>, verification_gas: u64, ) -> Result<(), Error>
+```
+
+```rust
+pub fn create_credential_proof( env: Env, holder: Address, credential_type: String, issuer: Address, validity_proof: ZKProof, attribute_proof: ZKProof, encrypted_expiration: Bytes, ) -> Result<(), Error>
+```
+
+```rust
+pub fn create_recursive_proof( env: Env, composer: Address, base_proof_id: BytesN<32>, recursive_proof: ZKProof, aggregated_vk: Bytes, composition_depth: u32, total_gas: u64, ) -> Result<(), Error>
+```
+
+```rust
+pub fn get_verification_result( env: Env, proof_id: BytesN<32>, ) -> Result<ZKPVerificationResult, Error>
+```
+
+```rust
+pub fn get_medical_record_proof( env: Env, patient: Address, record_id: u64, ) -> Result<MedicalRecordProof, Error>
+```
+
+```rust
 pub fn get_range_proof(env: Env, proof_id: BytesN<32>) -> Result<RangeProof, Error>
+```
+
+```rust
+pub fn get_credential_proof( env: Env, holder: Address, credential_type: String, ) -> Result<CredentialProof, Error>
 ```
 
 ```rust
