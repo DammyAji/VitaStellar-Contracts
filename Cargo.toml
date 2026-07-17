@@ -12,6 +12,13 @@ members = [
 access_utils = { package = "access-utils", path = "libs/access_utils" }
 soroban-sdk = { version = "=21.7.7" }
 soroban-cli = "=21.7.7"
+# Pin ed25519-dalek to v2 and rand/rand_core to compatible versions.
+# soroban-env-host v21.2.1 requires rand_core v0.6.x; ed25519-dalek v3
+# pulls in rand_core v0.10.x which causes a trait-bound conflict at compile
+# time. Pinning here forces the whole workspace resolver to stay on v2.
+ed25519-dalek = { version = "=2.1.1", features = ["rand_core"] }
+rand = "=0.8.5"
+rand_core = "=0.6.4"
 
 [workspace.package]
 version = "0.1.0"
